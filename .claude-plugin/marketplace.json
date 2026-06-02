@@ -1,0 +1,38 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-research-kit",
+  "id": "claude-research-kit",
+  "owner": {
+    "name": "tansuasici",
+    "url": "https://github.com/tansuasici"
+  },
+  "metadata": {
+    "description": "Discipline kit that turns Claude Code into a rigorous academic co-author. Source-grounded writing for LaTeX + BibTeX with deterministic citation enforcement.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "claude-research-kit",
+      "source": "./",
+      "description": "Question → Evidence → Draft → Verify → Cite discipline for scholarly writing. Tiered session boot, deterministic hooks (citation-gate, block-fabrication, protect-sources, stop-gate, prompt-router), user-invocable skills (claim-check, citation-audit, peer-review, outline, journal-fit, response-to-reviewers), review agents (peer-reviewer, integrity-reviewer, fact-checker, outline-planner), a CLAUDE.md ruleset, reviewer-feedback memory, and field overlays.",
+      "version": "0.1.0",
+      "author": {
+        "name": "tansuasici",
+        "url": "https://github.com/tansuasici"
+      },
+      "keywords": [
+        "academic-writing",
+        "research",
+        "latex",
+        "bibtex",
+        "citations",
+        "peer-review",
+        "source-grounded",
+        "manuscript"
+      ],
+      "category": "workflow",
+      "homepage": "https://github.com/tansuasici/ClaudeResearchKit",
+      "license": "MIT"
+    }
+  ]
+}

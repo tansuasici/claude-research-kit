@@ -1,0 +1,159 @@
+<h1 align="center">Claude Research Kit</h1>
+
+<p align="center">Drop-in templates that make Claude Code behave like a rigorous co-author instead of an eager intern — for scholarly writing in LaTeX&nbsp;+&nbsp;BibTeX.</p>
+
+## The Problem
+
+Out of the box, Claude Code writes *fluent* academic prose — which is exactly the danger. It will:
+- Invent a citation, DOI, author, or page number that looks real but isn't
+- State a statistic or measured value it doesn't actually have
+- Overclaim — "causes" where the evidence only licenses "is associated with"
+- Drift off the thesis and pad sections with plausible filler
+- Quote a source it never read, with no locator
+
+In code, a hallucination breaks the build and you find out. In a manuscript, a hallucinated citation **looks correct** — and survives to peer review, or print.
+
+## The Solution
+
+This kit provides a `CLAUDE.md` instruction set, **deterministic hooks**, review agents, and skills that enforce one discipline:
+
+**Question → Evidence → Draft → Verify → Cite** — every time.
+
+The cardinal rule the whole kit exists to enforce: **every claim traces to a real source; never invent a citation, DOI, quote, or quantity; never overclaim beyond the evidence.**
+
+## Quick Start
+
+```bash
+# clone into your manuscript repo
+git clone --depth 1 https://github.com/tansuasici/ClaudeResearchKit.git /tmp/crk
+cp /tmp/crk/kit/CLAUDE.md /tmp/crk/kit/MANUSCRIPT_MAP.md /tmp/crk/kit/CLAUDE.project.md .
+cp -r /tmp/crk/kit/.claude /tmp/crk/kit/agent_docs /tmp/crk/kit/tasks .
+rm -rf /tmp/crk
+```
+
+Then **fill in `MANUSCRIPT_MAP.md`** with your thesis, contribution, target venue, and section plan — it is the single most important file, read first every session — and start a Claude Code session.
+
+> npx (`crk init`) and the Claude Code plugin marketplace listing are planned; see the roadmap at the bottom.
+
+## What CLAUDE.md Enforces
+
+| Rule | What it does |
+|------|-------------|
+| **Tiered Session Boot** | Loads the manuscript map, thesis, venue, and active task first — not the whole corpus |
+| **Source-Grounded Writing** | The cardinal rule: no invented citations, DOIs, quotes, or quantities — ever |
+| **Claim Discipline** | Every sentence is cited, the author's own argument, or common knowledge — nothing else |
+| **Protected Claims** | Stops for approval before changing the thesis, a reported number, methods, or an argument-bearing citation |
+| **Verification** | Citations resolve → quotes match → claims supported → numbers consistent → cross-refs → compiles |
+| **Calibrated Language** | Matches verbs and quantifiers to what the evidence licenses (`suggests` ≠ `proves`) |
+| **Reviewer Memory** | Logs recurring reviewer feedback to `tasks/reviews/` and reviews the Top Rules each session |
+
+## Hooks
+
+Hooks are shell scripts that run automatically — unlike CLAUDE.md rules (advisory), hooks are **deterministic**. The kit ships **10** hooks, all wired by default.
+
+**Guardrails — block on violation (PreToolUse / Stop):**
+
+| Hook | Event | What it does |
+|------|------|-------------|
+| `block-fabrication` | PreToolUse | Blocks writing a fabricated reference — placeholder/fake-shaped DOIs (`10.xxxx`, `example.com`) and empty required `.bib` fields. Honest prose placeholders (`[CITE]`) are never blocked |
+| `protect-sources` | PreToolUse | Blocks edits to `sources/` (raw evidence), `data/raw/`, and frozen `submitted/` snapshots |
+| `branch-protect` | PreToolUse | Blocks push to `main`/`master` and force pushes |
+| `block-dangerous-commands` | PreToolUse | Blocks `rm -rf /`, `git reset --hard`, etc. |
+| `citation-gate` | PostToolUse | After a `.tex`/`.bib` edit: every `\cite` must resolve in `references.bib`; every `\ref` must have a `\label`. Records the verdict |
+| `stop-gate` | Stop | Blocks completion when the last citation gate failed (bypass: `SKIP_QUALITY_GATE=1`) |
+
+**Context & observability — inject or warn, never block:**
+
+| Hook | Event | What it does |
+|------|------|-------------|
+| `session-start` | SessionStart | Injects the manuscript-map pointer, thesis, stage, top reviewer rules, active task, branch + dirty tree; resets stale session state |
+| `prompt-router` | UserPromptSubmit | Injects a calibration reminder when a prompt touches an inflection (overclaim, statistics, causation, citations, reviewer response, methods) |
+| `unicode-scan` | PostToolUse | Detects invisible Unicode (rife in copy-pasted PDF text) |
+| `session-end` | SessionEnd | Writes a session audit line for the scorecard |
+
+> The `RESEARCH_APPROVED=1` escape hatch bypasses `protect-sources` and `block-fabrication` (e.g. importing a `.bib` you have independently verified).
+
+### ResearchKitBench — the hooks are tested
+
+The hooks aren't documentation, they're a contract. The kit ships [`bench/`](bench/README.md): a reproducible eval harness with **24 deterministic scenarios** (no LLM, no network) covering every blocking hook, plus regressions (a `\cite` inside a TeX comment must not count; honest `[CITE]` prose placeholders must not be blocked). Run it with `./scripts/run-bench.sh`; CI runs it on every PR (ubuntu + macOS).
+
+```text
+ResearchKitBench
+========================================
+  s01-citation-gate-fails-on-dangling-cite        PASS
+  s09-block-fabrication-blocks-placeholder-doi     PASS
+  s14-protect-sources-blocks-sources-dir           PASS
+  ...                                              PASS
+========================================
+  24/24 PASS  0 FAIL
+```
+
+## Agents
+
+Built-in reviewers (Reasoner-tier) for pre-submission rigor:
+
+| Agent | What it does |
+|-------|-------------|
+| `peer-reviewer` | Simulates a tough-but-fair Reviewer 2 — novelty, soundness, claim↔evidence support, recommendation |
+| `integrity-reviewer` | Research-integrity scan — overclaim, p-hacking/HARKing, citation misuse, missing limitations |
+| `fact-checker` | Claim-by-claim verification against sources — Supported / Overstated / Unsupported / Uncited |
+| `outline-planner` | Turns a thesis into a claim-driven IMRaD outline with evidence + word budgets |
+
+## Skills
+
+User-invocable — run with `/skill-name`:
+
+| Skill | What it does |
+|-------|-------------|
+| `/claim-check` | Walks every claim, classifies cited / own / unsupported, checks the citation licenses the verb |
+| `/citation-audit` | Bibliography health — dangling cites, orphan entries, malformed DOIs, `\ref`↔`\label` |
+| `/peer-review` | Full simulated referee report (runs peer-reviewer + integrity-reviewer) |
+| `/outline` | Thesis → claim-driven IMRaD outline ready for `MANUSCRIPT_MAP.md` |
+| `/journal-fit` | Assesses fit to a target venue — scope, novelty bar, length, reference style |
+| `/response-to-reviewers` | Point-by-point response letter — quote, change, location, never claim an unmade change |
+
+## Field Overlays
+
+The analogue of stack templates — discipline-specific conventions that supplement the general docs:
+
+| Overlay | Covers |
+|---------|--------|
+| `agent_docs/field/environmental-science.md` | ACS / *Environmental Science & Technology* cues, chemical nomenclature (PFAS/IUPAC), measurement reporting (units, LOD/LOQ, QA/QC), matrix-effect reviewer concerns |
+
+## What's Inside
+
+```text
+ClaudeResearchKit/kit/
+  CLAUDE.md                     # Core agent ruleset (kit-managed)
+  CLAUDE.project.md             # Project overlay (yours, never overwritten)
+  MANUSCRIPT_MAP.md             # The map — thesis, contribution, venue, sections
+  agent_docs/                   # writing-workflow, citation-discipline, academic-style,
+    field/                      #   statistics, reproducibility, peer-review + field overlays
+  tasks/
+    todo.md, decisions.md
+    reviews/                    # reviewer-feedback memory (_index Top Rules + per-file)
+  .claude/
+    settings.json               # hook wiring + LaTeX-toolchain permissions
+    agents/                     # peer-reviewer, integrity-reviewer, fact-checker, outline-planner
+    hooks/                      # 10 deterministic hooks (+ lib/ shared helpers)
+    skills/                     # claim-check, citation-audit, peer-review, outline, journal-fit, response-to-reviewers
+  bench/                        # ResearchKitBench — 24 scenarios
+  scripts/                      # run-bench.sh, doctor.sh
+```
+
+## Customization
+
+1. **Fill in `MANUSCRIPT_MAP.md`** — thesis, contribution, venue, section budgets, key sources. The more precise, the less the agent drifts.
+2. **Add a `STYLE.md`** — your manuscript's voice and formatting source of truth (optional; the agent reads it before drafting).
+3. **Customize `CLAUDE.project.md`** — venue constraints (blind review, word limits) that override kit defaults.
+4. **Track reviewer feedback** — `tasks/reviews/` compounds over time; recurring critiques become Top Rules.
+
+## Status & Roadmap
+
+**v0.1.0 — foundation.** The deterministic spine (hooks + bench), CLAUDE.md ruleset, 4 agents, 6 skills, 7 agent_docs, and the environmental-science overlay are in place and bench-proven.
+
+Planned: npx distribution (`crk init` / `doctor` / `convert`), plugin-marketplace listing, more field overlays (life-sciences, social-sciences, CS), a literature-vault module (annotated-bibliography builder), `latexmk` compile gating, `texcount` budget hook, and a documentation site.
+
+## License
+
+MIT

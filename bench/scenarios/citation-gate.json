@@ -1,0 +1,71 @@
+[
+  {
+    "name": "s01-citation-gate-fails-on-dangling-cite",
+    "hook": ".claude/hooks/citation-gate.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\begin{document}\nWe build on prior work \\cite{ghost2020}.\n\\end{document}\n",
+      "references.bib": "@article{real2020,\n  author = {Smith, Jane},\n  title = {A Real Paper},\n  journal = {J. Things},\n  year = {2020}\n}\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/main.tex" } },
+    "expect": {
+      "exit_code": 0,
+      "state": [ { "file": ".hook-state/last_quality_gate.json", "field": "status", "equals": "failed" } ]
+    },
+    "notes": "A \\cite key with no .bib entry is the #1 research failure mode — must record a failed verdict."
+  },
+  {
+    "name": "s02-citation-gate-passes-on-resolved-cite",
+    "hook": ".claude/hooks/citation-gate.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\begin{document}\nWe build on prior work \\cite{real2020}.\n\\end{document}\n",
+      "references.bib": "@article{real2020,\n  author = {Smith, Jane},\n  title = {A Real Paper},\n  journal = {J. Things},\n  year = {2020}\n}\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/main.tex" } },
+    "expect": {
+      "exit_code": 0,
+      "state": [ { "file": ".hook-state/last_quality_gate.json", "field": "status", "equals": "passed" } ]
+    }
+  },
+  {
+    "name": "s03-citation-gate-fails-on-dangling-ref",
+    "hook": ".claude/hooks/citation-gate.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\begin{document}\nAs shown in \\ref{fig:missing}, the result holds.\n\\end{document}\n",
+      "references.bib": "@article{real2020,\n  author = {Smith, Jane},\n  title = {A Real Paper},\n  year = {2020}\n}\n"
+    },
+    "payload": { "tool_name": "Write", "tool_input": { "file_path": "{TMPROOT}/main.tex" } },
+    "expect": {
+      "exit_code": 0,
+      "state": [ { "file": ".hook-state/last_quality_gate.json", "field": "status", "equals": "failed" } ]
+    },
+    "notes": "A \\ref with no \\label is an undefined cross-reference."
+  },
+  {
+    "name": "s04-citation-gate-ignores-commented-cite",
+    "hook": ".claude/hooks/citation-gate.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\begin{document}\n% old draft: \\cite{ghost2099}\nWe build on \\cite{real2020}.\n\\end{document}\n",
+      "references.bib": "@article{real2020,\n  author = {Smith, Jane},\n  title = {A Real Paper},\n  year = {2020}\n}\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/main.tex" } },
+    "expect": {
+      "exit_code": 0,
+      "state": [ { "file": ".hook-state/last_quality_gate.json", "field": "status", "equals": "passed" } ]
+    },
+    "notes": "Regression: a \\cite inside a TeX comment must NOT count as a real citation."
+  },
+  {
+    "name": "s05-citation-gate-fails-on-multikey-partial",
+    "hook": ".claude/hooks/citation-gate.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\begin{document}\nSee \\citep{real2020,ghost2021} for details.\n\\end{document}\n",
+      "references.bib": "@article{real2020,\n  author = {Smith, Jane},\n  title = {A Real Paper},\n  year = {2020}\n}\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/main.tex" } },
+    "expect": {
+      "exit_code": 0,
+      "state": [ { "file": ".hook-state/last_quality_gate.json", "field": "status", "equals": "failed" } ]
+    },
+    "notes": "Multi-key \\citep{a,b} where one key is undefined must fail."
+  }
+]

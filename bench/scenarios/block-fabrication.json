@@ -1,0 +1,67 @@
+[
+  {
+    "name": "s09-block-fabrication-blocks-placeholder-doi",
+    "hook": ".claude/hooks/block-fabrication.sh",
+    "payload": {
+      "tool_name": "Write",
+      "tool_input": {
+        "file_path": "{TMPROOT}/references.bib",
+        "content": "@article{key, author = {Smith, J.}, title = {T}, year = {2020}, doi = {10.xxxx/zzzz}}"
+      }
+    },
+    "expect": { "exit_code": 2, "stdout_contains": ["BLOCKED"] },
+    "notes": "A fabricated, placeholder-shaped DOI must be blocked before it is written."
+  },
+  {
+    "name": "s10-block-fabrication-blocks-empty-required-field",
+    "hook": ".claude/hooks/block-fabrication.sh",
+    "payload": {
+      "tool_name": "Write",
+      "tool_input": {
+        "file_path": "{TMPROOT}/references.bib",
+        "content": "@article{key, author = {}, title = {Foo}, year = {2020}}"
+      }
+    },
+    "expect": { "exit_code": 2, "stdout_contains": ["BLOCKED"] },
+    "notes": "An empty required .bib field is a stub reference masquerading as real."
+  },
+  {
+    "name": "s11-block-fabrication-allows-real-entry",
+    "hook": ".claude/hooks/block-fabrication.sh",
+    "payload": {
+      "tool_name": "Write",
+      "tool_input": {
+        "file_path": "{TMPROOT}/references.bib",
+        "content": "@article{key, author = {Smith, Jane}, title = {A Real Paper}, journal = {J. Things}, year = {2020}, doi = {10.1021/acs.est.0c01234}}"
+      }
+    },
+    "expect": { "exit_code": 0, "stdout_empty": true }
+  },
+  {
+    "name": "s12-block-fabrication-allows-prose-placeholder",
+    "hook": ".claude/hooks/block-fabrication.sh",
+    "payload": {
+      "tool_name": "Write",
+      "tool_input": {
+        "file_path": "{TMPROOT}/sections/intro.tex",
+        "content": "PFAS removal reached high efficiency [CITE]. The mean was [VALUE -- verify]."
+      }
+    },
+    "expect": { "exit_code": 0, "stdout_empty": true },
+    "notes": "Honest prose placeholders are the CORRECT behavior — never block them."
+  },
+  {
+    "name": "s13-block-fabrication-bypassed-with-approved",
+    "hook": ".claude/hooks/block-fabrication.sh",
+    "env": { "RESEARCH_APPROVED": "1" },
+    "payload": {
+      "tool_name": "Write",
+      "tool_input": {
+        "file_path": "{TMPROOT}/references.bib",
+        "content": "@article{key, author = {Smith, J.}, title = {T}, year = {2020}, doi = {10.xxxx/zzzz}}"
+      }
+    },
+    "expect": { "exit_code": 0 },
+    "notes": "RESEARCH_APPROVED=1 bypasses for independently verified imports."
+  }
+]

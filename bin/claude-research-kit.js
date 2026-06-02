@@ -1,0 +1,72 @@
+#!/usr/bin/env node
+//
+// claude-research-kit — npx entry point (crk)
+//
+// Thin Node shim over the shell implementation, so the kit installs and
+// self-checks the same way whether invoked via npx or a git clone.
+//
+//   npx @tansuasici/claude-research-kit init [--upgrade|--gitignore|--dry-run]
+//   npx @tansuasici/claude-research-kit doctor
+//   npx @tansuasici/claude-research-kit bench
+//   npx @tansuasici/claude-research-kit --version
+//
+'use strict';
+
+const { spawnSync } = require('child_process');
+const path = require('path');
+const fs = require('fs');
+
+const PKG_ROOT = path.resolve(__dirname, '..');
+const args = process.argv.slice(2);
+const cmd = args[0];
+const rest = args.slice(1);
+
+function version() {
+  try {
+    return fs.readFileSync(path.join(PKG_ROOT, 'VERSION'), 'utf8').trim();
+  } catch {
+    return '0.0.0';
+  }
+}
+
+function run(script, scriptArgs, opts = {}) {
+  const r = spawnSync('bash', [path.join(PKG_ROOT, script), ...scriptArgs], {
+    stdio: 'inherit',
+    cwd: opts.cwd || process.cwd(),
+  });
+  process.exit(r.status == null ? 1 : r.status);
+}
+
+switch (cmd) {
+  case 'init':
+  case 'install':
+    // Install into the caller's current directory.
+    run('install.sh', [process.cwd(), ...rest]);
+    break;
+  case 'doctor':
+    // Health-check the installation in the current directory.
+    run('scripts/doctor.sh', [process.cwd()]);
+    break;
+  case 'bench':
+    // Run the bench against the kit's own source.
+    run('scripts/run-bench.sh', rest, { cwd: PKG_ROOT });
+    break;
+  case '--version':
+  case '-v':
+    console.log(version());
+    break;
+  case undefined:
+  case '--help':
+  case '-h':
+  default:
+    console.log(`claude-research-kit ${version()}
+
+Usage:
+  crk init [--upgrade|--gitignore|--dry-run]   Install the kit into the current dir
+  crk doctor                                    Check installation health
+  crk bench                                      Run ResearchKitBench
+  crk --version                                  Print version
+
+Docs: https://github.com/tansuasici/ClaudeResearchKit`);
+    process.exit(cmd && !['--help', '-h'].includes(cmd) ? 2 : 0);
+}

@@ -1,0 +1,36 @@
+# Transient hook state (counters, verdicts, journal) — never commit
+.hook-state/
+
+# Session audit / scorecard inputs
+reports/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.nav
+*.snm
+*.vrb
+_minted*/
+build/
+out/
+
+# OS / editor cruft
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/
+
+# Node (for the npx CLI dev only)
+node_modules/

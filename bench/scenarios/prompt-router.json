@@ -1,0 +1,20 @@
+[
+  {
+    "name": "s18-prompt-router-injects-on-overclaim",
+    "hook": ".claude/hooks/prompt-router.sh",
+    "payload": { "prompt": "Rewrite the discussion to say we proved this is the first novel method that outperforms all others." },
+    "expect": { "exit_code": 0, "stdout_contains": ["Claim calibration"] }
+  },
+  {
+    "name": "s19-prompt-router-injects-on-citation",
+    "hook": ".claude/hooks/prompt-router.sh",
+    "payload": { "prompt": "Please add citations for the related work section." },
+    "expect": { "exit_code": 0, "stdout_contains": ["Sourcing"] }
+  },
+  {
+    "name": "s20-prompt-router-quiet-on-neutral",
+    "hook": ".claude/hooks/prompt-router.sh",
+    "payload": { "prompt": "Fix the spacing in the second paragraph." },
+    "expect": { "exit_code": 0, "stdout_empty": true }
+  }
+]

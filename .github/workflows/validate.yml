@@ -1,0 +1,42 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  bench:
+    name: ResearchKitBench (deterministic hook eval)
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure hooks are executable
+        run: chmod +x .claude/hooks/*.sh scripts/*.sh
+      - name: Run ResearchKitBench
+        run: ./scripts/run-bench.sh
+
+  doctor:
+    name: Installation health check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run doctor
+        run: ./scripts/doctor.sh
+
+  json:
+    name: Lint JSON (settings + plugin + scenarios)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all JSON parses
+        run: |
+          set -e
+          for f in .claude/settings.json .claude-plugin/plugin.json .claude-plugin/marketplace.json bench/scenarios/*.json; do
+            echo "checking $f"
+            python3 -c "import json,sys; json.load(open('$f'))"
+          done

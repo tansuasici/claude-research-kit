@@ -1,0 +1,33 @@
+[
+  {
+    "name": "s06-stop-gate-blocks-on-failed-verdict",
+    "hook": ".claude/hooks/stop-gate.sh",
+    "setup_files": {
+      ".hook-state/last_quality_gate.json": "{\"status\":\"failed\",\"stderr_tail\":\"undefined \\\\cite keys: ghost2020\"}"
+    },
+    "payload": {},
+    "expect": {
+      "exit_code": 2,
+      "stderr_contains": ["BLOCKED by stop-gate.sh"]
+    }
+  },
+  {
+    "name": "s07-stop-gate-allows-on-passed-verdict",
+    "hook": ".claude/hooks/stop-gate.sh",
+    "setup_files": {
+      ".hook-state/last_quality_gate.json": "{\"status\":\"passed\"}"
+    },
+    "payload": {},
+    "expect": { "exit_code": 0 }
+  },
+  {
+    "name": "s08-stop-gate-bypassed-with-skip-env",
+    "hook": ".claude/hooks/stop-gate.sh",
+    "setup_files": {
+      ".hook-state/last_quality_gate.json": "{\"status\":\"failed\"}"
+    },
+    "env": { "SKIP_QUALITY_GATE": "1" },
+    "payload": {},
+    "expect": { "exit_code": 0 }
+  }
+]

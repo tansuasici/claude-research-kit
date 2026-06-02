@@ -1,0 +1,92 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(latexmk*)",
+      "Bash(pdflatex*)",
+      "Bash(xelatex*)",
+      "Bash(lualatex*)",
+      "Bash(biber*)",
+      "Bash(bibtex*)",
+      "Bash(texcount*)",
+      "Bash(chktex*)",
+      "Bash(lacheck*)",
+      "Bash(latexdiff*)",
+      "Bash(pandoc*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(git show*)",
+      "Bash(ls*)",
+      "Bash(pwd)",
+      "Bash(which*)",
+      "Bash(cat references.bib)",
+      "Bash(cat MANUSCRIPT_MAP.md)"
+    ],
+    "deny": [
+      "Bash(curl*)",
+      "Bash(wget*)",
+      "Bash(ssh*)",
+      "Bash(scp*)",
+      "Bash(rm -rf sources*)",
+      "Bash(rm -rf data/raw*)",
+      "Bash(cat *id_rsa*)",
+      "Bash(cat .env*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/session-start.sh" }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/prompt-router.sh" }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/protect-sources.sh" },
+          { "type": "command", "command": ".claude/hooks/block-fabrication.sh" }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/branch-protect.sh" },
+          { "type": "command", "command": ".claude/hooks/block-dangerous-commands.sh" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/unicode-scan.sh" },
+          { "type": "command", "command": ".claude/hooks/citation-gate.sh" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/stop-gate.sh" }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/session-end.sh" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+[
+  {
+    "name": "s21-session-start-injects-thesis",
+    "hook": ".claude/hooks/session-start.sh",
+    "setup_files": {
+      "MANUSCRIPT_MAP.md": "# MANUSCRIPT_MAP.md\n\n## Thesis (one sentence)\nElectrocoagulation removes short-chain PFAS from landfill leachate at high efficiency.\n\n## Status\n**Stage:** first draft\n"
+    },
+    "payload": { "session_id": "s21" },
+    "expect": {
+      "exit_code": 0,
+      "stdout_contains": ["MANUSCRIPT_MAP.md", "Thesis"]
+    },
+    "notes": "Tier-1 boot injects the manuscript map pointer + thesis sentence."
+  },
+  {
+    "name": "s22-session-end-writes-audit-line",
+    "hook": ".claude/hooks/session-end.sh",
+    "payload": { "session_id": "s22" },
+    "expect": {
+      "exit_code": 0,
+      "file_grew": ["reports/session-audit.log"]
+    }
+  },
+  {
+    "name": "s23-branch-protect-blocks-push-main",
+    "hook": ".claude/hooks/branch-protect.sh",
+    "payload": { "tool_name": "Bash", "tool_input": { "command": "git push origin main" } },
+    "expect": { "exit_code": 2, "stdout_contains": ["BLOCKED"] }
+  },
+  {
+    "name": "s24-block-dangerous-blocks-rm-rf-root",
+    "hook": ".claude/hooks/block-dangerous-commands.sh",
+    "payload": { "tool_name": "Bash", "tool_input": { "command": "rm -rf /" } },
+    "expect": { "exit_code": 2, "stdout_contains": ["BLOCKED"] }
+  }
+]

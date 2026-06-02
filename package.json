@@ -1,0 +1,45 @@
+{
+  "name": "@tansuasici/claude-research-kit",
+  "version": "0.1.0",
+  "description": "Drop-in kit that turns Claude Code from eager intern to rigorous co-author — source-grounded academic writing with deterministic citation discipline",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tansuasici/ClaudeResearchKit.git"
+  },
+  "homepage": "https://github.com/tansuasici/ClaudeResearchKit",
+  "keywords": [
+    "claude-code",
+    "claude",
+    "academic-writing",
+    "research",
+    "latex",
+    "bibtex",
+    "citations",
+    "manuscript",
+    "peer-review",
+    "agent-config"
+  ],
+  "bin": {
+    "crk": "bin/claude-research-kit.js"
+  },
+  "files": [
+    "bin/",
+    "agent_docs/",
+    ".claude/",
+    "tasks/",
+    "scripts/",
+    "examples/",
+    "CLAUDE.md",
+    "CLAUDE.project.md",
+    "MANUSCRIPT_MAP.md",
+    "STYLE.md",
+    "install.sh",
+    "uninstall.sh",
+    "VERSION",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

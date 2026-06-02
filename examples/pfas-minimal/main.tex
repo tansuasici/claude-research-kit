@@ -1,0 +1,37 @@
+% Minimal example manuscript demonstrating the kit's layout.
+% With the kit active, citation-gate.sh passes on this file:
+%   - every \cite resolves in references.bib
+%   - every \ref has a \label
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\usepackage[numbers]{natbib}
+
+\title{Short-chain PFAS removal by electrocoagulation: a minimal example}
+\author{Example Author}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This skeleton shows the intended file layout. Replace every sentence with
+source-grounded prose. Numbers in this abstract must reappear, identical, in
+Results --- the kit checks for that during verification.
+\end{abstract}
+
+\input{sections/intro}
+
+\section{Methods}
+The setup is shown in Figure~\ref{fig:setup}. Describe it for reproduction:
+exact quantities, instruments, settings.
+
+\begin{figure}[t]
+  \centering
+  % \includegraphics{figures/setup.pdf}
+  \caption{Experimental schematic.}
+  \label{fig:setup}
+\end{figure}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,28 @@
+[
+  {
+    "name": "s14-protect-sources-blocks-sources-dir",
+    "hook": ".claude/hooks/protect-sources.sh",
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/sources/smith2020.txt" } },
+    "expect": { "exit_code": 2, "stdout_contains": ["BLOCKED"] },
+    "notes": "Raw source material is immutable evidence."
+  },
+  {
+    "name": "s15-protect-sources-blocks-data-raw",
+    "hook": ".claude/hooks/protect-sources.sh",
+    "payload": { "tool_name": "Write", "tool_input": { "file_path": "{TMPROOT}/data/raw/run1.csv" } },
+    "expect": { "exit_code": 2, "stdout_contains": ["BLOCKED"] }
+  },
+  {
+    "name": "s16-protect-sources-allows-section-edit",
+    "hook": ".claude/hooks/protect-sources.sh",
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/sections/intro.tex" } },
+    "expect": { "exit_code": 0, "stdout_empty": true }
+  },
+  {
+    "name": "s17-protect-sources-bypassed-with-approved",
+    "hook": ".claude/hooks/protect-sources.sh",
+    "env": { "RESEARCH_APPROVED": "1" },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/sources/smith2020.txt" } },
+    "expect": { "exit_code": 0 }
+  }
+]
