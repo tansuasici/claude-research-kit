@@ -35,8 +35,8 @@ serious integrity risk. ~30 lines max; live scratchpad, not a log.
 ### Overclaiming
 - **Causal language on observational/correlational data** — "causes", "leads to",
   "drives", "improves" where the design only supports association.
-- **Generalization beyond the sample** — claims about a population, setting, or matrix
-  broader than what was tested ("in general", "patients", "groundwater" from one bench assay).
+- **Generalization beyond the sample** — claims about a population or setting broader than
+  what was tested ("in general", "all agents", "in deployment" from one harness).
 - **Verb/quantifier inflation** — "proves", "demonstrates", "eliminates", "always" where
   the evidence supports "suggests", "is consistent with", "reduced", "in our sample".
 - Mismatch against a `MANUSCRIPT_MAP.md → Claims that need extra care` entry = High.
@@ -53,8 +53,8 @@ serious integrity risk. ~30 lines max; live scratchpad, not a log.
 ### Citation Misuse
 - A source cited for a claim it does not make, or stretched past what it supports
   (cross-check the `Key sources` "Do NOT overclaim it as" column).
-- Wrong-matrix / wrong-population transfer (baseline from freshwater cited as evidence for
-  leachate).
+- Wrong-setting / wrong-population transfer (a single-turn QA baseline cited as evidence for
+  multi-turn agentic tasks).
 - Citation padding, or a single citation propping up a chain of claims it cannot all carry.
 
 ### Missing Limitations & Undisclosed Assumptions
@@ -84,7 +84,8 @@ serious integrity risk. ~30 lines max; live scratchpad, not a log.
 ### High
 | # | Locator | Offending text (quoted) | Why it's an integrity risk | Fix (author action) |
 |---|---------|-------------------------|----------------------------|---------------------|
-| 1 | sec:disc ¶3 | "X causes Y" | Causal verb on observational data | Soften to "is associated with"; or justify causal design |
+| 1 | sec:disc ¶3 | "more tools causes higher task success" | Causal verb on a correlational ablation | Soften to "is associated with"; or justify causal design |
+| 2 | sec:disc ¶4 | "the gate generalizes to all agents" | Generalization beyond one harness | Scope to "the tested agent harness"; or test more harnesses |
 
 ### Medium
 | # | Locator | Offending text (quoted) | Why it's an integrity risk | Fix (author action) |

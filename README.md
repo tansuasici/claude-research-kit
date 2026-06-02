@@ -111,6 +111,7 @@ User-invocable — run with `/skill-name`:
 | `/outline` | Thesis → claim-driven IMRaD outline ready for `MANUSCRIPT_MAP.md` |
 | `/journal-fit` | Assesses fit to a target venue — scope, novelty bar, length, reference style |
 | `/response-to-reviewers` | Point-by-point response letter — quote, change, location, never claim an unmade change |
+| `/literature-review` | Synthesize related work from your own library (`.bib` + `sources/` + vault); thematic, gap-driven, real citations only; proposes search directions for gaps |
 
 ## Field Overlays
 
@@ -118,7 +119,7 @@ The analogue of stack templates — discipline-specific conventions that supplem
 
 | Overlay | Covers |
 |---------|--------|
-| `agent_docs/field/environmental-science.md` | ACS / *Environmental Science & Technology* cues, chemical nomenclature (PFAS/IUPAC), measurement reporting (units, LOD/LOQ, QA/QC), matrix-effect reviewer concerns |
+| `agent_docs/field/ai-ml.md` | ML/NLP venue cues (NeurIPS/ICML/ACL/EMNLP), reproducibility (seeds, compute, decoding params), baselines & ablations, significance over seeds, eval contamination, LLM-agent reviewer concerns |
 
 ## What's Inside
 
@@ -150,7 +151,7 @@ ClaudeResearchKit/kit/
 
 ## Status & Roadmap
 
-**v0.1.0 — foundation.** The deterministic spine (hooks + bench), CLAUDE.md ruleset, 4 agents, 6 skills, 7 agent_docs, and the environmental-science overlay are in place and bench-proven.
+**v0.1.0 — foundation.** The deterministic spine (hooks + bench), CLAUDE.md ruleset, 4 agents, 7 skills, 7 agent_docs, and the ai-ml field overlay are in place and bench-proven.
 
 Planned: npx distribution (`crk init` / `doctor` / `convert`), plugin-marketplace listing, more field overlays (life-sciences, social-sciences, CS), a literature-vault module (annotated-bibliography builder), `latexmk` compile gating, `texcount` budget hook, and a documentation site.
 

@@ -28,7 +28,7 @@ If the thesis is not yet one sentence, stop and sharpen it first — an outline 
 ### Phase 1: Lock the Thesis and Contribution
 
 1. **Read `MANUSCRIPT_MAP.md`** — the Thesis (one sentence), Contribution, Audience, target venue. If the Thesis is still a `<placeholder>`, the manuscript is not ready to outline — surface that and ask the author for the one-sentence claim.
-2. **Restate the thesis as a claim a reader could dispute.** "A paper about PFAS removal" is a topic; "Electrocoagulation removes short-chain PFAS from landfill leachate at >90%, which sorption does not achieve" is a claim. The whole outline serves *this* sentence.
+2. **Restate the thesis as a claim a reader could dispute.** "A paper about agent reliability" is a topic; "A deterministic verification gate reduces hallucinated tool calls in LLM agents without lowering task completion" is a claim. The whole outline serves *this* sentence.
 3. **State the contribution delta** — what the reader knows after this paper that they did not before, distinguished from prior work. Every section either builds toward this delta or is off-thesis.
 
 ### Phase 2: Read the Venue's Shape
@@ -77,42 +77,42 @@ Produce the outline in the `MANUSCRIPT_MAP.md → Structure` table shape plus a 
 
 ```markdown
 # Outline — <manuscript title>
-> Target venue: Environmental Science & Technology (~7000 w, 6 display items, ACS style)
-> Thesis: EC removes short-chain PFAS from landfill leachate at >90%, which sorption does not achieve.
-> Contribution: first leachate-matrix demonstration; prior work is freshwater only.
+> Target venue: ACL (~8 pages + unlimited appendix, numbered style)
+> Thesis: A deterministic verification gate reduces hallucinated tool calls in LLM agents without lowering task completion.
+> Contribution: first study of pre-execution verification gating for agent tool calls; prior work is single-turn QA only.
 
 ## Structure (drops into MANUSCRIPT_MAP.md)
 | Section | File | Claim it establishes | Budget | Status |
 |---|---|---|---|---|
 | Abstract | sections/abstract.tex | whole argument in 200 w | 200 w | not started |
-| Introduction | sections/intro.tex | leachate PFAS removal is understudied; we close the gap | 800 w | not started |
-| Methods | sections/methods.tex | reproducible account of the EC setup + analysis | 1500 w | not started |
-| Results | sections/results.tex | removal efficiency by chain length (data only) | 1200 w | not started |
+| Introduction | sections/intro.tex | hallucinated tool calls in multi-turn agents are understudied; we close the gap | 800 w | not started |
+| Methods | sections/methods.tex | reproducible account of the verification gate + evaluation | 1500 w | not started |
+| Results | sections/results.tex | tool-call accuracy by task horizon (data only) | 1200 w | not started |
 | Discussion | sections/discussion.tex | interpretation, limits, implications | 1500 w | not started |
 | Conclusion | sections/conclusion.tex | contribution restated, future work | 300 w | not started |
 
 ## Section detail
-### Introduction — "leachate PFAS removal is understudied; we close the gap" (800 w)
-- Evidence (cited): PFAS persistence/regulation — `jones2019` (in library); sorption
-  baseline is freshwater-only — `smith2021` (in library, do NOT overclaim as leachate).
+### Introduction — "hallucinated tool calls in multi-turn agents are understudied; we close the gap" (800 w)
+- Evidence (cited): hallucination prevalence/context — `halluc2022` (in library); the
+  tool-use baseline is single-turn QA only — `tooluse2023` (in library, do NOT overclaim as multi-turn agentic).
 - Evidence (ours): the contribution statement.
-- GAP: need a source establishing that *leachate* PFAS removal specifically is
-  understudied. Nothing in references.bib covers this. → search recent reviews;
+- GAP: need a source establishing that *multi-turn agentic* tool-call hallucination
+  specifically is understudied. Nothing in references.bib covers this. → search recent reviews;
   leave [CITE] until found. Do not assert "no prior work" without it.
 
-### Results — "removal efficiency by chain length" (1200 w)
-- Evidence (ours): Tab:removal (by chain length), Fig:flux. Confirm both exist.
+### Results — "tool-call accuracy by task horizon" (1200 w)
+- Evidence (ours): Tab:toolacc (by task horizon), Fig:horizon. Confirm both exist.
 - No citations — observations only. No causal language here (that's Discussion).
 
 [... one block per section ...]
 
 ## Evidence Gaps (fill before drafting the dependent section)
-1. **[Intro]** "leachate removal understudied" — no supporting review in library. (blocks the gap framing)
-2. **[Discussion]** chain-length mechanism — no mechanistic source. (blocks interpretation ¶2)
-3. **[Methods]** instrument citation for the analyzer — not in references.bib.
+1. **[Intro]** "multi-turn tool-call hallucination understudied" — no supporting review in library. (blocks the gap framing)
+2. **[Discussion]** horizon-scaling mechanism — no mechanistic source. (blocks interpretation ¶2)
+3. **[Methods]** citation for the agent harness — not in references.bib.
 
 ## Off-thesis (parked → MANUSCRIPT_MAP → Not Now)
-- Cost analysis of EC vs sorption — interesting, but not what the thesis defends.
+- Latency cost of the gate vs post-hoc self-correction — interesting, but not what the thesis defends.
 ```
 
 ## Pairs With

@@ -34,7 +34,7 @@ Before reading a single claim, load what the section is allowed to assert:
 3. **Read `references.bib`** for the keys this section cites. Note each entry's actual scope: population, matrix, method, sample size, and the strength of its own language (did the source say "associated with" or "causes"?).
 4. **Open the sources** in `sources/` for the spine references. If a source PDF/note is not in the library, you cannot verify a claim against it — record that gap; do not assume the claim holds.
 
-If `MANUSCRIPT_MAP.md → Key sources` says a reference must not be overclaimed a certain way (e.g. "freshwater baseline — NOT evidence for leachate"), that is a hard constraint for this pass.
+If `MANUSCRIPT_MAP.md → Key sources` says a reference must not be overclaimed a certain way (e.g. "single-turn QA baseline — NOT evidence for multi-turn agentic tasks"), that is a hard constraint for this pass.
 
 ### Phase 2: Enumerate Claims
 
@@ -62,7 +62,7 @@ Discipline on the easy escape hatches:
 For every cited claim, check the citation actually **licenses the verb and the quantifier**:
 
 1. **Verb strength** — the source must support the claim's verb. If the source reports an association and the sentence says "causes," that is **OVERSTATED**. "suggests" ≠ "proves"; "is consistent with" ≠ "demonstrates."
-2. **Quantifier / scope** — "in general" needs evidence beyond one sample/matrix/population. A freshwater result does not license a leachate claim. Scope creep is **OVERSTATED**.
+2. **Quantifier / scope** — "in general" needs evidence beyond one setting/harness/task type. A single-turn QA result does not license a multi-turn agentic claim. Scope creep is **OVERSTATED**.
 3. **Quantity** — any number must match the source exactly. A misremembered statistic is a fabrication even with a real cite. If you cannot confirm the number against the source, mark it `[VALUE — verify]`; do not let it pass.
 4. **Attribution direction** — the cite must support *this* claim, not a neighbouring one. Watch for a `\cite` that backs the first half of a sentence while the second half (the actual claim) rides along unsupported.
 
@@ -86,23 +86,23 @@ Produce the table and a prioritized fix list. **Do not edit the manuscript in th
 ## Claim Table
 | # | Claim (verb / quantifier) | Class | Cite | Verdict | Note |
 |---|---|---|---|---|---|
-| 1 | "EC removes short-chain PFAS (in our sample)" | author's-own | — | SUPPORTED | matches Results Tab 2 |
-| 2 | "sorption fails for C4 (causes)" | cited | smith2021 | OVERSTATED | source shows association, not causation |
-| 3 | "this is the first leachate study" | author's-own | — | OVERSTATED | novelty claim with no comparison shown |
-| 4 | "PFAS are persistent" | common-knowledge | — | OK | uncontested for this audience |
-| 5 | ">90% efficiency generally" | cited | jones2019 | OVERSTATED | jones is freshwater; scope creep to leachate |
-| 6 | "regulatory limit is 70 ng/L" | cited | epa2016 | [VALUE — verify] | number not confirmed against source |
-| 7 | "removal scales with chain length" | UNSUPPORTED | — | [CITE] | disputable, no source, not our data |
+| 1 | "the gate improves tool-call accuracy (in our sample)" | author's-own | — | SUPPORTED | matches Results Tab 2 |
+| 2 | "post-hoc self-correction fails on long horizons (causes)" | cited | tooluse2023 | OVERSTATED | source shows association, not causation |
+| 3 | "this is the first study of pre-execution gating" | author's-own | — | OVERSTATED | novelty claim with no comparison shown |
+| 4 | "LLM agents can hallucinate tool calls" | common-knowledge | — | OK | uncontested for this audience |
+| 5 | ">90% tool-call accuracy generally" | cited | tooluse2023 | OVERSTATED | tooluse2023 is single-turn QA; scope creep to multi-turn agentic tasks |
+| 6 | "prior survey reports a 23% hallucination rate" | cited | halluc2022 | [VALUE — verify] | number not confirmed against source |
+| 7 | "hallucinated tool-call rate scales with task horizon" | UNSUPPORTED | — | [CITE] | disputable, no source, not our data |
 
 ## Prioritized Fixes
-1. **[Overclaim — Protected]** Claim 2: change "causes" → "is associated with" (smith2021 reports association). Needs author approval — verb change on a spine source.
-2. **[Overclaim — scope]** Claim 5: restrict to "in freshwater systems (jones2019)" or cite a leachate source. MANUSCRIPT_MAP flags jones2019 as NOT a leachate benchmark.
-3. **[Uncited]** Claim 7: locate a source for chain-length scaling, or reframe as our own observation if Results support it. Left as [CITE] — not invented.
-4. **[Number]** Claim 6: confirm 70 ng/L against epa2016 p.X; resolve [VALUE — verify].
+1. **[Overclaim — Protected]** Claim 2: change "causes" → "is associated with" (tooluse2023 reports association). Needs author approval — verb change on a spine source.
+2. **[Overclaim — scope]** Claim 5: restrict to "on single-turn QA (tooluse2023)" or cite a multi-turn agentic source. MANUSCRIPT_MAP flags tooluse2023 as NOT a multi-turn agent benchmark.
+3. **[Uncited]** Claim 7: locate a source for horizon-scaling of hallucinated tool calls, or reframe as our own observation if Results support it. Left as [CITE] — not invented.
+4. **[Number]** Claim 6: confirm 23% against halluc2022 p.X; resolve [VALUE — verify].
 5. **[Novelty]** Claim 3: either show the comparison that establishes "first," or soften to "to our knowledge."
 
 ## Gaps in the library
-- No source on chain-length scaling (Claim 7) — sources/ has nothing on this.
+- No source on horizon-scaling of hallucinated tool calls (Claim 7) — sources/ has nothing on this.
 ```
 
 End with the calibrated gap count: `(supported / overstated / uncited)`. Never report a section "clean" while `[CITE]` or `[VALUE — verify]` markers remain — surface them.
@@ -121,7 +121,7 @@ End with the calibrated gap count: `(supported / overstated / uncited)`. Never r
 | "It's obviously true, no cite needed" | Obvious-to-you is not common-knowledge-for-this-audience. Cite it or it's UNSUPPORTED. |
 | "I'll find a citation for this later" | Drafting around a citation you intend to find later is how fabrications enter. Flag `[CITE]` now. |
 | "The source basically says this" | "Basically" is where overclaim lives. The verb and quantifier must match, not the gist. |
-| "It's my result, so I can state it strongly" | Your sample does not license "in general." Calibrate the quantifier to what you measured. |
+| "It's my result, so I can state it strongly" | Your tested harness does not license "in general." Calibrate the quantifier to what you measured. |
 | "Reviewer won't check this one" | Reviewer 2 checks exactly the sentence you hoped they'd skip. Assume every claim is read adversarially. |
 
 ## Notes

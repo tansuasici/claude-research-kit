@@ -20,11 +20,11 @@ expects it, in the manuscript. Conflating the two is a quiet overclaim.
 |---|---|---|
 | **Reproducible** | Inputs (data) + procedure (code/protocol) are available; a third party can rerun and get the same result. | Deposit data + code; pin versions; document the run. |
 | **Replicable** | An independent team, new data, same method, reaches a consistent conclusion. | Methods detailed enough to re-run from scratch. |
-| **Reported-only** | A number/result the reader must take on trust (proprietary data, one-off field campaign, destructive assay). | **Say so.** Do not imply it can be regenerated when it cannot. |
+| **Reported-only** | A number/result the reader must take on trust (proprietary data, a closed-API model with no pinnable version, a one-off human evaluation). | **Say so.** Do not imply it can be regenerated when it cannot. |
 
 If part of the work is reproducible and part reported-only, the availability statement
-draws the line. "Computational results are reproducible from the deposited code; the
-field measurements are reported only (samples consumed)" is honest; silence implies more
+draws the line. "Offline-evaluation results are reproducible from the deposited code; the
+results against the proprietary model are reported only (closed API, version not pinnable)" is honest; silence implies more
 than the evidence supports.
 
 ---
@@ -36,15 +36,15 @@ reason a reviewer cannot sign off. Specify, with exact values:
 
 | Category | Specify | Vague (bad) → Reproducible (good) |
 |---|---|---|
-| **Quantities** | masses, volumes, concentrations, ratios, durations, temperatures | "a small amount of coagulant" → "0.50 g L⁻¹ Al³⁺ as AlCl₃·6H₂O" |
-| **Instruments** | make, model, configuration | "measured by LC-MS" → "Agilent 1290 / 6470 LC-MS/MS, ESI−, MRM" |
-| **Materials** | supplier, grade, CAS, lot where it matters | "PFOA standard" → "PFOA (Sigma-Aldrich, ≥95%, CAS 335-67-1)" |
+| **Quantities** | counts, budgets, ratios, thresholds, durations, temperatures | "a small set of tasks" → "512 held-out tasks; gate threshold τ = 0.7" |
+| **Models** | name, version/checkpoint, decoding configuration | "queried an LLM" → "GPT-4o (2024-08-06), temperature 0, top-p 1.0" |
+| **Harness** | framework, version, tool inventory where it matters | "an agent loop" → "ReAct loop, max 10 steps, 7 tools (see Appendix A)" |
 | **Software** | name **and version**, key parameters, random seed | "analyzed in Python" → "Python 3.11, scipy 1.11.3; seed = 42" |
 | **Settings** | every non-default parameter that affects the result | "default settings" → list them; "default" is not reproducible across versions |
-| **Procedure** | order of operations, controls, replication (n), blanks | "samples were analyzed in triplicate (n = 3 analytical replicates)" |
+| **Procedure** | order of operations, baselines, replication (n), retries | "each task was run in triplicate (n = 3 independent rollouts)" |
 
 The rule of thumb: **if changing it would change the result, report it.** Field-specific
-reporting (LOD/LOQ, QA/QC, blanks, recovery) lives in
+reporting (prompts, decoding parameters, evaluation harness, seeds) lives in
 `agent_docs/field/<discipline>.md` — read it before discipline-specific methods.
 
 Changing what the Methods *say was done* is a **Protected Claim** (`CLAUDE.md`) — it
@@ -77,7 +77,7 @@ Most venues now require one. State *what*, *where*, and *under what access*:
 ```text
 Data availability — The processed datasets supporting this study are openly available
 at <repository> under DOI <10.xxxxx/...> [a REAL minted DOI — never fabricate it;
-leave [VALUE — verify] until the deposit exists]. Raw LC-MS files are available from
+leave [VALUE — verify] until the deposit exists]. Raw agent rollout logs are available from
 the corresponding author on reasonable request owing to file size.
 
 Code availability — Analysis code is archived at <Zenodo/OSF DOI> and mirrored at

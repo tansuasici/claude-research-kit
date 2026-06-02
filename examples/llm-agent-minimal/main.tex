@@ -6,7 +6,7 @@
 \usepackage{graphicx}
 \usepackage[numbers]{natbib}
 
-\title{Short-chain PFAS removal by electrocoagulation: a minimal example}
+\title{A verification gate for tool-augmented LLM agents: a minimal example}
 \author{Example Author}
 
 \begin{document}
@@ -20,15 +20,16 @@ Results --- the kit checks for that during verification.
 
 \input{sections/intro}
 
-\section{Methods}
-The setup is shown in Figure~\ref{fig:setup}. Describe it for reproduction:
-exact quantities, instruments, settings.
+\section{Method}
+The agent and its pre-execution verification gate are shown in
+Figure~\ref{fig:arch}. Describe it for reproduction: the base model, the tool
+set, the gating rule, and the decoding settings.
 
 \begin{figure}[t]
   \centering
-  % \includegraphics{figures/setup.pdf}
-  \caption{Experimental schematic.}
-  \label{fig:setup}
+  % \includegraphics{figures/arch.pdf}
+  \caption{Agent with a pre-execution verification gate on tool calls.}
+  \label{fig:arch}
 \end{figure}
 
 \bibliographystyle{plainnat}

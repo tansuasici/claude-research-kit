@@ -83,14 +83,15 @@ This manuscript argues <thesis, in the reviewer's words>. The contribution is
 Major revision  (Major: 3, Minor: 6)
 
 ## Major Issues
-1. **[Soundness]** §Discussion ¶3 (discussion.tex:41): The claim "EC causes
-   removal across matrices" is causal and general, but the design tests one
-   matrix and shows association. The conclusion overreaches the evidence.
-   → Restrict to the tested matrix and to associational language, or supply the
+1. **[Soundness]** §Discussion ¶3 (discussion.tex:41): The claim "the gate causes
+   higher tool-call accuracy across task settings" is causal and general, but the
+   design tests one agent harness and shows association. The conclusion overreaches
+   the evidence.
+   → Restrict to the tested harness and to associational language, or supply the
    comparison/identification that licenses the stronger claim. (Protected: verb +
    scope change on the central claim.)
-2. **[Integrity]** §Results (results.tex:62): "70 ng/L regulatory limit" carries
-   no citation and is not in the data. UNSUPPORTED. → Cite the regulation or flag
+2. **[Integrity]** §Results (results.tex:62): "23% baseline hallucination rate" carries
+   no citation and is not in the data. UNSUPPORTED. → Cite the source or flag
    [CITE]; do not assert it bare.
 3. **[Prior Top Rule]** tasks/reviews flagged overclaim in the discussion before;
    §Discussion ¶5 repeats the pattern. → Apply the existing rule.
@@ -98,18 +99,18 @@ Major revision  (Major: 3, Minor: 6)
 ## Minor Issues
 1. **[Statistics]** §Results: p-values reported without effect sizes or CIs. Add both.
 2. **[Clarity]** §Intro ¶2: the gap is stated twice; the contribution once. Invert.
-3. **[Cross-ref]** discussion.tex:40: \ref{fig:flux} has no \label.
-4. **[Terminology]** "removal efficiency" and "uptake" used interchangeably — lock one (MANUSCRIPT_MAP → Terminology).
+3. **[Cross-ref]** discussion.tex:40: \ref{fig:horizon} has no \label.
+4. **[Terminology]** "tool-call accuracy" and "success rate" used interchangeably — lock one (MANUSCRIPT_MAP → Terminology).
 5. **[Sourcing]** §Intro: "widely reported" needs at least one cite or reframing.
 6. **[Reproducibility]** No data-availability statement.
 
 ## Edit Checklist (for the author — not auto-applied)
 - [ ] Discussion ¶3: calibrate verb + scope (PROTECTED — confirm)
-- [ ] Results: resolve [CITE] on regulatory limit
+- [ ] Results: resolve [CITE] on baseline hallucination rate
 - [ ] Results: add effect sizes + CIs
-- [ ] Fix \ref{fig:flux}
+- [ ] Fix \ref{fig:horizon}
 - [ ] Add data-availability statement
-- [ ] Lock terminology to "removal efficiency"
+- [ ] Lock terminology to "tool-call accuracy"
 
 ## Suggested follow-ups
 - /claim-check sections/discussion.tex  (the overclaim cluster)

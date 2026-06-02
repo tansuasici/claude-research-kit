@@ -49,12 +49,12 @@ in general   >  across the tested conditions  >  in our sample  >  in this singl
 
 | Overclaim | Why it fails | Calibrated |
 |---|---|---|
-| "Our method **eliminates** PFAS contamination in groundwater." | Causal + total + wrong matrix. Data are >90% removal of short-chain PFAS in bench-scale leachate. | "Electrocoagulation removed >90% of short-chain PFAS in bench-scale leachate (`tab:removal`)." |
-| "This **proves** that chain length **drives** removal efficiency." | "proves" + causal, from a correlation. | "Removal efficiency was associated with chain length across the tested congeners (`fig:chain`)." |
-| "PFAS exposure **causes** elevated cholesterol." | Causal claim from observational data. | "PFAS exposure was associated with elevated cholesterol in this cohort." |
-| "The treatment was **significantly** better, showing a large improvement." | "significant" used to mean "large"; "large" unquantified. | "The treatment improved removal by 18 percentage points (95% CI 11–25; *p* = 0.002)." |
-| "Our results are **the first** to show X and **outperform all** prior methods." | Novelty + superiority with no comparison cited. | "We are not aware of prior reports of X for short-chain PFAS; under matched conditions, removal exceeded the sorption baseline of `\cite{smith2021}` by …" |
-| "This **clearly demonstrates** the mechanism is electrostatic." | "clearly" is throat-clearing; mechanism not directly observed. | "The pH dependence is consistent with an electrostatic mechanism; direct confirmation would require [method]." |
+| "Our method **eliminates** hallucinated tool calls in agents." | Causal + total + wrong setting. Data are a >40% reduction on multi-turn agentic tasks. | "The verification gate reduced the hallucinated tool-call rate by >40% on multi-turn agentic tasks (`tab:toolacc`)." |
+| "This **proves** that task horizon **drives** tool-call accuracy." | "proves" + causal, from a correlation. | "Tool-call accuracy was associated with task horizon across the tested tasks (`fig:horizon`)." |
+| "More available tools **causes** higher task success." | Causal claim from a correlational ablation. | "Task success was associated with the number of available tools across the tested configurations." |
+| "The gate was **significantly** better, showing a large improvement." | "significant" used to mean "large"; "large" unquantified. | "The gate improved tool-call accuracy by 18 percentage points (95% CI 11–25; *p* = 0.002)." |
+| "Our results are **the first** to show X and **outperform all** prior methods." | Novelty + superiority with no comparison cited. | "We are not aware of prior reports of pre-execution gating for agent tool calls; under matched conditions, it reduced hallucinated calls relative to the self-correction baseline of `\cite{tooluse2023}` by …" |
+| "This **clearly demonstrates** the gate works by grounding each call." | "clearly" is throat-clearing; the mechanism is not directly observed. | "The horizon dependence is consistent with a grounding mechanism; direct confirmation would require [method]." |
 
 Pattern: cut the intensifier, drop the verb one rung, bound the scope to what was
 tested, and attach the number or the citation that licenses the claim.
@@ -75,9 +75,9 @@ pile `may` + `suggests` + `possibly` on one clause. Where the evidence *is* stro
 (your clean primary result), state it plainly — false modesty is its own miscalibration.
 
 ```text
-✗ over-hedged:  "These data may possibly suggest that removal could be associated with pH."
-✗ under-hedged: "pH determines removal."
-✓ calibrated:   "Removal increased with pH across the tested range (fig:ph)."
+✗ over-hedged:  "These data may possibly suggest that accuracy could be associated with task horizon."
+✗ under-hedged: "Task horizon determines accuracy."
+✓ calibrated:   "Tool-call accuracy decreased with task horizon across the tested range (fig:horizon)."
 ```
 
 ---
@@ -88,11 +88,11 @@ The default scheme (a `STYLE.md` may override per venue):
 
 | Where | Tense | Why |
 |---|---|---|
-| Introduction / background | **present** | Established knowledge is timeless: "PFAS are persistent." |
-| Prior findings, attributed | present or past | "Smith reports…" (present) or "Smith found…" (past) — pick one and hold it. |
-| Methods | **past** | What *was done*: "Samples were collected…". |
-| Results | **past** | What the data *showed* on this occasion: "Removal reached 92%." |
-| Discussion — your findings | past; **present** for interpretation/implications | "Removal was high (past); this suggests (present) that…". |
+| Introduction / background | **present** | Established knowledge is timeless: "LLMs can produce ungrounded outputs." |
+| Prior findings, attributed | present or past | "Prior work reports…" (present) or "Prior work found…" (past) — pick one and hold it. |
+| Methods | **past** | What *was done*: "Tasks were sampled…". |
+| Results | **past** | What the data *showed* on this occasion: "Tool-call accuracy reached 92%." |
+| Discussion — your findings | past; **present** for interpretation/implications | "Tool-call accuracy was high (past); this suggests (present) that…". |
 | Figure/table captions | present | "Figure 2 shows…". |
 
 Methods and Results in the past tense, intro in the present, is the single most
@@ -103,10 +103,10 @@ is an unrelated change — match the surrounding voice.
 
 ## Active vs passive
 
-Use **active** when the agent matters and naming it adds information ("We collected…",
+Use **active** when the agent matters and naming it adds information ("We sampled…",
 "The model predicts…"). Use **passive** in Methods where the actor is obvious and the
-object is the focus ("Samples were filtered through 0.45 µm membranes") — the standard
-register in chemistry and the life sciences. Do not contort prose to avoid "we" if the
+object is the focus ("Tasks were sampled from the held-out split") — the standard
+register in much of the ML and NLP literature. Do not contort prose to avoid "we" if the
 venue accepts it; do not over-use passive until every sentence is actor-less fog.
 Whatever the manuscript already does, match it.
 
@@ -114,8 +114,8 @@ Whatever the manuscript already does, match it.
 
 ## One term per concept
 
-`CLAUDE.md → Claim Discipline`: do not alternate "removal efficiency" / "elimination
-rate" / "uptake" / "reduction" for the same quantity. Synonym-rotation reads as
+`CLAUDE.md → Claim Discipline`: do not alternate "tool-call accuracy" / "success
+rate" / "correctness" / "task success" for the same quantity. Synonym-rotation reads as
 literary polish but in science it signals *different* quantities and confuses the
 reader. Lock the vocabulary in `MANUSCRIPT_MAP.md → Terminology` (or `STYLE.md`), then
 use the locked term every time. If two terms are genuinely in play, surface the

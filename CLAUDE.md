@@ -42,7 +42,7 @@ A drifted argument is the long-session failure mode. This rule prevents it.
 ## The Core Loop
 For every substantive piece of writing: **Question → Evidence → Draft → Verify → Cite.**
 
-1. **Question** — restate what this section must establish, as a claim a reader could dispute. "Write the intro" → "Establish that PFAS removal in X is understudied and that our method closes that gap."
+1. **Question** — restate what this section must establish, as a claim a reader could dispute. "Write the intro" → "Establish that tool-call hallucination in multi-turn agents is understudied and that our gate closes that gap."
 2. **Evidence** — gather the sources that support it *before* drafting. If the evidence is not in the library (`references.bib` + `sources/`), say so. Do not draft around a citation you intend to "find later."
 3. **Draft** — write the smallest passage that makes the point. Match the surrounding voice.
 4. **Verify** — run the verification order below.
@@ -68,7 +68,7 @@ This is the rule the entire kit exists to enforce.
 ## Claim Discipline
 - Write only what the section needs to establish its point. Do not pad, throat-clear, or restate.
 - **Match the manuscript's voice** in any file you edit — tense (methods past, results past, intro present), person, hedging level, terminology. Voice drift inside a section is an unrelated change.
-- **One term per concept.** Do not alternate "removal efficiency" / "elimination rate" / "uptake" for the same quantity. Surface the conflict and pick one — do not blend.
+- **One term per concept.** Do not alternate "tool-call accuracy" / "success rate" / "correctness" for the same quantity. Surface the conflict and pick one — do not blend.
 - Stay on the thesis. If a passage is interesting but off-argument, log it under `tasks/todo.md → ## Not Now`, do not smuggle it into the draft.
 - State every assumption explicitly. If two framings are defensible with real tradeoffs, present both — do not pick silently.
 

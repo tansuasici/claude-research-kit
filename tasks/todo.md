@@ -5,10 +5,10 @@
 
 ## In Progress
 
-<!-- ### Draft the Methods section
-- **Goal (as a disputable claim):** "The electrocoagulation protocol is described in enough detail to reproduce."
-- **Evidence needed:** instrument models, current density, electrode material, sampling times, analytical method + LOD/LOQ
-- **Files:** sections/methods.tex
+<!-- ### Draft the Method section
+- **Goal (as a disputable claim):** "The agent + verification-gate protocol is described in enough detail to reproduce."
+- **Evidence needed:** base model + version, tool set, gating rule, decoding settings, seeds, eval harness + version
+- **Files:** sections/method.tex
 - **Verification:** citation-gate clean; numbers match data/; methods reproducible
 -->
 

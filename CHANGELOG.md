@@ -4,6 +4,14 @@ All notable changes to Claude Research Kit are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- `/literature-review` skill — library-bound synthesis (`references.bib` + `sources/` + vault); proposes concrete search directions for gaps without fabricating a single source. (TAN-3610)
+
+### Changed
+- Re-themed all demo content from environmental chemistry to **LLM-agent research** — the worked example (`examples/llm-agent-minimal`), the field overlay (`environmental-science` → `ai-ml`), and scattered illustrative examples across skills / agents / agent_docs. The public repo no longer carries a specific personal research domain. (TAN-3608)
+
 ## [0.1.0] — 2026-06-03
 
 Foundation release. The deterministic spine, proven by a 24-scenario bench.
@@ -22,7 +30,7 @@ Foundation release. The deterministic spine, proven by a 24-scenario bench.
 - **ResearchKitBench** — 24 deterministic scenarios (`bench/`) + `run-bench.sh`; CI on ubuntu + macOS.
 - **4 agents** — `peer-reviewer`, `integrity-reviewer`, `fact-checker`, `outline-planner`.
 - **6 skills** — `/claim-check`, `/citation-audit`, `/peer-review`, `/outline`, `/journal-fit`, `/response-to-reviewers`.
-- **7 agent_docs** — writing-workflow, citation-discipline, academic-style, statistics, reproducibility, peer-review, and the environmental-science field overlay.
+- **7 agent_docs** — writing-workflow, citation-discipline, academic-style, statistics, reproducibility, peer-review, and the ai-ml field overlay.
 - **Tooling** — `doctor.sh`, MIT license, plugin manifests, project overlay, reviewer-feedback memory (`tasks/reviews/`), ADR decisions log.
 
 [0.1.0]: https://github.com/tansuasici/ClaudeResearchKit/releases/tag/v0.1.0

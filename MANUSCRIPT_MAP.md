@@ -8,9 +8,9 @@
 
 ## Thesis (one sentence)
 <The single claim this manuscript exists to defend. If you cannot state it in one
-sentence, the paper is not ready to draft. e.g. "Electrocoagulation removes
-short-chain PFAS from landfill leachate at >90% efficiency, which existing
-sorption methods do not achieve.">
+sentence, the paper is not ready to draft. e.g. "A pre-execution verification
+gate reduces hallucinated tool calls in LLM agents without lowering task
+completion, which post-hoc self-correction does not achieve.">
 
 ## Contribution (what is new)
 <What does the reader know after this paper that they did not before? Be specific.
@@ -18,7 +18,7 @@ Distinguish your contribution from prior work explicitly.>
 
 ## Status
 - **Stage:** <idea / outline / first draft / revision / responding-to-reviewers / camera-ready>
-- **Target journal/venue:** <e.g. Environmental Science & Technology — ACS reference style, ~7000 words, 6 display items>
+- **Target journal/venue:** <e.g. ACL — numbered reference style, ~8 pages + appendix, double-blind>
 - **Format:** LaTeX + BibTeX (`biber`/`bibtex`)
 - **Main file:** <main.tex>
 - **Bibliography:** <references.bib>
@@ -48,14 +48,14 @@ misattribute their claims. Cite keys must match references.bib exactly.>
 
 | `.bib` key | What it establishes | Do NOT overclaim it as |
 |---|---|---|
-| `<smith2021>` | <method baseline, 70% removal in freshwater> | <evidence for leachate — different matrix> |
-| `<jones2019>` | <regulatory limit context> | <a removal-efficiency benchmark> |
+| `<tooluse2023>` | <tool use works on single-turn QA> | <evidence for multi-turn agents — different setting> |
+| `<halluc2022>` | <hallucination is prevalent in LLMs> | <a tool-call-specific benchmark> |
 
 ## Figures & tables (display items)
 | ID | File | Shows | Referenced in |
 |---|---|---|---|
-| `fig:setup` | `figures/setup.pdf` | <experimental schematic> | Methods |
-| `tab:removal` | inline | <removal efficiency by chain length> | Results |
+| `fig:arch` | `figures/arch.pdf` | <agent + verification-gate schematic> | Method |
+| `tab:toolacc` | inline | <tool-call accuracy by task horizon> | Experiments |
 
 ---
 
@@ -72,8 +72,8 @@ misattribute their claims. Cite keys must match references.bib exactly.>
 
 ## Terminology (one term per concept)
 <Lock the vocabulary so the draft does not alternate synonyms.>
-- Use **"removal efficiency"** — not "elimination", "uptake", "reduction".
-- Use **"short-chain PFAS"** — define once (C4–C7), then use consistently.
+- Use **"tool-call accuracy"** — not "success rate", "correctness".
+- Use **"task horizon"** — define once (number of steps), then use consistently.
 
 ## Co-authors & roles
 <Who owns which section / who must approve which claims.>

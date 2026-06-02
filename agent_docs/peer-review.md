@@ -21,8 +21,8 @@ finds the holes the author cannot see. Adopt the stance before submission:
   `references.bib` / `sources/`, the support is *unverifiable* — not right, not wrong
   (`.claude/agents/peer-reviewer.md`).
 - **Quote before you criticize.** Every issue points at a specific sentence + locator.
-  "The discussion overclaims" is useless; "Discussion ¶3: 'eliminates PFAS in
-  groundwater' — causal+general from one bench matrix" is actionable.
+  "The discussion overclaims" is useless; "Discussion ¶3: 'eliminates hallucinated tool
+  calls' — causal+general from one agent harness" is actionable.
 - **Find the load-bearing inference.** Locate the single claim the paper stands on and
   test whether the evidence licenses it. A broken *central* claim is Major revision at
   best — never escalate a calibration nit to a reject, never demote a broken thesis to
@@ -68,8 +68,8 @@ point — the charitable reading is also the most useful one.
    signals a real ambiguity in *your* text — if the expert misread it, a reader will.
    The fix is often to clarify, even when you were "technically correct."
 2. **Translate tone into substance.** Strip the curtness; extract the technical ask.
-   "The authors seem unaware of the entire EC literature" → "cite and position against
-   prior EC work."
+   "The authors seem unaware of the entire self-correction literature" → "cite and position
+   against prior self-correction work."
 3. **Separate disagreement from misunderstanding.** Some points you fix; some you
    clarify; a few you respectfully rebut with evidence. All three are legitimate — a
    blanket "we agree and have changed X" to a point you actually dispute is dishonest.
@@ -97,24 +97,24 @@ The response letter is itself a document the editor scores. Five non-negotiables
 ### Per-point template
 
 ```markdown
-> **Reviewer 2, Comment 3:** "The claim that the method eliminates PFAS in groundwater
-> is not supported; the data are from bench-scale leachate."
+> **Reviewer 2, Comment 3:** "The claim that the method eliminates hallucinated tool
+> calls in general is not supported; the data are from a single agent harness."
 
 **Response.** We agree and have removed the overclaim. The sentence now reads:
-"electrocoagulation removed >90% of short-chain PFAS in bench-scale leachate
-(Table 2)," with no extrapolation to groundwater. We added a limitation noting that
-matrix transfer remains untested.
+"the verification gate reduced the hallucinated tool-call rate by >40% on multi-turn
+agentic tasks (Table 2)," with no extrapolation beyond the tested harness. We added a
+limitation noting that transfer to other harnesses remains untested.
 **Changes:** Discussion ¶2 (p. 8, lines 211–215); new limitation, p. 9, lines 240–243.
 ```
 
 For a point you rebut:
 
 ```markdown
-> **Reviewer 1, Comment 5:** "A control without coagulant is missing."
+> **Reviewer 1, Comment 5:** "A baseline without the gate is missing."
 
-**Response.** We respectfully note the no-coagulant control is reported in Methods
+**Response.** We respectfully note the no-gate baseline is reported in Methods
 (§2.3, p. 4) and plotted as the open series in Figure 3. We have revised the caption
-to label it explicitly ("control, no coagulant") to remove the ambiguity.
+to label it explicitly ("baseline, no gate") to remove the ambiguity.
 **Changes:** Figure 3 caption (p. 6).
 ```
 
@@ -163,7 +163,7 @@ Peer-review feedback is the kit's richest source of durable rules
 - **Promote recurring critiques** to `tasks/reviews/_index.md → ## Top Rules`
   (`top_rule: true`). Read the Top Rules at every session start (Tier 3) and after
   compaction — a reviewer's *repeated* complaint ("you keep overclaiming the
-  Discussion", "you keep citing freshwater results for leachate") is a rule, not a
+  Discussion", "you keep citing single-turn QA results for multi-turn agentic claims") is a rule, not a
   one-off fix. Encode it so the next draft does not re-earn the same comment.
 
 The point of logging is that the *second* version of the paper, and the *next* paper,

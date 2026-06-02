@@ -79,8 +79,8 @@ evidence gaps the author must close before drafting. ~30 lines max.
 ## Evidence Plan
 | Section | Claim | Evidence needed | In library? | Calibration note |
 |---|---|---|---|---|
-| Intro | <claim> | <source / data> | `smith2021` ✓ | — |
-| Results | <claim> | <own data, `tab:removal`> | GAP — needs analysis | sample-bound: no generalization |
+| Intro | <claim> | <source / data> | `tooluse2023` ✓ | single-turn QA only: do not cite as multi-turn agent evidence |
+| Results | <claim> | <own data, `tab:toolacc`> | GAP — needs analysis | sample-bound: no generalization past the tested agent harness |
 
 ## Argument Audit
 - **Orphan claims:** <thesis-critical claims with no home section, or "none">

@@ -44,7 +44,7 @@
       "tool_name": "Write",
       "tool_input": {
         "file_path": "{TMPROOT}/sections/intro.tex",
-        "content": "PFAS removal reached high efficiency [CITE]. The mean was [VALUE -- verify]."
+        "content": "Tool-call accuracy improved with the gate [CITE]. The mean was [VALUE -- verify]."
       }
     },
     "expect": { "exit_code": 0, "stdout_empty": true },

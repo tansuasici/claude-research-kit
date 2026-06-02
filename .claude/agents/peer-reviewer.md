@@ -76,10 +76,11 @@ This is the heart of the review. For each unsupported or overstated assertion:
 2. State **what it asserts** vs. **what the evidence licenses**.
 3. Name the fix: soften the verb/quantifier to calibrated language, add support, or cut.
 
-> Example — Discussion: "Our method eliminates PFAS contamination in groundwater."
-> Asserts: causal, general elimination. Licensed: >90% removal of short-chain PFAS in
-> *bench-scale leachate* (one matrix, `tab:removal`). Fix: "removed >90% of short-chain
-> PFAS in bench-scale leachate" — no extrapolation to groundwater without evidence.
+> Example — Discussion: "Our gate eliminates hallucinated tool calls in deployment."
+> Asserts: causal, general elimination. Licensed: >90% reduction of hallucinated tool
+> calls on *the tested agent harness* (one setting, `tab:toolacc`). Fix: "reduced
+> hallucinated tool calls by >90% on the tested agent harness" — no extrapolation to
+> deployment without evidence.
 
 ## Output Format
 

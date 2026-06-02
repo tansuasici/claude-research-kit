@@ -12,7 +12,7 @@
 ## Terminology (one term per concept — the lock)
 | Concept | Use exactly | Never |
 |---|---|---|
-| <removal efficiency> | <"removal efficiency"> | <"uptake", "elimination"> |
+| <tool-call accuracy> | <"tool-call accuracy"> | <"success rate", "correctness"> |
 
 ## Formatting
 - **Reference style:** <ACS | IEEE | APA 7 | Nature | Vancouver>

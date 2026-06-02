@@ -68,10 +68,10 @@ connective tissue and field common-knowledge:
 
 | # | Claim (quoted + locator) | Cite key | Source locator | Verdict | Note / Fix |
 |---|--------------------------|----------|----------------|---------|------------|
-| 1 | "…>90% removal…" sec:res ¶2 | smith2021 | p.4, Tab.2 | Supported | matches stated 70%→ no, see #2 |
-| 2 | "…method generally eliminates…" sec:disc ¶1 | smith2021 | p.4 | Overstated | source = "reduced, one matrix"; rewrite "reduced … in bench-scale leachate" |
-| 3 | "…regulatory limit is 70 ng/L…" sec:intro | — | — | Uncited | add `[CITE]`; do not invent the figure |
-| 4 | "…outperforms membrane filtration…" sec:disc | lee2020 | — | Cannot verify | lee2020 not in sources/; flag for human |
+| 1 | "…>90% reduction in hallucinated tool calls…" sec:res ¶2 | tooluse2023 | p.4, Tab.2 | Supported | matches the tested harness → but see #2 |
+| 2 | "…the gate generally eliminates hallucinated calls…" sec:disc ¶1 | tooluse2023 | p.4 | Overstated | source = "reduced, one harness"; rewrite "reduced … on the tested agent harness" |
+| 3 | "…hallucinated tool-call rate is 18% at baseline…" sec:intro | — | — | Uncited | add `[CITE]`; do not invent the figure |
+| 4 | "…outperforms post-hoc self-correction…" sec:disc | halluc2022 | — | Cannot verify | halluc2022 not in sources/; flag for human |
 
 ## Tally
 Supported: N · Overstated: N · Unsupported: N · Uncited: N · Cannot verify: N

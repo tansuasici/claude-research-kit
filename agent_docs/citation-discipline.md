@@ -19,13 +19,13 @@ construction. All of these are fabrications, equally forbidden:
 | You invented... | Example | Why it is fabrication, not citation |
 |---|---|---|
 | a `\cite` **key** | `\cite{patel2020}` with no `patel2020` in any `.bib` | The key resolves to nothing. Caught by `citation-gate.sh`. |
-| a **DOI** | `doi = {10.1021/acs.est.0c01234}` you did not read off the source | A real-shaped identifier pointing nowhere — the worst kind. |
+| a **DOI** | `doi = {10.1234/2023.acl-long.42}` you did not read off the source | A real-shaped identifier pointing nowhere — the worst kind. |
 | an **author** | "Patel et al. showed…" when no such paper is in the library | Misattribution; a reader cannot find it. |
-| a **year / journal / volume / pages** | filling `year = {2021}` from your prior | Guessed metadata is still guessed. |
+| a **year / venue / volume / pages** | filling `year = {2023}` from your prior | Guessed metadata is still guessed. |
 | an **arXiv ID** | `2103.04567` you did not verify | Same as DOI — fake-shaped identifier. |
 | a **quote** | quotation marks around words the source does not contain | Quoting is a verbatim claim; a paraphrase in quotes is fabrication. |
 | a **page/locator** | "(p. 412)" you did not check | A locator is a promise the reader can turn to that page. |
-| a **quantity** | "removal reached 94%" with no source and no author data | A measured value you did not measure or read. |
+| a **quantity** | "tool-call accuracy reached 94%" with no source and no author data | A measured value you did not measure or read. |
 
 None of these is acceptable "to be fixed later." The fix is the placeholder protocol
 below, not a confident guess you intend to revisit.
@@ -39,14 +39,14 @@ encouraged and never blocked by the hooks (they live in *prose*, not in a `.bib`
 entry):
 
 - **`[CITE]`** — a claim that needs a reference you do not have.
-  > "Electrocoagulation has been applied to long-chain PFAS `[CITE]`, but the
-  >  short-chain case is unaddressed."
+  > "Verification has been applied to single-turn tool use `[CITE]`, but the
+  >  multi-turn agentic case is unaddressed."
   Annotate what is needed so the author (or a literature search) can resolve it:
-  `[CITE — review of EC for PFAS, post-2018]`.
+  `[CITE — survey of tool-use verification, post-2023]`.
 
 - **`[VALUE — verify]`** — a quantity you do not have from a source or from the
   author's own data.
-  > "Removal efficiency reached `[VALUE — verify]`% at 30 min."
+  > "Tool-call accuracy reached `[VALUE — verify]`% at the long-horizon setting."
   Never substitute a guessed number to "make the sentence read better."
 
 When you finish a draft, **count the placeholders** and report them as
@@ -65,18 +65,18 @@ enough to produce a convincing fake. The rule:
 Do this:
 
 ```text
-"I believe there is work showing short-chain PFAS resist GAC adsorption (possibly
- around 2019), but it is not in references.bib. I have left:
-   'Short-chain PFAS show poor GAC adsorption [CITE — short-chain PFAS + GAC, ~2019].'
+"I believe there is work showing self-correction underperforms on long-horizon tasks
+ (possibly around 2022), but it is not in references.bib. I have left:
+   'Self-correction degrades on long-horizon tasks [CITE — self-correction + long horizon, ~2022].'
  Add the source to the library and I will wire up the \cite."
 ```
 
 Do **not** do this:
 
 ```text
-✗ \cite{appleton2019}        ← a key you reconstructed from memory
-✗ "Appleton et al. (2019) showed…"   ← an author + year you are not sure of
-✗ doi = {10.1016/j.watres.2019.…}    ← a DOI shaped like the right journal
+✗ \cite{appleton2022}        ← a key you reconstructed from memory
+✗ "Appleton et al. (2022) showed…"   ← an author + year you are not sure of
+✗ doi = {10.1234/2022.emnlp-main.…}    ← a DOI shaped like the right venue
 ```
 
 The agent's recalled bibliographic metadata is precisely what must never reach the
@@ -94,7 +94,7 @@ draft yet.
 |---|---|---|
 | **Sourced claim** | **Yes.** | "Where did I learn this?" → a specific source. e.g. a prior result, a regulatory limit, a method's reported performance. |
 | **Author's own contribution / reasoning** | No — but mark it as such. | "This is *our* result / *our* inference." Stated as the authors' own (results from your data, an argument you are making). |
-| **Common knowledge in the field** | No. | A specialist reader of the target venue would not ask for a source. e.g. "PFAS are persistent." Calibrate to the *venue's* audience (`MANUSCRIPT_MAP.md → Audience`) — what is common knowledge in ES&T is not in a general journal. |
+| **Common knowledge in the field** | No. | A specialist reader of the target venue would not ask for a source. e.g. "LLMs can produce ungrounded outputs." Calibrate to the *venue's* audience (`MANUSCRIPT_MAP.md → Audience`) — what is common knowledge at NeurIPS is not in a general venue. |
 
 Borderline calls default to citing. A specific number, a named prior method, a
 "first to" or "unlike prior work" claim, and any comparison **always** need a source
@@ -128,28 +128,26 @@ you do not have the DOI, **omit the field**; do not approximate one.
 
 ```bibtex
 % good
-@article{smith2021,
-  author  = {Smith, J. A. and Doe, R.},
-  title   = {Electrocoagulation of short-chain PFAS in landfill leachate},
-  journal = {Environmental Science \& Technology},
-  year    = {2021},
-  volume  = {55},
-  pages   = {1234--1242},
-  doi     = {10.1021/acs.est.1c00123}
+@inproceedings{tooluse2023,
+  author    = {Smith, J. A. and Doe, R.},
+  title     = {Verified tool use for single-turn question answering},
+  booktitle = {Proceedings of ACL},
+  year      = {2023},
+  pages     = {1234--1242}
 }
 
 % blocked: empty required field, fake DOI
-@article{patel2020,
+@article{patel2022,
   author = {},                       % ← block-fabrication.sh: empty required field
-  title  = {Some PFAS paper},
-  year   = {2020},
+  title  = {Some agent paper},
+  year   = {2022},
   doi    = {10.xxxx/placeholder}     % ← block-fabrication.sh: placeholder DOI
 }
 ```
 
 **Key naming.** Use a stable, collision-free convention and apply it consistently
 (one term per concept — `CLAUDE.md → Claim Discipline`). The common convention is
-`<firstauthorlastname><year><disambiguator>`: `smith2021`, `smith2021a`. Do not
+`<firstauthorlastname><year><disambiguator>`: `tooluse2023`, `tooluse2023a`. Do not
 rename keys casually — a key rename ripples through every `\cite` and is an edit to
 the citation graph.
 
@@ -163,8 +161,8 @@ A quotation is a **verbatim** claim about a source. Two non-negotiables
 1. **Verbatim.** The quoted words appear exactly in the source. If you change wording,
    it is a paraphrase — drop the quotation marks. Mark elisions with `…`/`\dots` and
    editorial insertions with `[brackets]`; do not silently alter.
-2. **Locator.** Every quote carries a page or section: `(Smith 2021, p. 1238)` /
-   `\cite[p.~1238]{smith2021}`. A floating quote with no locator is unverifiable — it
+2. **Locator.** Every quote carries a page or section: `(Smith 2023, p. 1238)` /
+   `\cite[p.~1238]{tooluse2023}`. A floating quote with no locator is unverifiable — it
    reads like fabrication even when it is not.
 
 Verification step 2 (`CLAUDE.md`) checks quotes against the source. A hook cannot read
@@ -202,5 +200,5 @@ steps 2–4). Those need a human or `/claim-check`. The hooks guarantee the cita
 If the author or a reviewer catches a sourcing slip (an overclaimed citation, a
 missing locator, a near-fabrication), log it under `tasks/reviews/` using
 `_TEMPLATE.md`, tag `applies_to: [citation]`, and promote it to `## Top Rules` if it
-recurs (`CLAUDE.md → Self-Improvement Loop`). "You keep citing freshwater results for
-leachate claims" is a rule, not a one-off.
+recurs (`CLAUDE.md → Self-Improvement Loop`). "You keep citing single-turn QA results for
+multi-turn agentic claims" is a rule, not a one-off.

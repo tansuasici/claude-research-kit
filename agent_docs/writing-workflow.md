@@ -48,17 +48,17 @@ Paste into `tasks/todo.md`. One block per section under work.
 ## Section: [Introduction / Methods / Discussion / …]  →  file: sections/<name>.tex
 
 **Question (disputable claim this section must establish):**
-> [One sentence. Not "write the intro" — "Establish that short-chain PFAS removal
->  from landfill leachate is understudied and that electrocoagulation closes that gap."]
+> [One sentence. Not "write the intro" — "Establish that hallucinated tool calls in
+>  multi-turn agents are understudied and that pre-execution gating closes that gap."]
 
 **Word budget:** [from MANUSCRIPT_MAP.md → Structure table]   **Tense:** [intro present / methods past / results past]
 
 ### Evidence inventory (library only — references.bib + sources/)
 | Claim in the section | Supporting source (`.bib` key) | What it licenses | Gap? |
 |---|---|---|---|
-| [sub-claim 1] | `smith2021` | 70% removal *in freshwater* | matrix ≠ leachate — do NOT overclaim |
+| [sub-claim 1] | `tooluse2023` | 70% accuracy *in single-turn QA* | setting ≠ multi-turn agentic — do NOT overclaim |
 | [sub-claim 2] | — | — | **[CITE] needed** — not in library |
-| [sub-claim 3] | author's own data (`tab:removal`) | >90% short-chain, bench-scale | reproducible? see methods |
+| [sub-claim 3] | author's own data (`tab:toolacc`) | >40% fewer hallucinated calls, tested harness | reproducible? see methods |
 
 ### Draft plan (topic sentence per paragraph)
 1. [P1 topic sentence — given→new]

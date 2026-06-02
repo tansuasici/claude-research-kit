@@ -18,9 +18,9 @@ chance under the null?" — not "how big is the effect?" or "how sure are we?". 
 pair the estimate with its uncertainty.
 
 ```text
-✗  "The treatment was significant (p < 0.05)."
-✗  "Removal was higher in group B (p = 0.03)."
-✓  "Removal was 18 percentage points higher in group B (95% CI 11–25 pp; p = 0.003, two-sample t-test, n = 24)."
+✗  "The gate was significant (p < 0.05)."
+✗  "Tool-call accuracy was higher in group B (p = 0.03)."
+✓  "Tool-call accuracy was 18 percentage points higher in group B (95% CI 11–25 pp; p = 0.003, two-sample t-test, n = 24)."
 ```
 
 The reportable triplet for any comparison: **point estimate · uncertainty interval ·
@@ -41,8 +41,8 @@ calibrated language (`agent_docs/academic-style.md`).
   "significant" as a synonym.
 
 ```text
-✗  "a significant improvement in removal"   (significant = large? or p < α? reader can't tell)
-✓  "a 22-percentage-point improvement in removal (p = 0.001)"
+✗  "a significant improvement in tool-call accuracy"   (significant = large? or p < α? reader can't tell)
+✓  "a 22-percentage-point improvement in tool-call accuracy (p = 0.001)"
 ✓  "a small but statistically significant difference (1.3 pp, 95% CI 0.4–2.2; p = 0.01)"
 ```
 
@@ -122,14 +122,14 @@ overclaim a reviewer flags first.
 
 ## Significant digits & units
 
-- Report **only the digits the measurement supports.** "94.732%" from an instrument
-  good to ±1% is false precision — write "95%" (or "94.7 ± 1.0%").
+- Report **only the digits the measurement supports.** "94.732%" from an estimate
+  with a ±1% margin is false precision — write "95%" (or "94.7 ± 1.0%").
 - Match precision to the **uncertainty**: the last reported digit should be the first
   uncertain one. A CI of (11.3, 24.8) does not justify reporting the point estimate as
   18.42157.
 - **Units, always**, with a space before the unit (SI) and consistent throughout
   (`MANUSCRIPT_MAP.md → Terminology` and `agent_docs/field/<discipline>.md` for field
-  conventions — e.g. ng/L for trace environmental concentrations).
+  conventions — e.g. tokens or wall-clock seconds for reported costs).
 - **Percentage point** ≠ **percent.** A rise from 70% to 88% is 18 *percentage points*
   (~26% *relative* increase). Pick the one you mean and say which.
 - Define every symbol/abbreviation once; one term per concept.

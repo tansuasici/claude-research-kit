@@ -82,29 +82,30 @@ the revised file. [1–2 lines on the revision's scope.]
 
 **R1.1** — *"The causal language in the Discussion overstates an associational result."*
 
-We agree. We have changed "EC causes removal" to "EC is associated with removal"
-throughout the Discussion (discussion.tex §4 ¶3, and the abstract). The revised
-sentence reads: "Electrocoagulation was associated with >90% removal of short-chain
-PFAS in the tested leachate." *(Verified in manuscript.)*
+We agree. We have changed "the gate causes higher accuracy" to "the gate is
+associated with higher accuracy" throughout the Discussion (discussion.tex §4 ¶3,
+and the abstract). The revised sentence reads: "The verification gate was
+associated with >90% removal of hallucinated tool calls on the tested agent
+harness." *(Verified in manuscript.)*
 
 **R1.2** — *"Effect sizes are not reported alongside p-values."*
 
 We agree. We now report effect sizes with 95% CIs in Table 2 and the Results text
 (results.tex §3.2). *(Verified.)*
 
-**R1.3** — *"Consider generalizing the claim to other waste matrices."*
+**R1.3** — *"Consider generalizing the claim to other agent settings."*
 
-We respectfully note this is beyond the tested scope: our data cover landfill
-leachate only. Rather than generalize unsupported, we have added a sentence in the
-Limitations (discussion.tex §4 ¶6) noting that extension to other matrices requires
-further study. *(Verified.)*
+We respectfully note this is beyond the tested scope: our data cover the tested
+agent harness only. Rather than generalize unsupported, we have added a sentence in
+the Limitations (discussion.tex §4 ¶6) noting that extension to other settings
+requires further study. *(Verified.)*
 
 ## Reviewer 2
 
-**R2.1** — *"Where is the regulatory limit sourced?"*
+**R2.1** — *"Where is the baseline hallucination rate sourced?"*
 
-We thank the reviewer for catching this. The 70 ng/L limit is now cited to the
-relevant regulation (epa2016) at results.tex §3.1. *(Verified — epa2016 resolves
+We thank the reviewer for catching this. The 23% baseline rate is now cited to the
+relevant survey (halluc2022) at results.tex §3.1. *(Verified — halluc2022 resolves
 in references.bib.)*
 
 ---
@@ -115,9 +116,9 @@ manuscript. We are happy to make further changes if needed.
 ## Edit Checklist (reconcile BEFORE sending — letter must match manuscript)
 - [x] Discussion + abstract: causal → associational (R1.1) — done [PROTECTED: was confirmed by author]
 - [x] Table 2 + Results: add effect sizes + CIs (R1.2) — done
-- [x] Limitations: matrix-scope caveat (R1.3) — done
-- [x] Results: cite epa2016 for 70 ng/L (R2.1) — done
-- [ ] R2.2 (add a control experiment) — PENDING author decision: out of current data; propose acknowledging as limitation. NOT yet claimed as done in the letter.
+- [x] Limitations: harness-scope caveat (R1.3) — done
+- [x] Results: cite halluc2022 for 23% baseline rate (R2.1) — done
+- [ ] R2.2 (add an ablation experiment) — PENDING author decision: out of current data; propose acknowledging as limitation. NOT yet claimed as done in the letter.
 
 ## Logged to tasks/reviews/
 - 2026-06-03-overclaim-discussion-causal.md (applies_to: [overclaim, reviewer-response]) — recurrence of a prior Top Rule; promoted.

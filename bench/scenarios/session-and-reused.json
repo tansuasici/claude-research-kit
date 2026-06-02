@@ -3,7 +3,7 @@
     "name": "s21-session-start-injects-thesis",
     "hook": ".claude/hooks/session-start.sh",
     "setup_files": {
-      "MANUSCRIPT_MAP.md": "# MANUSCRIPT_MAP.md\n\n## Thesis (one sentence)\nElectrocoagulation removes short-chain PFAS from landfill leachate at high efficiency.\n\n## Status\n**Stage:** first draft\n"
+      "MANUSCRIPT_MAP.md": "# MANUSCRIPT_MAP.md\n\n## Thesis (one sentence)\nA verification gate reduces hallucinated tool calls in LLM agents without lowering task completion.\n\n## Status\n**Stage:** first draft\n"
     },
     "payload": { "session_id": "s21" },
     "expect": {

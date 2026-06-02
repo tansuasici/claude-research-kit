@@ -11,7 +11,7 @@
 ## Voice & Conventions (override kit defaults here)
 - <e.g. Use British spelling.>
 - <e.g. This venue forbids first-person — use passive in methods.>
-- <e.g. Spell out "perfluoroalkyl and polyfluoroalkyl substances (PFAS)" on first use, then PFAS.>
+- <e.g. Spell out "large language model (LLM)" on first use, then LLM.>
 
 ## Protected (beyond the kit defaults)
 - <e.g. Do not touch the regulatory-limit figures in Table 2 — they are co-author-owned.>

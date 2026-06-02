@@ -21,7 +21,7 @@ Invoke with `/journal-fit` when:
 - A desk-reject risk is in play — fit-to-scope is the #1 desk-reject reason; catch it early.
 - Comparing two candidate venues (run the skill twice, compare gap lists).
 
-State the target: `/journal-fit Environmental Science & Technology`. If no venue is given, read it from `MANUSCRIPT_MAP.md → Target journal`.
+State the target: `/journal-fit ACL`. If no venue is given, read it from `MANUSCRIPT_MAP.md → Target journal`.
 
 ## Process
 
@@ -36,14 +36,14 @@ State the target: `/journal-fit Environmental Science & Technology`. If no venue
 Reason from the venue *class*, and be explicit about confidence:
 
 1. **Reference style** — the deterministic, knowable axis:
-   - **ACS** (Chem, ES&T): numbered, ISO-4 journal abbreviations, sentence-case titles.
+   - **ACL** (NLP/ML): numbered, ISO-4 abbreviations, sentence-case titles; `\citep`/`\citet` author–year in text via the venue style file.
    - **IEEE** (engineering/CS): numbered `[1]` in brackets, abbreviated, specific field order.
    - **APA** (psych/social/education): author–date, full journal names, DOI required.
    - **Nature-family**: superscript numbers, highly compressed, strict display-item limits.
    Mismatched style is a concrete, fixable gap — name the required style.
 2. **Scope & audience** — is the topic in the journal's stated aims? Is the framing pitched at its readership (specialist vs broad)? This is the highest-weight, most-judgment axis.
 3. **Novelty bar** — broad-impact venues (Nature/Science family, top field journals) demand a larger contribution delta than solid specialist journals. Calibrate the manuscript's contribution (from `MANUSCRIPT_MAP`) against the bar — *qualitatively*. Do not invent an acceptance rate to quantify it.
-4. **Length & structure** — typical limits for the article type. **State these as conventions to verify, not facts.** "ACS full articles commonly run ~7000 words with ~6 display items — confirm the exact cap in the current author guidelines."
+4. **Length & structure** — typical limits for the article type. **State these as conventions to verify, not facts.** "Top ML/NLP venues commonly run ~8 pages plus an unlimited appendix — confirm the exact cap in the current call for papers."
 5. **Article types accepted** — does the venue publish the type this manuscript is?
 
 For anything you cannot source — exact word count, exact figure cap, impact factor, acceptance rate — say "confirm in author guidelines," never a fabricated number.
@@ -73,43 +73,43 @@ Weight scope, novelty, and audience highest — they decide desk-reject. Referen
 ## Output Format
 
 ```markdown
-# Journal Fit — <manuscript> → Environmental Science & Technology
-> Source of venue conventions: known ACS/ES&T conventions + MANUSCRIPT_MAP.
-> CONFIRM all exact limits against the current ES&T author guidelines — figures below are conventions, not quoted policy.
+# Journal Fit — <manuscript> → ACL
+> Source of venue conventions: known ACL/ML-venue conventions + MANUSCRIPT_MAP.
+> CONFIRM all exact limits against the current ACL call for papers — figures below are conventions, not quoted policy.
 
 ## Overall fit: Moderate
-The topic (PFAS removal from leachate) sits squarely in ES&T's scope and the
-contribution is a genuine matrix-extension delta, so scope and novelty fit well.
-The main risks are length (currently ~8200 w against a commonly ~7000 w norm —
-verify) and a reference style mismatch (drafted APA; ES&T uses ACS). Structure
-is standard IMRaD, which fits.
+The topic (a pre-execution verification gate for LLM-agent tool calls) sits
+squarely in ACL's scope and the contribution is a genuine task-setting-extension
+delta, so scope and novelty fit well. The main risks are length (currently ~9
+pages against a commonly ~8-page norm — verify) and a reference style mismatch
+(drafted APA; ACL uses a numbered style). Structure is standard IMRaD, which fits.
 
 ## Axis scores
 | Axis | Fit | Reasoning |
 |---|---|---|
-| Scope | Strong | Leachate PFAS treatment is in ES&T aims |
-| Novelty | Strong | First leachate-matrix demonstration; clears a solid-specialist bar |
-| Audience | Strong | Environmental-engineering readership; terminology matches |
-| Length | Weak | ~8200 w; ES&T full articles commonly ~7000 w — CONFIRM and trim |
+| Scope | Strong | Verification gating for agent tool calls is in ACL aims |
+| Novelty | Strong | First study of pre-execution gating for agent tool calls; clears a solid bar |
+| Audience | Strong | NLP/agents readership; terminology matches |
+| Length | Weak | ~9 pages; top venues commonly ~8 pages + appendix — CONFIRM and trim |
 | Structure | Strong | IMRaD as expected |
-| Reference style | Weak (fixable) | Drafted APA; ACS required — mechanical conversion |
-| Article type | Pass | Full research article — published by ES&T |
+| Reference style | Weak (fixable) | Drafted APA; numbered ACL style required — mechanical conversion |
+| Article type | Pass | Full research paper — published at ACL |
 
 ## Gap list (ordered by effort × impact)
-1. **[Length]** Trim ~1200 w to reach the ~7000 w norm (CONFIRM exact cap). Target the Discussion. — high effort
-2. **[Style]** Convert APA → ACS (numbered, ISO-4 abbreviations) via biber/CSL — do not retype. — low effort, deterministic
-3. **[Display items]** 7 figures + 2 tables = 9; ES&T commonly caps ~6 — CONFIRM, then move surplus to SI. — medium
-4. **[Framing]** Abstract leads with method, not impact; ES&T readers want the environmental significance up front. — low effort, high payoff
+1. **[Length]** Trim ~1 page to reach the ~8-page norm (CONFIRM exact cap); move detail to the appendix. Target the Discussion. — high effort
+2. **[Style]** Convert APA → ACL numbered style (ISO-4 abbreviations) via biber/CSL — do not retype. — low effort, deterministic
+3. **[Display items]** 7 figures + 2 tables = 9; the body is crowded — CONFIRM the page budget, then move surplus to the appendix. — medium
+4. **[Framing]** Abstract leads with method, not impact; ACL readers want the deployment significance (fewer hallucinated tool calls) up front. — low effort, high payoff
 
 ## Before you submit
-- Pull the CURRENT ES&T author guidelines and replace every "CONFIRM" above with the quoted limit.
+- Pull the CURRENT ACL call for papers and replace every "CONFIRM" above with the quoted limit.
 - Run /citation-audit after the style conversion.
 - Consider /peer-review against the novelty bar.
 
 ## If fit were Weak
-A specialist water-treatment journal would impose a lower novelty bar and looser
-length limits than a broad-impact venue — consider that venue class. (No metrics
-invented; confirm any specific journal's guidelines directly.)
+A specialist agents/tool-use workshop would impose a lower novelty bar and looser
+length limits than a broad-impact main-conference track — consider that venue
+class. (No metrics invented; confirm any specific venue's guidelines directly.)
 ```
 
 ## Pairs With

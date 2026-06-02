@@ -80,9 +80,9 @@ Drift here is what a copy-editor (and Reviewer 2) flags:
 
 1. **Author name format** — one convention throughout (`Last, First` vs `First Last`; initials with/without periods; `and` separators). List the outliers.
 2. **Journal names** — full vs abbreviated, consistently. ACS/IEEE expect ISO-4 abbreviations; APA/Nature expect full titles. Match the style.
-3. **Title case** — sentence case vs title case per style; brace-protection on proper nouns/acronyms (`{PFAS}`, `{DNA}`) so they aren't down-cased.
+3. **Title case** — sentence case vs title case per style; brace-protection on proper nouns/acronyms (`{LLM}`, `{API}`) so they aren't down-cased.
 4. **Page ranges** — `--` en-dash, consistent.
-5. **Capitalization protection** — chemical formulae, gene symbols, proper nouns wrapped in `{}`.
+5. **Capitalization protection** — model names, acronyms, proper nouns wrapped in `{}`.
 
 Do not silently rewrite all of these — reference style conversion is a deterministic job for a CSL processor / `biber` (`CLAUDE.md → Model vs Code`). Report the inconsistencies and the rule; mechanical reformat belongs in tooling, not hand-retyping that injects errors.
 
@@ -98,25 +98,25 @@ Do not silently rewrite all of these — reference style conversion is a determi
 # Citation Audit — references.bib (+ 1 other .bib), 6 .tex files
 
 > Live check: citation-gate.sh (runs on every .tex/.bib edit). This is the deep manual sweep.
-> Reference style in force: ACS (ISO-4 abbreviations, sentence-case titles).
+> Reference style in force: ACL (numbered, ISO-4 abbreviations, sentence-case titles).
 
 ## ERRORS (block submission)
 | Category | Item | Fix |
 |---|---|---|
 | Dangling \cite | `smith2022` cited in results.tex:88, not in any .bib | Supply verified entry OR flag [CITE] and remove key — do not invent |
-| Duplicate key | `jones2019` defined twice in references.bib | Merge; keep the complete entry |
+| Duplicate key | `halluc2022` defined twice in references.bib | Merge; keep the complete entry |
 | Placeholder DOI | `kumar2020`: doi = {10.xxxx/abcd} | Replace with real DOI from source, or drop the field |
 | Empty field | `lee2018`: author = {} | Fill author from source or remove entry |
-| Dangling \ref | `\ref{fig:flux}` in discussion.tex:40, no \label | Add \label or fix the reference |
+| Dangling \ref | `\ref{fig:horizon}` in discussion.tex:40, no \label | Add \label or fix the reference |
 
 ## WARNINGS (fix before submission)
 | Category | Item | Fix |
 |---|---|---|
 | Orphan entry | `garcia2015` defined, never cited | Remove unless intentionally retained |
-| Same work, 2 keys | `wang2021a` / `wang2021b` share DOI 10.1021/... | Merge to one key; update \cite sites |
+| Same work, 2 keys | `wang2021a` / `wang2021b` share DOI 10.18653/... | Merge to one key; update \cite sites |
 | Author format | 3 entries use "First Last", rest "Last, First" | Normalize via biber, not by hand |
-| Journal abbrev | `nguyen2020` uses full journal name; ACS wants ISO-4 | Abbreviate per ACS |
-| Unreferenced figure | fig:appendixB has \label, never \ref'd | Reference it in text or move to SI |
+| Journal abbrev | `nguyen2020` uses full journal name; ACL wants ISO-4 | Abbreviate per ACL |
+| Unreferenced figure | fig:appendixB has \label, never \ref'd | Reference it in text or move to appendix |
 
 ## Counts
 - Cite keys: 47 cited / 52 defined → 5 orphans, 1 dangling
