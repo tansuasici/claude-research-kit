@@ -153,7 +153,7 @@ If a field overlay exists in `agent_docs/field/`, read it before discipline-spec
 ---
 
 ## Literature Vault (optional)
-If `VAULT.md` exists, the project uses the literature-vault module. Treat `sources/` (raw PDFs, notes, extracted quotes) as immutable. Update `vault/index.md` and append to `vault/log.md` after any ingest. Follow its ingest/query/lint workflows.
+If `VAULT.md` exists, the project uses the literature-vault module — an annotated bibliography the cardinal rule depends on. Read `VAULT.md` first. Treat `sources/` (raw PDFs, notes, extracted quotes) as immutable; the maintained knowledge base lives under `vault/` (`summaries/<bibkey>.md`, `concepts/`, `entities/`). Always update `vault/index.md` and append to `vault/log.md` after any operation. Operations: `/lit-ingest` (a source → summary + proposed `.bib` entry), `/lit-lint` (health check), `/lit-briefing` (what's new + gaps); the `vault-maintainer` agent does the heavy work. `/literature-review` and the `fact-checker` agent read the vault for grounded evidence.
 
 ---
 

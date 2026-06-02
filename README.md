@@ -121,6 +121,15 @@ The analogue of stack templates — discipline-specific conventions that supplem
 |---------|--------|
 | `agent_docs/field/ai-ml.md` | ML/NLP venue cues (NeurIPS/ICML/ACL/EMNLP), reproducibility (seeds, compute, decoding params), baselines & ablations, significance over seeds, eval contamination, LLM-agent reviewer concerns |
 
+## Literature Vault (module)
+
+An incremental, interlinked **annotated bibliography** — the evidence layer the cardinal rule depends on ("every claim traces to a real source" is only as strong as how well your sources are organized). Based on the Karpathy LLM-wiki pattern: Claude builds and maintains the vault from your raw sources, self-contained and offline.
+
+- `sources/` holds raw, **immutable** material (PDFs, notes); `vault/` is the maintained knowledge base (`summaries/<bibkey>.md`, `concepts/`, `entities/`).
+- `/lit-ingest` reads a source → writes an annotated summary (claims with locators, limitations, quotes) → **proposes the `references.bib` entry from the document itself** (never fabricated) → cross-references concepts/entities.
+- `/lit-lint` health-checks (contradictions, orphans, missing locators); `/lit-briefing` reports what's new and what gaps remain vs your thesis; the `vault-maintainer` agent does the heavy work.
+- It compounds with `/literature-review` and the `fact-checker` agent, which read the vault for grounded evidence. Schema: [`VAULT.md`](VAULT.md).
+
 ## What's Inside
 
 ```text
@@ -153,7 +162,7 @@ ClaudeResearchKit/kit/
 
 **v0.1.0 — foundation.** The deterministic spine (hooks + bench), CLAUDE.md ruleset, 4 agents, 7 skills, 7 agent_docs, and the ai-ml field overlay are in place and bench-proven.
 
-Planned: npx distribution (`crk init` / `doctor` / `convert`), plugin-marketplace listing, more field overlays (life-sciences, social-sciences, CS), a literature-vault module (annotated-bibliography builder), `latexmk` compile gating, `texcount` budget hook, and a documentation site.
+Planned: npx distribution (`crk init` / `doctor` / `convert`), plugin-marketplace listing, more field overlays (life-sciences, social-sciences, CS), `latexmk` compile gating, `texcount` budget hook, more skills (`/abstract`, `/stats-check`, …), and a documentation site.
 
 ## License
 

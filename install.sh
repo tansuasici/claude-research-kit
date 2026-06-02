@@ -75,12 +75,15 @@ do_cp "agent_docs/reproducibility.md"
 do_cp "agent_docs/peer-review.md"
 do_cp "scripts"
 do_cp "bench"
+do_cp "VAULT.md"
+do_cp "STYLE.md" 1
 
 # Project overlay (protected on --upgrade)
 do_cp "CLAUDE.project.md" 1
 do_cp "MANUSCRIPT_MAP.md" 1
 do_cp "agent_docs/field" 1
 do_cp "tasks" 1
+do_cp "vault" 1
 
 # Hooks must stay executable
 if [ "$DRYRUN" = "0" ] && [ -d "$TARGET/.claude/hooks" ]; then

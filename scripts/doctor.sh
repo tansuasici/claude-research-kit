@@ -116,6 +116,20 @@ else
 fi
 
 echo ""
+echo "  Optional Modules"
+echo "  ----------------"
+if [ -f VAULT.md ]; then
+  ok "VAULT.md present (literature-vault module active)"
+  [ -f vault/index.md ] && ok "vault/index.md present" || note "vault/index.md missing (VAULT.md present — expected the vault index)"
+  [ -f vault/log.md ] || note "vault/log.md missing (expected the activity log)"
+else
+  info "literature-vault module not installed (no VAULT.md) — optional"
+fi
+if [ -f STYLE.md ]; then
+  ok "STYLE.md present (manuscript style guide)"
+fi
+
+echo ""
 echo "  Summary"
 echo "  -------"
 printf "  ${G}%d passed${N}, ${R}%d failed${N}, ${Y}%d warnings${N}\n" "$pass" "$fail" "$warn"

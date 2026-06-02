@@ -4,6 +4,7 @@
 .claude/agents/integrity-reviewer.md
 .claude/agents/outline-planner.md
 .claude/agents/peer-reviewer.md
+.claude/agents/vault-maintainer.md
 .claude/hooks/block-dangerous-commands.sh
 .claude/hooks/block-fabrication.sh
 .claude/hooks/branch-protect.sh
@@ -20,6 +21,10 @@
 .claude/skills/citation-audit/SKILL.md
 .claude/skills/claim-check/SKILL.md
 .claude/skills/journal-fit/SKILL.md
+.claude/skills/lit-briefing/SKILL.md
+.claude/skills/lit-ingest/SKILL.md
+.claude/skills/lit-lint/SKILL.md
+.claude/skills/literature-review/SKILL.md
 .claude/skills/outline/SKILL.md
 .claude/skills/peer-review/SKILL.md
 .claude/skills/response-to-reviewers/SKILL.md
@@ -27,7 +32,7 @@
 .gitignore
 agent_docs/academic-style.md
 agent_docs/citation-discipline.md
-agent_docs/field/environmental-science.md
+agent_docs/field/ai-ml.md
 agent_docs/peer-review.md
 agent_docs/reproducibility.md
 agent_docs/statistics.md
@@ -56,4 +61,10 @@ tasks/reviews/_index.md
 tasks/reviews/_TEMPLATE.md
 tasks/todo.md
 uninstall.sh
+VAULT.md
+vault/_templates/concept.md
+vault/_templates/entity.md
+vault/_templates/source.md
+vault/index.md
+vault/log.md
 VERSION
