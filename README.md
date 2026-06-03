@@ -159,6 +159,14 @@ An incremental, interlinked **annotated bibliography** — the evidence layer th
 - `/lit-lint` health-checks (contradictions, orphans, missing locators); `/lit-briefing` reports what's new and what gaps remain vs your thesis; the `vault-maintainer` agent does the heavy work.
 - It compounds with `/literature-review` and the `fact-checker` agent, which read the vault for grounded evidence. Schema: [`VAULT.md`](VAULT.md).
 
+## HTML Artifacts (module)
+
+The manuscript is LaTeX — but its *shareable, read-only* outputs are better as HTML than markdown (tables, severity color, SVG, "copy as LaTeX" buttons, upload + link). Based on the Claude Code team's pattern of preferring HTML for specs/reports.
+
+- `ARTIFACTS.md` sets the conventions; `artifacts/design-system.html` holds the reference tokens every artifact mirrors (so they stay on-brand); `artifacts/index.html` is the catalog.
+- Artifact types: **response-letter** (point-by-point reviewer reply), **submission-checklist** / **review-report** (from `/submission-pipeline`), **results-table**, **lit-map**, **figure-draft**.
+- Standalone files (inline CSS/JS, no build) — and the cardinal rule still holds: an artifact mirrors the manuscript's real values, never invents a citation or number. Just end a prompt with *"structure this as HTML"*.
+
 ## What's Inside
 
 ```text

@@ -48,6 +48,7 @@
 .github/workflows/validate.yml
 .gitignore
 AGENTS.md
+ARTIFACTS.md
 CHANGELOG.md
 CLAUDE.md
 CLAUDE.project.md
@@ -67,6 +68,8 @@ agent_docs/peer-review.md
 agent_docs/reproducibility.md
 agent_docs/statistics.md
 agent_docs/writing-workflow.md
+artifacts/design-system.html
+artifacts/index.html
 bench/README.md
 bench/scenarios/block-fabrication.json
 bench/scenarios/citation-gate.json

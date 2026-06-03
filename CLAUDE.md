@@ -157,6 +157,11 @@ If `VAULT.md` exists, the project uses the literature-vault module — an annota
 
 ---
 
+## HTML Artifacts (optional)
+If `ARTIFACTS.md` exists, read it before producing a response-to-reviewers letter, submission checklist, results table, review report, or literature map. Default to **HTML** (not markdown) for those shareable, read-only outputs — store under `artifacts/`, mirror the tokens in `artifacts/design-system.html`, and append a row to `artifacts/index.html`. The manuscript stays LaTeX; `tasks/`, `vault/`, and decisions stay markdown. An artifact mirrors the manuscript's real values — it never invents a citation, number, or reviewer comment.
+
+---
+
 ## Agent Docs
 Read only what's relevant to the current task:
 - Full writing workflow & outline template → `agent_docs/writing-workflow.md`

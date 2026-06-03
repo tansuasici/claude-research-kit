@@ -125,6 +125,12 @@ if [ -f VAULT.md ]; then
 else
   info "literature-vault module not installed (no VAULT.md) — optional"
 fi
+if [ -f ARTIFACTS.md ]; then
+  ok "ARTIFACTS.md present (HTML-artifacts module active)"
+  [ -f artifacts/design-system.html ] || note "artifacts/design-system.html missing (artifacts drift in style without it)"
+else
+  info "HTML-artifacts module not installed (no ARTIFACTS.md) — optional"
+fi
 if [ -f STYLE.md ]; then
   ok "STYLE.md present (manuscript style guide)"
 fi

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClaudeResearchKit — Artifacts</title>
+<meta name="artifact-type" content="index">
+<meta name="artifact-date" content="2026-06-03">
+<meta name="artifact-purpose" content="Catalog of generated HTML artifacts">
+<style>
+  :root {
+    --accent:#4f2fd7; --accent-strong:#3a1dca; --accent-soft:#efeaff;
+    --bg:#fff; --surface:#f7f7fb; --border:#e4e3ef; --text:#1a1a22; --muted:#6b6b7b;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55;}
+  .wrap{max-width:880px;margin:0 auto;padding:48px 24px 80px;}
+  h1{font-family:var(--serif);font-size:2.1rem;margin:0 0 4px;}
+  .lede{color:var(--muted);margin:0 0 24px;}
+  table{width:100%;border-collapse:collapse;font-size:0.92rem;}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
+  thead th{background:var(--surface);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted);}
+  tbody tr:hover{background:var(--accent-soft);}
+  a{color:var(--accent-strong);text-decoration:none;font-weight:600;} a:hover{text-decoration:underline;}
+  .type{font-family:var(--mono);font-size:0.78rem;color:var(--muted);}
+  .empty{color:var(--muted);font-style:italic;}
+  footer{margin-top:48px;color:var(--muted);font-size:0.82rem;border-top:1px solid var(--border);padding-top:16px;}
+  code{font-family:var(--mono);font-size:0.85em;background:var(--surface);padding:1px 5px;border-radius:5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Research Artifacts</h1>
+  <p class="lede">Shareable HTML outputs of this manuscript's work. Newest first. Conventions: <code>ARTIFACTS.md</code> · tokens: <a href="design-system.html">design-system.html</a>.</p>
+
+  <table>
+    <thead><tr><th>Date</th><th>Type</th><th>Title</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <!-- Append new artifacts here (newest at top):
+      <tr>
+        <td>YYYY-MM-DD</td>
+        <td class="type">response-letter</td>
+        <td><a href="YYYY-MM-DD-slug.html">Title</a></td>
+        <td>One-line purpose</td>
+      </tr>
+      -->
+      <tr>
+        <td>2026-06-03</td>
+        <td class="type">design-system</td>
+        <td><a href="design-system.html">Design System</a></td>
+        <td>Reference tokens every artifact mirrors</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <footer>ClaudeResearchKit · artifacts/index.html · regenerate from each file's <code>&lt;title&gt;</code> + <code>&lt;meta name="artifact-*"&gt;</code> if stale.</footer>
+</div>
+</body>
+</html>

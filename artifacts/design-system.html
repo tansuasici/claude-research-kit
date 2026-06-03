@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClaudeResearchKit — Design System</title>
+<meta name="artifact-type" content="design-system">
+<meta name="artifact-date" content="2026-06-03">
+<meta name="artifact-purpose" content="Reference tokens every research artifact mirrors">
+<style>
+  :root {
+    /* Brand — the kit's indigo/violet (matches the logo) */
+    --accent:        #4f2fd7;
+    --accent-strong: #3a1dca;
+    --accent-soft:   #efeaff;
+    /* Surfaces */
+    --bg:      #ffffff;
+    --surface: #f7f7fb;
+    --border:  #e4e3ef;
+    --text:    #1a1a22;
+    --muted:   #6b6b7b;
+    /* Status (claims) */
+    --ok:   #1a7f4b;  --ok-bg:   #e7f6ee;
+    --warn: #9a6a00;  --warn-bg: #fdf3da;
+    --bad:  #c0392b;  --bad-bg:  #fcebe9;
+    --info: #2b5fd0;  --info-bg: #e8eefc;
+    /* Type */
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono:  "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --radius: 10px;
+    --space: 16px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.55; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.2; }
+  h1 { font-size: 2.1rem; margin: 0 0 4px; }
+  h2 { font-size: 1.35rem; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .lede { color: var(--muted); font-size: 1.05rem; margin: 0 0 8px; }
+  code, .mono { font-family: var(--mono); font-size: 0.86em; background: var(--surface); padding: 1px 5px; border-radius: 5px; }
+
+  /* Swatches */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 12px; }
+  .swatch { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: 0.8rem; }
+  .swatch .chip { height: 56px; }
+  .swatch .meta { padding: 8px 10px; }
+  .swatch .meta b { display: block; }
+  .swatch .meta span { color: var(--muted); font-family: var(--mono); }
+
+  /* Chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 600;
+           padding: 3px 10px; border-radius: 999px; border: 1px solid transparent; }
+  .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .b-ok   { color: var(--ok);   background: var(--ok-bg); }
+  .b-warn { color: var(--warn); background: var(--warn-bg); }
+  .b-bad  { color: var(--bad);  background: var(--bad-bg); }
+  .b-info { color: var(--info); background: var(--info-bg); }
+  .b-mute { color: var(--muted); background: var(--surface); border-color: var(--border); }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin-top: 8px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  thead th { background: var(--surface); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+  tbody tr:hover { background: var(--accent-soft); }
+
+  /* Callout + button */
+  .callout { background: var(--accent-soft); border-left: 4px solid var(--accent); border-radius: 8px; padding: 14px 16px; margin: 16px 0; }
+  .btn { font: inherit; font-weight: 600; color: #fff; background: var(--accent); border: 0; border-radius: 8px;
+         padding: 9px 16px; cursor: pointer; }
+  .btn:hover { background: var(--accent-strong); }
+  .placeholder { color: var(--bad); font-family: var(--mono); font-size: 0.85em; }
+  footer { margin-top: 56px; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); padding-top: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>ClaudeResearchKit — Design System</h1>
+  <p class="lede">Reference tokens for every HTML artifact. Read this before generating one; mirror these colors, type, and components so artifacts stay on-brand. See <code>ARTIFACTS.md</code>.</p>
+
+  <h2>Color</h2>
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#4f2fd7"></div><div class="meta"><b>accent</b><span>#4f2fd7</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#3a1dca"></div><div class="meta"><b>accent-strong</b><span>#3a1dca</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#efeaff"></div><div class="meta"><b>accent-soft</b><span>#efeaff</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#1a7f4b"></div><div class="meta"><b>ok</b><span>#1a7f4b</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#9a6a00"></div><div class="meta"><b>warn</b><span>#9a6a00</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#c0392b"></div><div class="meta"><b>bad</b><span>#c0392b</span></div></div>
+  </div>
+
+  <h2>Typography</h2>
+  <p style="font-family:var(--serif); font-size:1.6rem;">Serif headings — Iowan / Palatino / Georgia</p>
+  <p>Sans body — the system UI stack. Calibrated, readable, never decorative.</p>
+  <p><code class="mono">monospace — cite keys, file paths, [VALUE — verify]</code></p>
+
+  <h2>Status chips</h2>
+  <p class="lede">Claim verdicts and review severities use the same palette across every artifact.</p>
+  <div class="chips">
+    <span class="badge b-ok">Supported</span>
+    <span class="badge b-warn">Overstated</span>
+    <span class="badge b-bad">Unsupported</span>
+    <span class="badge b-mute">Uncited</span>
+    <span class="badge b-info">Common knowledge</span>
+  </div>
+  <div class="chips" style="margin-top:10px;">
+    <span class="badge b-bad">Blocking</span>
+    <span class="badge b-warn">Should-fix</span>
+    <span class="badge b-mute">Consider</span>
+    <span class="badge b-ok">Pass</span>
+  </div>
+
+  <h2>Table (results / response)</h2>
+  <table>
+    <thead><tr><th>Claim</th><th>Cite</th><th>Verdict</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Gate cuts hallucinated tool calls &gt;90% on the tested harness</td><td><code>tab:toolacc</code></td><td><span class="badge b-ok">Supported</span></td><td>matches Results</td></tr>
+      <tr><td>The gate generally eliminates hallucinations</td><td><code>tooluse2023</code></td><td><span class="badge b-warn">Overstated</span></td><td>one harness ≠ general</td></tr>
+      <tr><td>Baseline success rate was <span class="placeholder">[VALUE — verify]</span></td><td>—</td><td><span class="badge b-bad">Unsupported</span></td><td>number not in the draft</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Callout &amp; export button</h2>
+  <div class="callout"><b>Cardinal rule.</b> An artifact mirrors the manuscript's real values — it never invents a citation, a quantity, or a reviewer comment. Unknowns stay <span class="placeholder">[VALUE — verify]</span>.</div>
+  <button class="btn" onclick="navigator.clipboard.writeText('exported state').then(()=>{this.textContent='Copied'})">Copy as LaTeX</button>
+
+  <footer>ClaudeResearchKit · design-system.html · every artifact mirrors these tokens. Standalone, no build step.</footer>
+</div>
+</body>
+</html>
