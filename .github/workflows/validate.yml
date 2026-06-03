@@ -40,3 +40,25 @@ jobs:
             echo "checking $f"
             python3 -c "import json,sys; json.load(open('$f'))"
           done
+
+  manifest:
+    name: .kit-manifest is fresh
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check manifest staleness
+        run: ./scripts/sync-manifest.sh --check
+
+  install:
+    name: Install → doctor → upgrade → uninstall
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make scripts executable
+        run: chmod +x .claude/hooks/*.sh scripts/*.sh install.sh uninstall.sh
+      - name: Smoke-test install lifecycle
+        run: ./scripts/test-install.sh

@@ -37,6 +37,33 @@ function run(script, scriptArgs, opts = {}) {
   process.exit(r.status == null ? 1 : r.status);
 }
 
+function listSkills() {
+  const candidates = [
+    path.join(process.cwd(), '.claude', 'skills'),
+    path.join(PKG_ROOT, '.claude', 'skills'),
+  ];
+  const base = candidates.find((d) => {
+    try { return fs.statSync(d).isDirectory(); } catch { return false; }
+  });
+  if (!base) {
+    console.log('No .claude/skills/ found (run `crk init` first).');
+    process.exit(0);
+  }
+  const names = fs.readdirSync(base).filter((n) => {
+    try { return fs.statSync(path.join(base, n, 'SKILL.md')).isFile(); } catch { return false; }
+  }).sort();
+  console.log(`Available skills (${names.length}) — invoke with /<name>:\n`);
+  for (const name of names) {
+    let desc = '';
+    try {
+      const m = fs.readFileSync(path.join(base, name, 'SKILL.md'), 'utf8').match(/^description:\s*(.+)$/m);
+      if (m) desc = m[1].trim();
+    } catch { /* ignore */ }
+    console.log(desc ? `  /${name}\n      ${desc}` : `  /${name}`);
+  }
+  process.exit(0);
+}
+
 switch (cmd) {
   case 'init':
   case 'install':
@@ -51,6 +78,13 @@ switch (cmd) {
     // Run the bench against the kit's own source.
     run('scripts/run-bench.sh', rest, { cwd: PKG_ROOT });
     break;
+  case 'convert':
+    // Export the CURRENT project's CLAUDE.md to AGENTS.md / other tools.
+    run('scripts/convert.sh', rest);
+    break;
+  case 'skills':
+    listSkills();
+    break;
   case '--version':
   case '-v':
     console.log(version());
@@ -64,6 +98,8 @@ switch (cmd) {
 Usage:
   crk init [--upgrade|--gitignore|--dry-run]   Install the kit into the current dir
   crk doctor                                    Check installation health
+  crk skills                                    List available /skills
+  crk convert [all|agents-md|cursor|windsurf|aider]   Export CLAUDE.md to other tools
   crk bench                                      Run ResearchKitBench
   crk --version                                  Print version
 

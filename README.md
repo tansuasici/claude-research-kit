@@ -33,7 +33,16 @@ rm -rf /tmp/crk
 
 Then **fill in `MANUSCRIPT_MAP.md`** with your thesis, contribution, target venue, and section plan — it is the single most important file, read first every session — and start a Claude Code session.
 
-> npx (`crk init`) and the Claude Code plugin marketplace listing are planned; see the roadmap at the bottom.
+Or with the CLI (once published to npm):
+
+```bash
+npx @tansuasici/claude-research-kit init      # install into the current dir
+npx @tansuasici/claude-research-kit doctor     # check installation health
+npx @tansuasici/claude-research-kit skills      # list the /skills
+npx @tansuasici/claude-research-kit convert     # export CLAUDE.md → AGENTS.md (+ Cursor/Windsurf/Aider)
+```
+
+> The CLI and installers work today from a clone; the npm-published `npx` package and the plugin-marketplace listing are pending a release. See the roadmap.
 
 ## What CLAUDE.md Enforces
 
@@ -177,7 +186,9 @@ ClaudeResearchKit/kit/
 
 **Current.** The deterministic spine — **13 hooks**, bench-proven (**32 scenarios**) — plus the CLAUDE.md ruleset, **5 agents**, **19 skills** (incl. 2 orchestrators), 7 agent_docs, **4 field overlays** (ai-ml, life/social sciences, medicine), and the **Literature Vault** module.
 
-Planned: npx distribution (`crk init` / `doctor` / `convert`), plugin-marketplace listing, more field overlays (life-sciences, social-sciences, CS), `latexmk` compile gating, `texcount` budget hook, more skills (`/abstract`, `/stats-check`, …), and a documentation site.
+**AGENTS.md export** — `scripts/convert.sh` derives a cross-tool [AGENTS.md](AGENTS.md) (and Cursor / Windsurf / Aider configs) from `CLAUDE.md`, the single source of truth. **Install lifecycle** (`install` → `doctor` → `upgrade` → `uninstall`) and `.kit-manifest` freshness are smoke-tested in CI on ubuntu + macOS.
+
+Planned: **npm publish** of the `npx` package + plugin-marketplace listing (needs the maintainer's npm token + 2FA), a documentation site, and an HTML-artifacts module.
 
 ## License
 

@@ -34,3 +34,6 @@ out/
 
 # Node (for the npx CLI dev only)
 node_modules/
+.windsurfrules
+CONVENTIONS.md
+.cursor/
