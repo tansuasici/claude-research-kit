@@ -214,7 +214,7 @@ ClaudeResearchKit/kit/
 
 ## Status & Roadmap
 
-**Current.** The deterministic spine — **14 hooks**, bench-proven (**34 scenarios**) — plus the CLAUDE.md ruleset, **5 agents**, **23 skills** (incl. 2 orchestrators), 7 agent_docs, **4 field overlays** (ai-ml, life/social sciences, medicine), and the **Literature Vault** module.
+**Current.** The deterministic spine — **14 hooks**, verified by **34 CI scenarios** ([ResearchKitBench](bench/README.md)) — plus the CLAUDE.md ruleset, **5 agents**, **23 skills** (incl. 2 orchestrators), 7 agent_docs, **4 field overlays** (ai-ml, life/social sciences, medicine), and the **Literature Vault** module.
 
 **AGENTS.md export** — `scripts/convert.sh` derives a cross-tool [AGENTS.md](AGENTS.md) (and Cursor / Windsurf / Aider configs) from `CLAUDE.md`, the single source of truth. **Install lifecycle** (`install` → `doctor` → `upgrade` → `uninstall`) and `.kit-manifest` freshness are smoke-tested in CI on ubuntu + macOS.
 
