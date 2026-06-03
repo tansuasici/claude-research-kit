@@ -112,6 +112,13 @@ User-invocable — run with `/skill-name`:
 | `/journal-fit` | Assesses fit to a target venue — scope, novelty bar, length, reference style |
 | `/response-to-reviewers` | Point-by-point response letter — quote, change, location, never claim an unmade change |
 | `/literature-review` | Synthesize related work from your own library (`.bib` + `sources/` + vault); thematic, gap-driven, real citations only; proposes search directions for gaps |
+| `/abstract` | Draft/tighten the abstract — every number must match the body, calibrated to the venue's limit |
+| `/stats-check` | Run the statistics checklist — effect size + CI, N, test; flags causal overclaim and p-hacking |
+| `/methods-review` | Reproducibility check of the methods — flags every missing ingredient to reproduce |
+| `/gap-finder` | Breadth-first scan for uncited/unsupported claims; proposes search directions for true gaps |
+| `/cover-letter` | Editor cover letter from `MANUSCRIPT_MAP` — contribution, fit, no fabricated significance |
+| `/reference-format` | Convert citation style deterministically (biber/CSL); never invents a missing field |
+| `/plain-language-summary` | Lay summary that stays faithful — simpler wording never becomes a stronger claim |
 
 ## Field Overlays
 
