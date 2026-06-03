@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Research Kit — a rigorous co-author for Claude Code</title>
+<meta name="description" content="Drop-in kit that makes Claude Code a source-grounded academic co-author for LaTeX + BibTeX. Never invent a citation. 14 deterministic hooks, 23 skills, bench-proven.">
+<meta property="og:title" content="Claude Research Kit">
+<meta property="og:description" content="A rigorous co-author for Claude Code — source-grounded academic writing for LaTeX + BibTeX.">
+<meta property="og:image" content="logo.png">
+<style>
+  :root{
+    --accent:#4f2fd7; --accent-strong:#3a1dca; --accent-soft:#efeaff;
+    --bg:#fbfbfe; --surface:#ffffff; --border:#e4e3ef; --text:#16161d; --muted:#63636f;
+    --ok:#1a7f4b; --bad:#c0392b;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:var(--accent-strong);text-decoration:none;} a:hover{text-decoration:underline;}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.15;}
+  code{font-family:var(--mono);font-size:0.88em;background:var(--accent-soft);color:var(--accent-strong);padding:2px 6px;border-radius:5px;}
+
+  /* Hero */
+  header{background:radial-gradient(900px 400px at 50% -120px,var(--accent-soft),transparent),var(--bg);border-bottom:1px solid var(--border);padding:56px 0 64px;text-align:center;}
+  header img{width:104px;height:104px;border-radius:24px;box-shadow:0 12px 32px rgba(79,47,215,.28);}
+  h1{font-size:3rem;margin:24px 0 8px;letter-spacing:-.5px;}
+  .tag{font-size:1.25rem;color:var(--muted);max-width:620px;margin:0 auto 12px;}
+  .cardinal{display:inline-block;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;padding:12px 18px;margin:18px auto 6px;font-size:0.98rem;max-width:680px;text-align:left;}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;}
+  .btn{font:inherit;font-weight:600;border-radius:10px;padding:11px 20px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .btn.primary:hover{background:var(--accent-strong);text-decoration:none;}
+  .btn:hover{text-decoration:none;border-color:var(--accent);}
+  .install{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:#15131f;color:#eee;border-radius:10px;padding:11px 16px;font-family:var(--mono);font-size:0.92rem;}
+  .install button{background:transparent;border:1px solid #3a3850;color:#bdb8e0;border-radius:6px;padding:3px 9px;font:inherit;font-size:0.8rem;cursor:pointer;}
+  .badges{margin-top:20px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;font-size:0.8rem;}
+  .chip{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:3px 11px;color:var(--muted);}
+  .chip b{color:var(--text);}
+
+  section{padding:56px 0;border-bottom:1px solid var(--border);}
+  h2{font-size:1.7rem;margin:0 0 8px;}
+  .sub{color:var(--muted);margin:0 0 28px;}
+  .loop{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-family:var(--serif);font-size:1.2rem;}
+  .loop span{background:var(--accent-soft);color:var(--accent-strong);border-radius:8px;padding:6px 14px;}
+  .loop em{color:var(--muted);font-style:normal;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;}
+  .card h3{font-size:1.1rem;margin:0 0 6px;} .card p{margin:0;color:var(--muted);font-size:0.94rem;}
+  .card .n{font-family:var(--serif);font-size:2rem;color:var(--accent);line-height:1;}
+
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+  @media(max-width:680px){.twocol{grid-template-columns:1fr;} h1{font-size:2.3rem;}}
+  ul.clean{list-style:none;padding:0;margin:0;} ul.clean li{padding:7px 0;border-bottom:1px solid var(--border);}
+  ul.clean li::before{content:"→ ";color:var(--accent);font-weight:700;}
+  .bad::before{content:"✕ ";color:var(--bad);} .ok::before{content:"✓ ";color:var(--ok);}
+  footer{padding:40px 0 60px;text-align:center;color:var(--muted);font-size:0.9rem;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <img src="logo.png" alt="Claude Research Kit">
+    <h1>Claude Research Kit</h1>
+    <p class="tag">Turns Claude Code from an eager intern into a <b>rigorous co-author</b> — source-grounded academic writing for LaTeX&nbsp;+&nbsp;BibTeX.</p>
+    <div class="cardinal"><b>The cardinal rule:</b> every claim traces to a real source. Never invent a citation, DOI, quote, or quantity. Never overclaim beyond the evidence.</div>
+    <div class="install">
+      <span><span style="color:#6b6;">$</span> npx @tansuasici/claude-research-kit init</span>
+      <button onclick="navigator.clipboard.writeText('npx @tansuasici/claude-research-kit init').then(()=>{this.textContent='copied'})">copy</button>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/tansuasici/ClaudeResearchKit">GitHub</a>
+      <a class="btn" href="https://www.npmjs.com/package/@tansuasici/claude-research-kit">npm</a>
+    </div>
+    <div class="badges">
+      <span class="chip"><b>14</b> hooks</span>
+      <span class="chip"><b>23</b> skills</span>
+      <span class="chip"><b>5</b> agents</span>
+      <span class="chip">ResearchKitBench <b>34/34</b></span>
+      <span class="chip">MIT</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>The danger isn't bad prose — it's <em>fluent</em> prose</h2>
+    <p class="sub">In code, a hallucination breaks the build and you find out. In a manuscript, a hallucinated citation <b>looks correct</b> — and survives to peer review, or print.</p>
+    <div class="twocol">
+      <div>
+        <h3>Without the kit</h3>
+        <ul class="clean">
+          <li class="bad">Invents a citation, DOI, or page number that looks real</li>
+          <li class="bad">States a statistic it doesn't actually have</li>
+          <li class="bad">"causes" where the evidence only licenses "is associated with"</li>
+          <li class="bad">Drifts off-thesis and pads with plausible filler</li>
+        </ul>
+      </div>
+      <div>
+        <h3>With the kit</h3>
+        <ul class="clean">
+          <li class="ok">Every <code>\cite</code> resolves in <code>references.bib</code> — enforced</li>
+          <li class="ok">Unknown numbers become <code>[VALUE — verify]</code>, never a guess</li>
+          <li class="ok">Verbs calibrated to what the source licenses</li>
+          <li class="ok">Stays on the thesis; flags scope creep</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>One discipline, every time</h2>
+    <p class="sub">A deterministic loop — advisory rules backed by shell hooks that <em>block on violation</em>.</p>
+    <div class="loop">
+      <span>Question</span><em>→</em><span>Evidence</span><em>→</em><span>Draft</span><em>→</em><span>Verify</span><em>→</em><span>Cite</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>What's inside</h2>
+    <p class="sub">A discipline layer that's tested, not just documented — <code>ResearchKitBench</code> proves every blocking hook on each PR.</p>
+    <div class="grid">
+      <div class="card"><div class="n">14</div><h3>Deterministic hooks</h3><p>citation-gate, compile-gate, block-fabrication, protect-sources, stop-gate, word-budget, figure-orphan…</p></div>
+      <div class="card"><div class="n">23</div><h3>Skills</h3><p>/claim-check, /literature-review, /peer-review, /stats-check, /gap-finder, /submission-pipeline, /manuscript-cycle…</p></div>
+      <div class="card"><div class="n">5</div><h3>Review agents</h3><p>peer-reviewer (Reviewer 2), integrity-reviewer, fact-checker, outline-planner, vault-maintainer.</p></div>
+      <div class="card"><div class="n">📚</div><h3>Literature Vault</h3><p>An annotated bibliography built from your sources — <code>/lit-ingest</code> proposes the <code>.bib</code> entry from the document, never fabricated.</p></div>
+      <div class="card"><div class="n">4</div><h3>Field overlays</h3><p>ai-ml, life-sciences, social-sciences, medicine — venue conventions and reviewer concerns per discipline.</p></div>
+      <div class="card"><div class="n">34</div><h3>Bench scenarios</h3><p>Deterministic, no LLM — the hooks are a contract, re-asserted on every PR (ubuntu + macOS).</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Get started</h2>
+    <p class="sub">Drop it into your manuscript repo, fill in <code>MANUSCRIPT_MAP.md</code> (thesis, contribution, venue), and start a session.</p>
+    <div class="twocol">
+      <div>
+        <h3>npx</h3>
+        <div class="install" style="display:flex;"><span><span style="color:#6b6;">$</span> npx @tansuasici/claude-research-kit init</span></div>
+      </div>
+      <div>
+        <h3>Claude Code plugin</h3>
+        <div class="install" style="display:flex;"><span>/plugin marketplace add tansuasici/ClaudeResearchKit</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>Claude Research Kit</b> · MIT · the research analogue of a Claude Code discipline kit.<br>
+    <a href="https://github.com/tansuasici/ClaudeResearchKit">GitHub</a> ·
+    <a href="https://www.npmjs.com/package/@tansuasici/claude-research-kit">npm</a> ·
+    <a href="https://github.com/tansuasici/ClaudeResearchKit/blob/main/CLAUDE.md">CLAUDE.md</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
