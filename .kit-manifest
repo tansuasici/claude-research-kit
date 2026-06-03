@@ -31,6 +31,7 @@
 .claude/skills/lit-ingest/SKILL.md
 .claude/skills/lit-lint/SKILL.md
 .claude/skills/literature-review/SKILL.md
+.claude/skills/manuscript-cycle/SKILL.md
 .claude/skills/methods-review/SKILL.md
 .claude/skills/outline/SKILL.md
 .claude/skills/peer-review/SKILL.md
@@ -38,6 +39,7 @@
 .claude/skills/reference-format/SKILL.md
 .claude/skills/response-to-reviewers/SKILL.md
 .claude/skills/stats-check/SKILL.md
+.claude/skills/submission-pipeline/SKILL.md
 .github/workflows/validate.yml
 .gitignore
 agent_docs/academic-style.md

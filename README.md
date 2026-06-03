@@ -122,6 +122,8 @@ User-invocable — run with `/skill-name`:
 | `/cover-letter` | Editor cover letter from `MANUSCRIPT_MAP` — contribution, fit, no fabricated significance |
 | `/reference-format` | Convert citation style deterministically (biber/CSL); never invents a missing field |
 | `/plain-language-summary` | Lay summary that stays faithful — simpler wording never becomes a stronger claim |
+| `/manuscript-cycle` | **Orchestrator** — runs the whole lifecycle for a section (outline → ground → draft → verify → review → revise), halting on any gate failure |
+| `/submission-pipeline` | **Orchestrator** — parallel pre-submission battery (peer + integrity + fact-checker + audits), deduped, confidence-gated go/no-go report |
 
 ## Field Overlays
 
@@ -170,7 +172,7 @@ ClaudeResearchKit/kit/
 
 ## Status & Roadmap
 
-**v0.1.0 — foundation.** The deterministic spine (hooks + bench), CLAUDE.md ruleset, 4 agents, 7 skills, 7 agent_docs, and the ai-ml field overlay are in place and bench-proven.
+**Current.** The deterministic spine — **13 hooks**, bench-proven (**32 scenarios**) — plus the CLAUDE.md ruleset, **5 agents**, **19 skills** (incl. 2 orchestrators), 7 agent_docs, the **ai-ml** field overlay, and the **Literature Vault** module.
 
 Planned: npx distribution (`crk init` / `doctor` / `convert`), plugin-marketplace listing, more field overlays (life-sciences, social-sciences, CS), `latexmk` compile gating, `texcount` budget hook, more skills (`/abstract`, `/stats-check`, …), and a documentation site.
 
