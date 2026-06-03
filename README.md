@@ -58,7 +58,7 @@ npx @tansuasici/claude-research-kit convert     # export CLAUDE.md → AGENTS.md
 
 ## Hooks
 
-Hooks are shell scripts that run automatically — unlike CLAUDE.md rules (advisory), hooks are **deterministic**. The kit ships **13** hooks, all wired by default.
+Hooks are shell scripts that run automatically — unlike CLAUDE.md rules (advisory), hooks are **deterministic**. The kit ships **14** hooks, all wired by default.
 
 **Guardrails — block on violation (PreToolUse / Stop):**
 
@@ -82,12 +82,13 @@ Hooks are shell scripts that run automatically — unlike CLAUDE.md rules (advis
 | `word-budget` | PostToolUse | Warns when a section `.tex` exceeds its `% budget: NNN` (mirrors MANUSCRIPT_MAP) — uses `texcount` if present |
 | `figure-orphan` | PostToolUse | Warns on orphan floats (labeled, never `\ref`'d), unused `figures/` assets, and missing `\includegraphics` files |
 | `session-end` | SessionEnd | Writes a session audit line for the scorecard |
+| `journal-fold` | SessionEnd | Folds the `/note` journal (findings + decisions) into `tasks/handoff-<session>.md` so context survives compaction |
 
 > The `RESEARCH_APPROVED=1` escape hatch bypasses `protect-sources` and `block-fabrication` (e.g. importing a `.bib` you have independently verified).
 
 ### ResearchKitBench — the hooks are tested
 
-The hooks aren't documentation, they're a contract. The kit ships [`bench/`](bench/README.md): a reproducible eval harness with **32 deterministic scenarios** (no LLM, no network) covering every blocking hook, plus regressions (a `\cite` inside a TeX comment must not count; honest `[CITE]` prose placeholders must not be blocked). Run it with `./scripts/run-bench.sh`; CI runs it on every PR (ubuntu + macOS).
+The hooks aren't documentation, they're a contract. The kit ships [`bench/`](bench/README.md): a reproducible eval harness with **34 deterministic scenarios** (no LLM, no network) covering every blocking hook, plus regressions (a `\cite` inside a TeX comment must not count; honest `[CITE]` prose placeholders must not be blocked). Run it with `./scripts/run-bench.sh`; CI runs it on every PR (ubuntu + macOS).
 
 ```text
 ResearchKitBench
@@ -97,7 +98,7 @@ ResearchKitBench
   s14-protect-sources-blocks-sources-dir           PASS
   ...                                              PASS
 ========================================
-  32/32 PASS  0 FAIL
+  34/34 PASS  0 FAIL
 ```
 
 ## Agents
@@ -133,6 +134,10 @@ User-invocable — run with `/skill-name`:
 | `/plain-language-summary` | Lay summary that stays faithful — simpler wording never becomes a stronger claim |
 | `/manuscript-cycle` | **Orchestrator** — runs the whole lifecycle for a section (outline → ground → draft → verify → review → revise), halting on any gate failure |
 | `/submission-pipeline` | **Orchestrator** — parallel pre-submission battery (peer + integrity + fact-checker + audits), deduped, confidence-gated go/no-go report |
+| `/note` | Append a `finding`/`decision`/`summary` to the session journal — across-compaction memory, folded into the handoff at session end |
+| `/scorecard` | Per-session telemetry from `reports/session-audit.log` — citation-gate pass rate, guardrail firings, bypasses |
+| `/retro` | Windowed retrospective — what shipped, recurring reviewer patterns, what's open; saved to `tasks/` |
+| `/review-resurface` | Surface dormant `tasks/reviews/` notes by topic — pointers only, never bodies |
 
 ## Field Overlays
 
@@ -184,7 +189,7 @@ ClaudeResearchKit/kit/
 
 ## Status & Roadmap
 
-**Current.** The deterministic spine — **13 hooks**, bench-proven (**32 scenarios**) — plus the CLAUDE.md ruleset, **5 agents**, **19 skills** (incl. 2 orchestrators), 7 agent_docs, **4 field overlays** (ai-ml, life/social sciences, medicine), and the **Literature Vault** module.
+**Current.** The deterministic spine — **14 hooks**, bench-proven (**34 scenarios**) — plus the CLAUDE.md ruleset, **5 agents**, **23 skills** (incl. 2 orchestrators), 7 agent_docs, **4 field overlays** (ai-ml, life/social sciences, medicine), and the **Literature Vault** module.
 
 **AGENTS.md export** — `scripts/convert.sh` derives a cross-tool [AGENTS.md](AGENTS.md) (and Cursor / Windsurf / Aider configs) from `CLAUDE.md`, the single source of truth. **Install lifecycle** (`install` → `doctor` → `upgrade` → `uninstall`) and `.kit-manifest` freshness are smoke-tested in CI on ubuntu + macOS.
 

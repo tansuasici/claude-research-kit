@@ -11,6 +11,7 @@
 .claude/hooks/citation-gate.sh
 .claude/hooks/compile-gate.sh
 .claude/hooks/figure-orphan.sh
+.claude/hooks/journal-fold.sh
 .claude/hooks/lib/json-parse.sh
 .claude/hooks/lib/state-counter.sh
 .claude/hooks/prompt-router.sh
@@ -33,11 +34,15 @@
 .claude/skills/literature-review/SKILL.md
 .claude/skills/manuscript-cycle/SKILL.md
 .claude/skills/methods-review/SKILL.md
+.claude/skills/note/SKILL.md
 .claude/skills/outline/SKILL.md
 .claude/skills/peer-review/SKILL.md
 .claude/skills/plain-language-summary/SKILL.md
 .claude/skills/reference-format/SKILL.md
 .claude/skills/response-to-reviewers/SKILL.md
+.claude/skills/retro/SKILL.md
+.claude/skills/review-resurface/SKILL.md
+.claude/skills/scorecard/SKILL.md
 .claude/skills/stats-check/SKILL.md
 .claude/skills/submission-pipeline/SKILL.md
 .github/workflows/validate.yml
@@ -66,6 +71,7 @@ bench/README.md
 bench/scenarios/block-fabrication.json
 bench/scenarios/citation-gate.json
 bench/scenarios/e3-hooks.json
+bench/scenarios/e8-memory.json
 bench/scenarios/prompt-router.json
 bench/scenarios/protect-sources.json
 bench/scenarios/session-and-reused.json
@@ -75,6 +81,8 @@ install.sh
 package.json
 scripts/convert.sh
 scripts/doctor.sh
+scripts/note.sh
+scripts/review-resurface.sh
 scripts/run-bench.sh
 scripts/sync-manifest.sh
 scripts/test-install.sh

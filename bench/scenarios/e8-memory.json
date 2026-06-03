@@ -1,0 +1,30 @@
+[
+  {
+    "name": "s33-journal-fold-creates-handoff",
+    "hook": ".claude/hooks/journal-fold.sh",
+    "setup_files": {
+      ".hook-state/session-journal.md": "2026-06-03T00:00:00Z [finding] the citation gate caught a dangling cite\n2026-06-03T00:01:00Z [decision] use ACL numbered reference style\n"
+    },
+    "payload": { "session_id": "s33sess" },
+    "expect": {
+      "exit_code": 0,
+      "file_grew": ["tasks/handoff-s33sess.md"]
+    },
+    "notes": "A /note journal with findings/decisions is folded into tasks/handoff-<session>.md at SessionEnd."
+  },
+  {
+    "name": "s34-review-resurface-returns-pointer-only",
+    "hook": "scripts/review-resurface.sh",
+    "setup_files": {
+      "tasks/reviews/2026-05-01-overclaim.md": "---\ntitle: Reviewer flagged causal overclaim\ndate: 2026-05-01\nsource: reviewer-2\napplies_to: [overclaim, statistics]\ntop_rule: true\n---\nBODY_SENTINEL_DO_NOT_LEAK\n"
+    },
+    "env": { "REVIEW_QUERY": "revising the discussion, worried about overclaim" },
+    "payload": {},
+    "expect": {
+      "exit_code": 0,
+      "stdout_contains": ["tasks/reviews/2026-05-01-overclaim.md", "overclaim"],
+      "stdout_not_contains": ["BODY_SENTINEL_DO_NOT_LEAK"]
+    },
+    "notes": "review-resurface returns matching pointers by applies_to topic, never the note body (pointer-only contract)."
+  }
+]
