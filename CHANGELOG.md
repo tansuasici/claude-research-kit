@@ -1,37 +1,27 @@
 # Changelog
 
-All notable changes to Claude Research Kit are documented here.
-The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
-project adheres to [Semantic Versioning](https://semver.org/).
+All notable changes to Claude Research Kit will be documented in this file.
 
-## [0.1.0] — 2026-06-03
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-First release — source-grounded academic writing for LaTeX + BibTeX, with deterministic enforcement proven by a 34-scenario bench.
+## 0.1.0 (2026-06-03)
 
-### The discipline
-- **CLAUDE.md** ruleset — the Question → Evidence → Draft → Verify → Cite loop, Source-Grounded Writing (the no-fabrication cardinal rule), Claim Discipline, Protected Claims, calibrated language, and the reviewer-feedback self-improvement loop.
-- **MANUSCRIPT_MAP.md** — the Tier-1 map (thesis, contribution, venue, section budgets, key sources, terminology lock). Plus `STYLE.md`, `CLAUDE.project.md` overlay, and `tasks/reviews/` reviewer-feedback memory.
 
-### 14 deterministic hooks (all wired) + ResearchKitBench (34 scenarios)
-- `citation-gate` (`\cite`↔`.bib`, `\ref`↔`\label`), `compile-gate` (LaTeX `.log` undefined refs/cites/errors), `stop-gate` (blocks on either verdict).
-- `block-fabrication` (placeholder DOIs, empty `.bib` fields), `protect-sources` (`sources/`, `data/raw/`, `submitted/` immutable).
-- `prompt-router` (calibration reminders), `word-budget`, `figure-orphan`, `unicode-scan`, `branch-protect`, `block-dangerous-commands`.
-- `session-start`/`session-end`/`journal-fold` (tiered boot, audit line, across-compaction memory).
+### Features
 
-### 5 agents · 23 skills
-- Agents: `peer-reviewer`, `integrity-reviewer`, `fact-checker`, `outline-planner`, `vault-maintainer`.
-- Audit/write skills: `/claim-check`, `/citation-audit`, `/peer-review`, `/outline`, `/journal-fit`, `/response-to-reviewers`, `/literature-review`, `/abstract`, `/stats-check`, `/methods-review`, `/gap-finder`, `/cover-letter`, `/reference-format`, `/plain-language-summary`.
-- Orchestrators: `/manuscript-cycle`, `/submission-pipeline`.
-- Memory/analytics: `/note`, `/scorecard`, `/retro`, `/review-resurface`.
-- Vault: `/lit-ingest`, `/lit-lint`, `/lit-briefing`.
+* ClaudeResearchKit — source-grounded academic writing kit for LaTeX + BibTeX ([b321f83](https://github.com/tansuasici/ClaudeResearchKit/commit/b321f83c49fe784990b6f6d6e525648c66d4a6dc))
+* **vault:** Literature Vault module — annotated-bibliography engine (TAN-3609) ([6b023e1](https://github.com/tansuasici/ClaudeResearchKit/commit/6b023e1ff5cbbca8ee38ad65abc91039dcfef49a))
+* **skills:** /literature-review — library-bound synthesis (TAN-3610) ([f01d9c0](https://github.com/tansuasici/ClaudeResearchKit/commit/f01d9c0acad80dcc5c94bcd3dc3b8c608a1a49b4))
+* **skills:** finish E2 — 7 manuscript skills (TAN-3610) ([61fafb9](https://github.com/tansuasici/ClaudeResearchKit/commit/61fafb954de1c69823f15f23d287dec828f54734))
+* **skills:** orchestrators /manuscript-cycle + /submission-pipeline (TAN-3613) ([6868df1](https://github.com/tansuasici/ClaudeResearchKit/commit/6868df13c84df04e5899e625855a9fd256bf36b5))
+* **hooks:** compile-gate, word-budget, figure-orphan (TAN-3611) ([2a2cc3d](https://github.com/tansuasici/ClaudeResearchKit/commit/2a2cc3d1fe6c112e51c1d32d705ae37b8bcfbca0))
+* **field:** life-sciences, social-sciences, medicine overlays (TAN-3612) ([5ff2ec6](https://github.com/tansuasici/ClaudeResearchKit/commit/5ff2ec642c81cf317728ff31224ccc1e3f126d48))
+* **dist:** crk CLI (skills/convert), AGENTS.md export, manifest + install CI (TAN-3614) ([b5735e1](https://github.com/tansuasici/ClaudeResearchKit/commit/b5735e1c8841dc144fea075946bf13ba3a146363))
+* **artifacts:** HTML artifacts module (TAN-3615) ([cfdcbc9](https://github.com/tansuasici/ClaudeResearchKit/commit/cfdcbc9aa33511016276845b3e7042ea6acf6e43))
+* analytics & memory — /note, /scorecard, /retro, /review-resurface (TAN-3616) ([e07b4a8](https://github.com/tansuasici/ClaudeResearchKit/commit/e07b4a8b164437230b422bdbdc327892d97bdab0))
 
-### Modules & docs
-- **Literature Vault** (`VAULT.md` + `vault/`) — annotated bibliography from raw `sources/`; `/lit-ingest` proposes the `.bib` entry from the document, never fabricated.
-- **HTML Artifacts** (`ARTIFACTS.md` + `artifacts/`) — shareable HTML side-outputs (response letters, submission checklists, results tables) while the manuscript stays LaTeX.
-- **7 agent_docs** + **4 field overlays** (ai-ml, life-sciences, social-sciences, medicine).
 
-### Distribution
-- `crk` CLI (`init`/`doctor`/`skills`/`convert`/`bench`), `convert.sh` → cross-tool `AGENTS.md`, `sync-manifest.sh` (+ CI staleness gate), `test-install.sh` (install→doctor→upgrade→uninstall smoke test), plugin manifests, CI on ubuntu + macOS.
-- Demo content themed around **LLM-agent research** (worked example `examples/llm-agent-minimal`).
+### Code Refactoring
 
-[0.1.0]: https://github.com/tansuasici/ClaudeResearchKit/releases/tag/v0.1.0
+* re-theme demo content from environmental chemistry to LLM agents (TAN-3608) ([d82f890](https://github.com/tansuasici/ClaudeResearchKit/commit/d82f8905a2ac1b927f19e02689844ff0e6ba9ac2))
