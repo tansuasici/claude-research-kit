@@ -1,13 +1,13 @@
 {
   "name": "@tansuasici/claude-research-kit",
   "version": "0.1.0",
-  "description": "Drop-in kit that turns Claude Code from eager intern to rigorous co-author — source-grounded academic writing with deterministic citation discipline",
+  "description": "Drop-in kit that turns Claude Code from eager intern to rigorous co-author \u2014 source-grounded academic writing with deterministic citation discipline",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tansuasici/ClaudeResearchKit.git"
   },
-  "homepage": "https://github.com/tansuasici/ClaudeResearchKit",
+  "homepage": "https://clauderesearchkit.tansuasici.com",
   "keywords": [
     "claude-code",
     "claude",

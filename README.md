@@ -7,8 +7,15 @@
 <p align="center">Drop-in templates that make Claude Code behave like a rigorous co-author instead of an eager intern — for scholarly writing in LaTeX&nbsp;+&nbsp;BibTeX.</p>
 
 <p align="center">
+  <b><a href="https://clauderesearchkit.tansuasici.com">Documentation</a></b> ·
+  <a href="https://www.npmjs.com/package/@tansuasici/claude-research-kit">npm</a> ·
+  <a href="https://github.com/tansuasici/ClaudeResearchKit/releases">Releases</a>
+</p>
+
+<p align="center">
   <a href="https://github.com/tansuasici/ClaudeResearchKit/actions"><img src="https://github.com/tansuasici/ClaudeResearchKit/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
   <img src="https://img.shields.io/badge/ResearchKitBench-34%2F34-1a7f4b" alt="bench 34/34">
+  <a href="https://www.npmjs.com/package/@tansuasici/claude-research-kit"><img src="https://img.shields.io/npm/v/@tansuasici/claude-research-kit?color=4f2fd7" alt="npm version"></a>
   <img src="https://img.shields.io/badge/license-MIT-4f2fd7" alt="MIT">
 </p>
 
@@ -211,7 +218,7 @@ ClaudeResearchKit/kit/
 
 **AGENTS.md export** — `scripts/convert.sh` derives a cross-tool [AGENTS.md](AGENTS.md) (and Cursor / Windsurf / Aider configs) from `CLAUDE.md`, the single source of truth. **Install lifecycle** (`install` → `doctor` → `upgrade` → `uninstall`) and `.kit-manifest` freshness are smoke-tested in CI on ubuntu + macOS.
 
-Planned: a documentation site (the `web/` half), and more field overlays.
+Docs site is live at **[clauderesearchkit.tansuasici.com](https://clauderesearchkit.tansuasici.com)** (built with Fumadocs + DocSync, in [`claude-research-kit-web`](https://github.com/tansuasici/claude-research-kit-web)). Planned: more field overlays.
 
 ## Contributing
 
