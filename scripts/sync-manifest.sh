@@ -16,7 +16,7 @@ cd "$ROOT"
 
 generate() {
   {
-    find .claude agent_docs scripts bench bin tasks vault artifacts -type f \
+    find .claude agent_docs scripts bench bin tasks vault artifacts assets -type f \
       ! -path '*/.hook-state/*' ! -name '.DS_Store' 2>/dev/null
     for f in \
       CLAUDE.md CLAUDE.project.md MANUSCRIPT_MAP.md STYLE.md VAULT.md ARTIFACTS.md \

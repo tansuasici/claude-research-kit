@@ -1,6 +1,16 @@
+<p align="center">
+  <img src="assets/logo.png" alt="Claude Research Kit" width="160">
+</p>
+
 <h1 align="center">Claude Research Kit</h1>
 
 <p align="center">Drop-in templates that make Claude Code behave like a rigorous co-author instead of an eager intern — for scholarly writing in LaTeX&nbsp;+&nbsp;BibTeX.</p>
+
+<p align="center">
+  <a href="https://github.com/tansuasici/ClaudeResearchKit/actions"><img src="https://github.com/tansuasici/ClaudeResearchKit/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
+  <img src="https://img.shields.io/badge/ResearchKitBench-34%2F34-1a7f4b" alt="bench 34/34">
+  <img src="https://img.shields.io/badge/license-MIT-4f2fd7" alt="MIT">
+</p>
 
 ## The Problem
 
@@ -201,7 +211,11 @@ ClaudeResearchKit/kit/
 
 **AGENTS.md export** — `scripts/convert.sh` derives a cross-tool [AGENTS.md](AGENTS.md) (and Cursor / Windsurf / Aider configs) from `CLAUDE.md`, the single source of truth. **Install lifecycle** (`install` → `doctor` → `upgrade` → `uninstall`) and `.kit-manifest` freshness are smoke-tested in CI on ubuntu + macOS.
 
-Planned: **npm publish** of the `npx` package + plugin-marketplace listing (needs the maintainer's npm token + 2FA), a documentation site, and an HTML-artifacts module.
+Planned: a documentation site (the `web/` half), and more field overlays.
+
+## Contributing
+
+PRs welcome. If you've built a field overlay for a discipline we don't cover yet, or a skill that fits the Source-Grounded discipline, open a PR. Every hook change must keep [ResearchKitBench](bench/README.md) green (`./scripts/run-bench.sh`), and `.kit-manifest` must stay fresh (`./scripts/sync-manifest.sh`). CI enforces both on ubuntu + macOS.
 
 ## License
 

@@ -70,6 +70,7 @@ agent_docs/statistics.md
 agent_docs/writing-workflow.md
 artifacts/design-system.html
 artifacts/index.html
+assets/logo.png
 bench/README.md
 bench/scenarios/block-fabrication.json
 bench/scenarios/citation-gate.json
