@@ -49,7 +49,7 @@ Then **fill in `MANUSCRIPT_MAP.md`** with your thesis, contribution, target venu
 
 ## Hooks
 
-Hooks are shell scripts that run automatically — unlike CLAUDE.md rules (advisory), hooks are **deterministic**. The kit ships **10** hooks, all wired by default.
+Hooks are shell scripts that run automatically — unlike CLAUDE.md rules (advisory), hooks are **deterministic**. The kit ships **13** hooks, all wired by default.
 
 **Guardrails — block on violation (PreToolUse / Stop):**
 
@@ -60,7 +60,8 @@ Hooks are shell scripts that run automatically — unlike CLAUDE.md rules (advis
 | `branch-protect` | PreToolUse | Blocks push to `main`/`master` and force pushes |
 | `block-dangerous-commands` | PreToolUse | Blocks `rm -rf /`, `git reset --hard`, etc. |
 | `citation-gate` | PostToolUse | After a `.tex`/`.bib` edit: every `\cite` must resolve in `references.bib`; every `\ref` must have a `\label`. Records the verdict |
-| `stop-gate` | Stop | Blocks completion when the last citation gate failed (bypass: `SKIP_QUALITY_GATE=1`) |
+| `compile-gate` | PostToolUse | Parses the LaTeX `.log` for undefined citations/references and errors; records a verdict (opt-in `CCK_COMPILE_GATE=1` refreshes via `latexmk`) |
+| `stop-gate` | Stop | Blocks completion when the last citation **or** compile gate failed (bypass: `SKIP_QUALITY_GATE=1`) |
 
 **Context & observability — inject or warn, never block:**
 
@@ -69,13 +70,15 @@ Hooks are shell scripts that run automatically — unlike CLAUDE.md rules (advis
 | `session-start` | SessionStart | Injects the manuscript-map pointer, thesis, stage, top reviewer rules, active task, branch + dirty tree; resets stale session state |
 | `prompt-router` | UserPromptSubmit | Injects a calibration reminder when a prompt touches an inflection (overclaim, statistics, causation, citations, reviewer response, methods) |
 | `unicode-scan` | PostToolUse | Detects invisible Unicode (rife in copy-pasted PDF text) |
+| `word-budget` | PostToolUse | Warns when a section `.tex` exceeds its `% budget: NNN` (mirrors MANUSCRIPT_MAP) — uses `texcount` if present |
+| `figure-orphan` | PostToolUse | Warns on orphan floats (labeled, never `\ref`'d), unused `figures/` assets, and missing `\includegraphics` files |
 | `session-end` | SessionEnd | Writes a session audit line for the scorecard |
 
 > The `RESEARCH_APPROVED=1` escape hatch bypasses `protect-sources` and `block-fabrication` (e.g. importing a `.bib` you have independently verified).
 
 ### ResearchKitBench — the hooks are tested
 
-The hooks aren't documentation, they're a contract. The kit ships [`bench/`](bench/README.md): a reproducible eval harness with **24 deterministic scenarios** (no LLM, no network) covering every blocking hook, plus regressions (a `\cite` inside a TeX comment must not count; honest `[CITE]` prose placeholders must not be blocked). Run it with `./scripts/run-bench.sh`; CI runs it on every PR (ubuntu + macOS).
+The hooks aren't documentation, they're a contract. The kit ships [`bench/`](bench/README.md): a reproducible eval harness with **32 deterministic scenarios** (no LLM, no network) covering every blocking hook, plus regressions (a `\cite` inside a TeX comment must not count; honest `[CITE]` prose placeholders must not be blocked). Run it with `./scripts/run-bench.sh`; CI runs it on every PR (ubuntu + macOS).
 
 ```text
 ResearchKitBench
@@ -85,7 +88,7 @@ ResearchKitBench
   s14-protect-sources-blocks-sources-dir           PASS
   ...                                              PASS
 ========================================
-  24/24 PASS  0 FAIL
+  32/32 PASS  0 FAIL
 ```
 
 ## Agents

@@ -9,6 +9,7 @@ project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 - **Literature Vault module** (TAN-3609) — `VAULT.md` schema + `vault/` annotated bibliography (`summaries/<bibkey>.md`, `concepts/`, `entities/`). `/lit-ingest` (a source → annotated summary + a `references.bib` entry *extracted from the document*, never fabricated), `/lit-lint`, `/lit-briefing`, and the `vault-maintainer` agent. Self-contained, offline; raw `sources/` immutable.
 - **8 manuscript skills** (TAN-3610) — `/literature-review`, `/abstract`, `/stats-check`, `/methods-review`, `/gap-finder`, `/cover-letter`, `/reference-format`, `/plain-language-summary`. Brings the kit to **17 skills, 5 agents**.
+- **3 deterministic hooks** (TAN-3611) — `compile-gate` (parses the LaTeX `.log` for undefined citations/references and errors → its own verdict; `stop-gate` now blocks on the citation **or** compile gate), `word-budget` (warns past a section's `% budget: NNN`, `texcount`-optional), `figure-orphan` (orphan floats, unused/missing figure assets). **13 hooks**; ResearchKitBench → **32 scenarios**.
 
 ### Changed
 - Re-themed all demo content from environmental chemistry to **LLM-agent research** — the worked example (`examples/llm-agent-minimal`), the field overlay (`environmental-science` → `ai-ml`), and scattered illustrative examples across skills / agents / agent_docs. The public repo no longer carries a specific personal research domain. (TAN-3608)

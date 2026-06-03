@@ -1,0 +1,92 @@
+[
+  {
+    "name": "s25-compile-gate-fails-on-undefined-cite-log",
+    "hook": ".claude/hooks/compile-gate.sh",
+    "setup_files": {
+      "references.bib": "@article{real,author={X},title={Y},year={2020}}\n",
+      "main.tex": "\\documentclass{article}\\begin{document}x\\end{document}\n",
+      "main.log": "This is pdfTeX.\nLaTeX Warning: Citation `ghost2020' on page 1 undefined on input line 5.\nThere were undefined references.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/main.tex" } },
+    "expect": {
+      "exit_code": 0,
+      "state": [ { "file": ".hook-state/last_compile_gate.json", "field": "status", "equals": "failed" } ]
+    },
+    "notes": "compile-gate parses the LaTeX .log — an undefined citation reported by the engine must record a failed verdict (no TeX install needed)."
+  },
+  {
+    "name": "s26-compile-gate-passes-on-clean-log",
+    "hook": ".claude/hooks/compile-gate.sh",
+    "setup_files": {
+      "references.bib": "@article{real,author={X},title={Y},year={2020}}\n",
+      "main.tex": "\\documentclass{article}\\begin{document}x\\end{document}\n",
+      "main.log": "This is pdfTeX, Version 3.141592653.\nOutput written on main.pdf (1 page, 12345 bytes).\nTranscript written on main.log.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/main.tex" } },
+    "expect": {
+      "exit_code": 0,
+      "state": [ { "file": ".hook-state/last_compile_gate.json", "field": "status", "equals": "passed" } ]
+    }
+  },
+  {
+    "name": "s27-compile-gate-noop-without-log",
+    "hook": ".claude/hooks/compile-gate.sh",
+    "setup_files": {
+      "references.bib": "@article{real,author={X},title={Y},year={2020}}\n",
+      "main.tex": "\\documentclass{article}\\begin{document}x\\end{document}\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/main.tex" } },
+    "expect": {
+      "exit_code": 0,
+      "file_absent": [".hook-state/last_compile_gate.json"]
+    },
+    "notes": "No compile log yet → no verdict written (don't block a project that hasn't been compiled)."
+  },
+  {
+    "name": "s28-stop-gate-blocks-on-failed-compile",
+    "hook": ".claude/hooks/stop-gate.sh",
+    "setup_files": {
+      ".hook-state/last_compile_gate.json": "{\"status\":\"failed\",\"stderr_tail\":\"undefined citation(s): ghost2020\"}"
+    },
+    "payload": {},
+    "expect": { "exit_code": 2, "stderr_contains": ["BLOCKED by stop-gate.sh"] },
+    "notes": "stop-gate now blocks on a failed compile verdict too, not just the static citation gate."
+  },
+  {
+    "name": "s29-word-budget-warns-over-budget",
+    "hook": ".claude/hooks/word-budget.sh",
+    "setup_files": {
+      "intro.tex": "% budget: 5\nThe agent harness evaluates tool call accuracy across many long horizon tasks repeatedly today.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/intro.tex" } },
+    "expect": { "exit_code": 0, "stderr_contains": ["word-budget"] }
+  },
+  {
+    "name": "s30-word-budget-quiet-under-budget",
+    "hook": ".claude/hooks/word-budget.sh",
+    "setup_files": {
+      "intro.tex": "% budget: 500\nShort intro paragraph.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/intro.tex" } },
+    "expect": { "exit_code": 0, "stderr_not_contains": ["word-budget"] }
+  },
+  {
+    "name": "s31-figure-orphan-warns-orphan-label",
+    "hook": ".claude/hooks/figure-orphan.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\begin{document}\n\\begin{figure}\\caption{x}\\label{fig:orphan}\\end{figure}\n\\end{document}\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/main.tex" } },
+    "expect": { "exit_code": 0, "stderr_contains": ["orphan"] },
+    "notes": "A \\label{fig:...} never \\ref'd is an orphan float — the reverse of what citation-gate checks."
+  },
+  {
+    "name": "s32-figure-orphan-quiet-when-referenced",
+    "hook": ".claude/hooks/figure-orphan.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\begin{document}\nSee Fig.~\\ref{fig:ok}.\n\\begin{figure}\\caption{x}\\label{fig:ok}\\end{figure}\n\\end{document}\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/main.tex" } },
+    "expect": { "exit_code": 0, "stderr_not_contains": ["figure-orphan"] }
+  }
+]

@@ -70,7 +70,10 @@
         "matcher": "Edit|Write|NotebookEdit",
         "hooks": [
           { "type": "command", "command": ".claude/hooks/unicode-scan.sh" },
-          { "type": "command", "command": ".claude/hooks/citation-gate.sh" }
+          { "type": "command", "command": ".claude/hooks/citation-gate.sh" },
+          { "type": "command", "command": ".claude/hooks/compile-gate.sh" },
+          { "type": "command", "command": ".claude/hooks/word-budget.sh" },
+          { "type": "command", "command": ".claude/hooks/figure-orphan.sh" }
         ]
       }
     ],

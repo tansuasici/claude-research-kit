@@ -16,7 +16,7 @@ The kit makes deterministic-enforcement promises — *"a `\cite` with no `.bib` 
 
 Exit codes: `0` all pass, `1` one or more fail, `2` runner error. Each scenario runs in a **fresh temp directory** — no shared state.
 
-## What's covered (24 scenarios)
+## What's covered (32 scenarios)
 
 | # | Scenario | What it asserts |
 |---|---|---|
@@ -44,6 +44,14 @@ Exit codes: `0` all pass, `1` one or more fail, `2` runner error. Each scenario 
 | s22 | `session-end-writes-audit-line` | appends one line to `reports/session-audit.log` |
 | s23 | `branch-protect-blocks-push-main` | `git push origin main` → exit 2 |
 | s24 | `block-dangerous-blocks-rm-rf-root` | `rm -rf /` → exit 2 |
+| s25 | `compile-gate-fails-on-undefined-cite-log` | a LaTeX `.log` with `Citation … undefined` → compile verdict `failed` |
+| s26 | `compile-gate-passes-on-clean-log` | a clean `.log` → compile verdict `passed` |
+| s27 | `compile-gate-noop-without-log` | no `.log` yet → no verdict written (don't gate an uncompiled project) |
+| s28 | `stop-gate-blocks-on-failed-compile` | failed `last_compile_gate.json` → exit 2 (stop-gate checks both gates) |
+| s29 | `word-budget-warns-over-budget` | `% budget: 5` + a long section → `word-budget` warning |
+| s30 | `word-budget-quiet-under-budget` | `% budget: 500` + a short section → silent |
+| s31 | `figure-orphan-warns-orphan-label` | `\label{fig:x}` never `\ref`'d → orphan warning |
+| s32 | `figure-orphan-quiet-when-referenced` | `\label{fig:x}` with a matching `\ref` → silent |
 
 ## Add a scenario
 

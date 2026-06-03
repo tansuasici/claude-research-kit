@@ -9,6 +9,8 @@
 .claude/hooks/block-fabrication.sh
 .claude/hooks/branch-protect.sh
 .claude/hooks/citation-gate.sh
+.claude/hooks/compile-gate.sh
+.claude/hooks/figure-orphan.sh
 .claude/hooks/lib/json-parse.sh
 .claude/hooks/lib/state-counter.sh
 .claude/hooks/prompt-router.sh
@@ -17,6 +19,7 @@
 .claude/hooks/session-start.sh
 .claude/hooks/stop-gate.sh
 .claude/hooks/unicode-scan.sh
+.claude/hooks/word-budget.sh
 .claude/settings.json
 .claude/skills/abstract/SKILL.md
 .claude/skills/citation-audit/SKILL.md
@@ -47,6 +50,7 @@ agent_docs/writing-workflow.md
 bench/README.md
 bench/scenarios/block-fabrication.json
 bench/scenarios/citation-gate.json
+bench/scenarios/e3-hooks.json
 bench/scenarios/prompt-router.json
 bench/scenarios/protect-sources.json
 bench/scenarios/session-and-reused.json
