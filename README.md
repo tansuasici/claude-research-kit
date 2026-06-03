@@ -132,6 +132,9 @@ The analogue of stack templates — discipline-specific conventions that supplem
 | Overlay | Covers |
 |---------|--------|
 | `agent_docs/field/ai-ml.md` | ML/NLP venue cues (NeurIPS/ICML/ACL/EMNLP), reproducibility (seeds, compute, decoding params), baselines & ablations, significance over seeds, eval contamination, LLM-agent reviewer concerns |
+| `agent_docs/field/life-sciences.md` | ARRIVE/STROBE/PRISMA/MIAME standards, IRB/IACUC ethics, wet-lab reproducibility (RRIDs, cell-line authentication, biological vs technical replicates), figure integrity, GEO/SRA deposition |
+| `agent_docs/field/social-sciences.md` | APA 7, preregistration & the replication crisis (OSF, registered reports, no HARKing), construct validity (Cronbach's α), qualitative coding (Cohen's κ, reflexivity), effect sizes over bare p |
+| `agent_docs/field/medicine.md` | CONSORT/STROBE/STARD/SPIRIT, prospective trial registration + registered primary outcome, effect measures (ARR, NNT, ITT), bias (allocation concealment, blinding), COI disclosure |
 
 ## Literature Vault (module)
 
@@ -172,7 +175,7 @@ ClaudeResearchKit/kit/
 
 ## Status & Roadmap
 
-**Current.** The deterministic spine — **13 hooks**, bench-proven (**32 scenarios**) — plus the CLAUDE.md ruleset, **5 agents**, **19 skills** (incl. 2 orchestrators), 7 agent_docs, the **ai-ml** field overlay, and the **Literature Vault** module.
+**Current.** The deterministic spine — **13 hooks**, bench-proven (**32 scenarios**) — plus the CLAUDE.md ruleset, **5 agents**, **19 skills** (incl. 2 orchestrators), 7 agent_docs, **4 field overlays** (ai-ml, life/social sciences, medicine), and the **Literature Vault** module.
 
 Planned: npx distribution (`crk init` / `doctor` / `convert`), plugin-marketplace listing, more field overlays (life-sciences, social-sciences, CS), `latexmk` compile gating, `texcount` budget hook, more skills (`/abstract`, `/stats-check`, …), and a documentation site.
 
