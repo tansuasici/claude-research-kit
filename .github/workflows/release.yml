@@ -13,11 +13,58 @@ jobs:
   release-please:
     name: Release Please
     runs-on: ubuntu-latest
+    # Outputs let downstream jobs run only when a release was actually cut
+    # (i.e. the release PR was merged → tag + GitHub release created).
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
       # On a conventional-commit push to main, opens/updates a release PR with the
       # auto-generated CHANGELOG (Features / Bug Fixes / …) and version bumps across
       # VERSION, package.json, and the plugin manifests. Merging it tags the release.
       - uses: googleapis/release-please-action@v4
+        id: release
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+  # Publish to npm — only on an actual release (release PR merged). At that point
+  # main already carries the bumped version, so a plain `npm publish` ships it.
+  # Requires repo secret NPM_TOKEN (an npm automation token with publish rights).
+  npm-publish:
+    name: Publish to npm
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+      - name: Publish (scoped, public)
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # Rebuild + redeploy the docs site on each release: it embeds the kit's version,
+  # CHANGELOG, repo stats, and generated skill docs (pulled from this repo at build
+  # time), so a new tag should refresh it. Fires a repository_dispatch the web repo's
+  # Deploy workflow listens for. Requires repo secret WEB_DISPATCH_TOKEN (a PAT with
+  # `contents:write` + `actions:write` on tansuasici/claude-research-kit-web).
+  # continue-on-error so a missing/expired token never blocks the release itself.
+  dispatch-web:
+    name: Trigger web deploy
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch kit-release event to the web repo
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.WEB_DISPATCH_TOKEN }}
+          TAG: ${{ needs.release-please.outputs.tag_name }}
+        run: |
+          gh api repos/tansuasici/claude-research-kit-web/dispatches \
+            -f event_type=kit-release \
+            -f client_payload[tag]="$TAG"
