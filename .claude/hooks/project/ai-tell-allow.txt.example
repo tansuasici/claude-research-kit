@@ -1,0 +1,17 @@
+# ai-tell-allow.txt — discipline terminology allowlist for ai-tell.sh
+#
+# One lowercased term per line. Any term listed here is NOT flagged as
+# machine-prose by ai-tell.sh. Use it for words that are legitimate, load-bearing
+# jargon in YOUR field but happen to be on the generic "AI tell" list.
+#
+# Inline comments after '#' are ignored, so you can annotate why.
+# A per-project override lives at <project>/.ai-tell-allow.txt (same format);
+# both files are merged.
+#
+# Examples — uncomment the ones that apply to your discipline:
+# robust          # statistics / ML: "robust standard errors", "robustness check"
+# leverage        # finance: "leverage ratio"; physics: "lever arm"
+# significant     # statistics: "statistically significant" (still watch for vague use)
+# paramount       # law
+# foster          # social work / education: "foster care", "foster engagement"
+# realm           # mathematics/physics when literal, not figurative
