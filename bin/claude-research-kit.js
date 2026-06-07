@@ -23,7 +23,8 @@ const rest = args.slice(1);
 
 function version() {
   try {
-    return fs.readFileSync(path.join(PKG_ROOT, 'VERSION'), 'utf8').trim();
+    // VERSION carries a release-please annotation comment; strip it.
+    return fs.readFileSync(path.join(PKG_ROOT, 'VERSION'), 'utf8').split('#')[0].trim();
   } catch {
     return '0.0.0';
   }
