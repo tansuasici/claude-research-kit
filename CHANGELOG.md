@@ -5,6 +5,14 @@ All notable changes to Claude Research Kit will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1](https://github.com/tansuasici/claude-research-kit/compare/v0.1.0...v0.1.1) (2026-06-07)
+
+
+### Features
+
+* **hooks:** add ai-tell prose-lint hook ([#1](https://github.com/tansuasici/claude-research-kit/issues/1)) ([3138d03](https://github.com/tansuasici/claude-research-kit/commit/3138d03efb68efeeb2c06c486b28065a001cbd81))
+* **web:** E9 — landing page (logo, brand, install) (TAN-3617) ([5658728](https://github.com/tansuasici/claude-research-kit/commit/5658728a065b701d69120ba61bbd34e59911eec8))
+
 ## 0.1.0 (2026-06-03)
 
 
