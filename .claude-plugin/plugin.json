@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "claude-research-kit",
   "description": "Discipline kit that turns Claude Code from eager intern to rigorous co-author. Source-grounded academic writing for LaTeX + BibTeX: deterministic citation gate, anti-fabrication guard, claim discipline, peer-review agents, and a Question → Evidence → Draft → Verify → Cite workflow.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "tansuasici",
     "url": "https://github.com/tansuasici"
