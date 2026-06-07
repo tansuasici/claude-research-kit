@@ -1,0 +1,32 @@
+[
+  {
+    "name": "s35-ai-tell-warns-on-machine-prose",
+    "hook": ".claude/hooks/ai-tell.sh",
+    "setup_files": {
+      "intro.tex": "It is important to note that we delve into the rich tapestry of agent behaviour. When it comes to tool use, this multifaceted and seamless framework matters here. This section will discuss results in a way that reflects the intricate and meticulous nature of the present work.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/intro.tex" } },
+    "expect": { "exit_code": 0, "stderr_contains": ["ai-tell"] },
+    "notes": "Overused lexis (delve/tapestry/multifaceted/seamless/intricate/meticulous) + throat-clearing openers + meta-commentary push the score past the floor. Warn-only, exit 0 — the kit flags machine-prose, it never rewrites."
+  },
+  {
+    "name": "s36-ai-tell-quiet-on-clean-prose",
+    "hook": ".claude/hooks/ai-tell.sh",
+    "setup_files": {
+      "intro.tex": "Our gate reduced hallucinated tool calls on the tested harness. The effect held across three of the four task families we evaluated, though the fourth showed wide variance that we attribute to its longer horizon. We report the per-family breakdown in Table 2 and caution against over-reading the aggregate.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/intro.tex" } },
+    "expect": { "exit_code": 0, "stderr_not_contains": ["ai-tell"] },
+    "notes": "Varied sentence length, no AI-tell lexis or filler — must stay silent. Guards against false positives on ordinary calibrated academic prose."
+  },
+  {
+    "name": "s37-ai-tell-respects-allow-comment",
+    "hook": ".claude/hooks/ai-tell.sh",
+    "setup_files": {
+      "intro.tex": "% kit-allow-ai-tell\nIt is important to note that we delve into the rich tapestry of multifaceted seamless intricate meticulous prose that would otherwise trip every single detector in this whole suite here today.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/intro.tex" } },
+    "expect": { "exit_code": 0, "stderr_not_contains": ["ai-tell"] },
+    "notes": "A 'kit-allow-ai-tell' comment in the first 5 lines suppresses the scan entirely, mirroring unicode-scan's kit-allow-unicode escape hatch."
+  }
+]

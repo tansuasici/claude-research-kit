@@ -16,7 +16,7 @@ The kit makes deterministic-enforcement promises — *"a `\cite` with no `.bib` 
 
 Exit codes: `0` all pass, `1` one or more fail, `2` runner error. Each scenario runs in a **fresh temp directory** — no shared state.
 
-## What's covered (34 scenarios)
+## What's covered (37 scenarios)
 
 | # | Scenario | What it asserts |
 |---|---|---|
@@ -54,6 +54,9 @@ Exit codes: `0` all pass, `1` one or more fail, `2` runner error. Each scenario 
 | s32 | `figure-orphan-quiet-when-referenced` | `\label{fig:x}` with a matching `\ref` → silent |
 | s33 | `journal-fold-creates-handoff` | a `/note` journal (findings/decisions) → folded into `tasks/handoff-<session>.md` at SessionEnd |
 | s34 | `review-resurface-returns-pointer-only` | a topic query returns matching `tasks/reviews/` pointers, **never the note body** |
+| s35 | `ai-tell-warns-on-machine-prose` | overused lexis + throat-clearing openers + meta-commentary past the floor → `ai-tell` warning *(warn-only, never rewrites)* |
+| s36 | `ai-tell-quiet-on-clean-prose` | varied, calibrated academic prose → silent *(regression: no false positive)* |
+| s37 | `ai-tell-respects-allow-comment` | `kit-allow-ai-tell` in the first 5 lines → scan suppressed entirely |
 
 ## Add a scenario
 
