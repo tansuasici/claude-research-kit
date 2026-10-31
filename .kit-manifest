@@ -87,6 +87,7 @@ bin/claude-research-kit.js
 hooks/hooks.json
 install.sh
 package.json
+scripts/check-plugin-layer.sh
 scripts/convert.sh
 scripts/doctor.sh
 scripts/note.sh

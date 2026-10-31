@@ -12,12 +12,5 @@
   "license": "MIT",
   "skills": [
     "./.claude/skills/"
-  ],
-  "agents": [
-    "./.claude/agents/fact-checker.md",
-    "./.claude/agents/integrity-reviewer.md",
-    "./.claude/agents/outline-planner.md",
-    "./.claude/agents/peer-reviewer.md",
-    "./.claude/agents/vault-maintainer.md"
   ]
 }
