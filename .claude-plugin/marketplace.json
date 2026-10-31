@@ -1,7 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "claude-research-kit",
-  "id": "claude-research-kit",
   "owner": {
     "name": "tansuasici",
     "url": "https://github.com/tansuasici"
@@ -12,7 +11,7 @@
   },
   "plugins": [
     {
-      "name": "claude-research-kit",
+      "name": "research-kit",
       "source": "./",
       "description": "Question → Evidence → Draft → Verify → Cite discipline for scholarly writing. Tiered session boot, deterministic hooks (citation-gate, block-fabrication, protect-sources, stop-gate, prompt-router), user-invocable skills (claim-check, citation-audit, peer-review, outline, journal-fit, response-to-reviewers), review agents (peer-reviewer, integrity-reviewer, fact-checker, outline-planner), a CLAUDE.md ruleset, reviewer-feedback memory, and field overlays.",
       "version": "0.1.2",

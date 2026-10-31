@@ -63,7 +63,7 @@ Or as a Claude Code plugin, from the shared `tansuasici` marketplace:
 
 ```
 /plugin marketplace add tansuasici/claude-plugins
-/plugin install claude-research-kit@tansuasici
+/plugin install research-kit@tansuasici
 ```
 
 ## What CLAUDE.md Enforces
