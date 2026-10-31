@@ -5,6 +5,13 @@ All notable changes to Claude Research Kit will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2](https://github.com/tansuasici/claude-research-kit/compare/v0.1.1...v0.1.2) (2026-10-31)
+
+
+### Bug Fixes
+
+* **plugin:** load skills, agents and hooks when installed as a plugin ([#5](https://github.com/tansuasici/claude-research-kit/issues/5)) ([ba5154e](https://github.com/tansuasici/claude-research-kit/commit/ba5154e00baeb2c111264189b1223e065c0c6a3f))
+
 ## [0.1.1](https://github.com/tansuasici/claude-research-kit/compare/v0.1.0...v0.1.1) (2026-06-07)
 
 
