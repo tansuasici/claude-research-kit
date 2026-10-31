@@ -66,6 +66,8 @@ Or as a Claude Code plugin, from the shared `tansuasici` marketplace:
 /plugin install research-kit@tansuasici
 ```
 
+> Installed earlier as `claude-research-kit` from the kit's own marketplace? That install keeps updating; to switch, uninstall it and run `/plugin install research-kit@tansuasici`.
+
 ## What CLAUDE.md Enforces
 
 | Rule | What it does |
