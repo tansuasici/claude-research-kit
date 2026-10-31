@@ -36,7 +36,7 @@ jobs:
       - name: Validate all JSON parses
         run: |
           set -e
-          for f in .claude/settings.json .claude-plugin/plugin.json .claude-plugin/marketplace.json bench/scenarios/*.json; do
+          for f in .claude/settings.json hooks/hooks.json .claude-plugin/plugin.json .claude-plugin/marketplace.json bench/scenarios/*.json; do
             echo "checking $f"
             python3 -c "import json,sys; json.load(open('$f'))"
           done

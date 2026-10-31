@@ -29,6 +29,7 @@
     "agent_docs/",
     ".claude/",
     ".claude-plugin/",
+    "hooks/",
     "tasks/",
     "scripts/",
     "bench/",
