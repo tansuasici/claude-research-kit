@@ -104,6 +104,6 @@ Usage:
   crk bench                                      Run ResearchKitBench
   crk --version                                  Print version
 
-Docs: https://github.com/tansuasici/ClaudeResearchKit`);
+Docs: https://github.com/tansuasici/claude-research-kit`);
     process.exit(cmd && !['--help', '-h'].includes(cmd) ? 2 : 0);
 }

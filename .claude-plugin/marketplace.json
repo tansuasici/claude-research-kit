@@ -1,7 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "claude-research-kit",
-  "id": "claude-research-kit",
   "owner": {
     "name": "tansuasici",
     "url": "https://github.com/tansuasici"
