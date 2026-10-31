@@ -26,6 +26,7 @@
   "files": [
     "bin/",
     "assets/",
+    "agents/",
     "agent_docs/",
     ".claude/",
     ".claude-plugin/",

@@ -49,6 +49,14 @@ jobs:
       - name: Check manifest staleness
         run: ./scripts/sync-manifest.sh --check
 
+  plugin-layer:
+    name: Plugin root copies match .claude/
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check agents/ and hooks/hooks.json
+        run: ./scripts/check-plugin-layer.sh
+
   install:
     name: Install → doctor → upgrade → uninstall
     runs-on: ${{ matrix.os }}
