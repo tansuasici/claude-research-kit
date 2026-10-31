@@ -84,6 +84,7 @@ bench/scenarios/protect-sources.json
 bench/scenarios/session-and-reused.json
 bench/scenarios/stop-gate.json
 bin/claude-research-kit.js
+hooks/hooks.json
 install.sh
 package.json
 scripts/convert.sh

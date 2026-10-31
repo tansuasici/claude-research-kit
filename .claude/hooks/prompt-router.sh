@@ -24,6 +24,12 @@ fi
 [ -z "$PROMPT" ] && exit 0
 LOWER=$(printf '%s' "$PROMPT" | tr '[:upper:]' '[:lower:]')
 
+# Plugin install: agent_docs/ stays in the plugin, not the project.
+DOCS="agent_docs"
+if [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ ! -d "${CLAUDE_PROJECT_DIR:-$PWD}/agent_docs" ]; then
+  DOCS="$CLAUDE_PLUGIN_ROOT/agent_docs"
+fi
+
 REMINDERS=""
 append() { REMINDERS="${REMINDERS}${1}"$'\n'; }
 
@@ -36,7 +42,7 @@ fi
 
 # Statistics / quantitative reporting
 if printf '%s' "$LOWER" | grep -qE '\b(p-?value|signific|correlat|regress|confidence interval|sample size|effect size|t-?test|anova|odds ratio|stat)'; then
-  append "[Statistics] Report effect size + uncertainty (CI), not just significance. State N, the test, and assumptions. 'Significant' means statistically significant — never use it to mean 'large' or 'important'. No p-hacking, no HARKing. See agent_docs/statistics.md."
+  append "[Statistics] Report effect size + uncertainty (CI), not just significance. State N, the test, and assumptions. 'Significant' means statistically significant — never use it to mean 'large' or 'important'. No p-hacking, no HARKing. See ${DOCS}/statistics.md."
 fi
 
 # Causal language
@@ -46,12 +52,12 @@ fi
 
 # Citations / literature
 if printf '%s' "$LOWER" | grep -qE '\b(cite|citation|reference|bibliograph|literature|prior work|related work|background)'; then
-  append "[Sourcing] Never invent a citation, author, year, DOI, or page. Every \\cite must resolve in references.bib. If the source is not in the library, say so and leave a [CITE] placeholder — do not fabricate one. See agent_docs/citation-discipline.md."
+  append "[Sourcing] Never invent a citation, author, year, DOI, or page. Every \\cite must resolve in references.bib. If the source is not in the library, say so and leave a [CITE] placeholder — do not fabricate one. See ${DOCS}/citation-discipline.md."
 fi
 
 # Reviewer response / revision
 if printf '%s' "$LOWER" | grep -qE '\b(reviewer|referee|rebuttal|response to|revision|resubmi|major revision|minor revision|r1|r2)'; then
-  append "[Reviewer response] Address every point explicitly, quote the reviewer, state the change + where (section/line), and stay courteous. Do not claim a change you have not made. Log recurring critiques to tasks/reviews/. See agent_docs/peer-review.md."
+  append "[Reviewer response] Address every point explicitly, quote the reviewer, state the change + where (section/line), and stay courteous. Do not claim a change you have not made. Log recurring critiques to tasks/reviews/. See ${DOCS}/peer-review.md."
 fi
 
 # Methods

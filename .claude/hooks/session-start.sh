@@ -59,6 +59,10 @@ if [ -f "$ROOT/MANUSCRIPT_MAP.md" ]; then
   STAGE=$(grep -iE '^\*\*Stage:' "$ROOT/MANUSCRIPT_MAP.md" 2>/dev/null | head -1 | sed 's/^[*]*[Ss]tage:[*]*[[:space:]]*//' || true)
   [ -n "$STAGE" ] && ! printf '%s' "$STAGE" | grep -q '<' && append_line "Stage → $STAGE"
 fi
+# Plugin install: the kit's docs and templates stay in the plugin, not the project.
+if [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ ! -d "$ROOT/agent_docs" ]; then
+  append_line "Kit runs as a plugin: read agent_docs/*.md from $CLAUDE_PLUGIN_ROOT/agent_docs/, and copy the MANUSCRIPT_MAP.md template from $CLAUDE_PLUGIN_ROOT/MANUSCRIPT_MAP.md."
+fi
 [ -f "$ROOT/CLAUDE.project.md" ] && append_line "Project overlay: CLAUDE.project.md present — project rules override kit defaults."
 [ -f "$ROOT/STYLE.md" ] && append_line "Style guide: STYLE.md present — match its voice and formatting."
 
