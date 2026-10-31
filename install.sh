@@ -34,7 +34,7 @@ done
 if [ "$SRC" = "$TARGET" ]; then
   echo "install: refusing to install the kit into itself ($SRC)." >&2
   echo "Run this from your manuscript project, pointing at a kit checkout:" >&2
-  echo "  bash /path/to/ClaudeResearchKit/kit/install.sh \"\$PWD\"" >&2
+  echo "  bash /path/to/claude-research-kit/install.sh \"\$PWD\"" >&2
   exit 2
 fi
 

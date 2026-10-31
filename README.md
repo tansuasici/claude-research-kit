@@ -9,11 +9,11 @@
 <p align="center">
   <b><a href="https://clauderesearchkit.tansuasici.com">Documentation</a></b> ·
   <a href="https://www.npmjs.com/package/@tansuasici/claude-research-kit">npm</a> ·
-  <a href="https://github.com/tansuasici/ClaudeResearchKit/releases">Releases</a>
+  <a href="https://github.com/tansuasici/claude-research-kit/releases">Releases</a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/tansuasici/ClaudeResearchKit/actions"><img src="https://github.com/tansuasici/ClaudeResearchKit/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
+  <a href="https://github.com/tansuasici/claude-research-kit/actions"><img src="https://github.com/tansuasici/claude-research-kit/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
   <img src="https://img.shields.io/badge/ResearchKitBench-37%2F37-1a7f4b" alt="bench 37/37">
   <a href="https://www.npmjs.com/package/@tansuasici/claude-research-kit"><img src="https://img.shields.io/npm/v/@tansuasici/claude-research-kit?color=4f2fd7" alt="npm version"></a>
   <img src="https://img.shields.io/badge/license-MIT-4f2fd7" alt="MIT">
@@ -42,9 +42,9 @@ The cardinal rule the whole kit exists to enforce: **every claim traces to a rea
 
 ```bash
 # clone into your manuscript repo
-git clone --depth 1 https://github.com/tansuasici/ClaudeResearchKit.git /tmp/crk
-cp /tmp/crk/kit/CLAUDE.md /tmp/crk/kit/MANUSCRIPT_MAP.md /tmp/crk/kit/CLAUDE.project.md .
-cp -r /tmp/crk/kit/.claude /tmp/crk/kit/agent_docs /tmp/crk/kit/tasks .
+git clone --depth 1 https://github.com/tansuasici/claude-research-kit.git /tmp/crk
+cp /tmp/crk/CLAUDE.md /tmp/crk/MANUSCRIPT_MAP.md /tmp/crk/CLAUDE.project.md .
+cp -r /tmp/crk/.claude /tmp/crk/agent_docs /tmp/crk/tasks .
 rm -rf /tmp/crk
 ```
 
@@ -194,7 +194,7 @@ The manuscript is LaTeX — but its *shareable, read-only* outputs are better as
 ## What's Inside
 
 ```text
-ClaudeResearchKit/kit/
+claude-research-kit/
   CLAUDE.md                     # Core agent ruleset (kit-managed)
   CLAUDE.project.md             # Project overlay (yours, never overwritten)
   MANUSCRIPT_MAP.md             # The map — thesis, contribution, venue, sections
