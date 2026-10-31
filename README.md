@@ -50,7 +50,7 @@ rm -rf /tmp/crk
 
 Then **fill in `MANUSCRIPT_MAP.md`** with your thesis, contribution, target venue, and section plan — it is the single most important file, read first every session — and start a Claude Code session.
 
-Or with the CLI (once published to npm):
+Or with the CLI:
 
 ```bash
 npx @tansuasici/claude-research-kit init      # install into the current dir
@@ -59,7 +59,12 @@ npx @tansuasici/claude-research-kit skills      # list the /skills
 npx @tansuasici/claude-research-kit convert     # export CLAUDE.md → AGENTS.md (+ Cursor/Windsurf/Aider)
 ```
 
-> The CLI and installers work today from a clone; the npm-published `npx` package and the plugin-marketplace listing are pending a release. See the roadmap.
+Or as a Claude Code plugin, from the shared `tansuasici` marketplace:
+
+```
+/plugin marketplace add tansuasici/claude-plugins
+/plugin install claude-research-kit@tansuasici
+```
 
 ## What CLAUDE.md Enforces
 
