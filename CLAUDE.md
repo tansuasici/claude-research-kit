@@ -167,6 +167,7 @@ Read only what's relevant to the current task:
 - Full writing workflow & outline template → `agent_docs/writing-workflow.md`
 - Citation & sourcing discipline → `agent_docs/citation-discipline.md`
 - Academic style & calibrated language → `agent_docs/academic-style.md`
+- Turkish-language manuscripts → `agent_docs/turkish-style.md`
 - Statistics & numerical reporting → `agent_docs/statistics.md`
 - Reproducibility & data/code availability → `agent_docs/reproducibility.md`
 - Peer-review simulation → `agent_docs/peer-review.md`

@@ -15,6 +15,12 @@
 #   - Meta-commentary           — "This section will discuss …" (vs. discussing)
 #   - Em-dash density           — "—" used far above normal prose rate
 #   - Monotonous pacing         — 5+ consecutive sentences of near-identical length
+#   - Negative parallelism      — "not only X but also Y", "is not X but Y"
+#   - Trailing commentary       — ", highlighting …", ", underscoring …" at sentence end
+#   - Turkish prose (auto-detected) — calques such as "kritik bir rol oynamaktadır",
+#     "sadece X değil, aynı zamanda Y", and runs of the same sentence ending. Terms
+#     that are ordinary in academic Turkish ("söz konusu", "bu bağlamda", "sonuç
+#     olarak") are deliberately NOT flagged. See agent_docs/turkish-style.md.
 #
 # Philosophy (per CLAUDE.md): it FLAGS, it never rewrites. AI-prose is a voice
 # problem only the author can fix; a hook that silently "humanized" the text
@@ -69,7 +75,10 @@ DEFAULT_ALLOW="$HOOK_DIR/project/ai-tell-allow.txt"
 PROJECT_ALLOW="$ROOT/.ai-tell-allow.txt"
 
 RESULT=$(python3 - "$FILE_PATH" "$DEFAULT_ALLOW" "$PROJECT_ALLOW" <<'PY' 2>/dev/null || true
-import re, sys
+import re, sys, unicodedata
+
+# Findings quote non-ASCII text; a non-UTF-8 locale must not crash the hook silently.
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 path = sys.argv[1]
 allow_paths = sys.argv[2:]
@@ -115,8 +124,10 @@ def strip_md(s):
     s = re.sub(r'[*_>#`]', ' ', s)
     return s
 
-prose = strip_tex(raw) if is_tex else strip_md(raw)
-words = re.findall(r"[A-Za-z][A-Za-z'-]+", prose)
+prose = unicodedata.normalize("NFC", strip_tex(raw) if is_tex else strip_md(raw))
+# Unicode-aware, so non-ASCII letters (ı, ş, ğ, ï, …) do not fragment a word.
+WORD = r"[^\W\d_](?:[^\W\d_]|['’-])+"
+words = re.findall(WORD, prose)
 nwords = len(words)
 if nwords < 40:
     sys.exit(0)   # too short to judge rhythm/density meaningfully
@@ -130,14 +141,31 @@ HARD = {"delve","tapestry","multifaceted","seamless","showcase","unveil","unleas
 SOFT = {"leverage","pivotal","underscore","foster","bolster","garner","navigate",
         "landscape","robust","crucial","vital","paramount","notably","comprehensive",
         "nuanced","profound","remarkable","significant","essential"}
+# Inflected forms count toward their lemma. Left out on purpose because they are
+# ordinary technical usage: "robustness" (statistics), "significantly" (statistics).
+FORMS = {"tapestries": "tapestry", "testaments": "testament", "realms": "realm",
+         "landscapes": "landscape", "seamlessly": "seamless", "intricately": "intricate",
+         "meticulously": "meticulous", "crucially": "crucial", "profoundly": "profound",
+         "remarkably": "remarkable"}
+for verb in ("delve","showcase","unveil","unleash","boast","encapsulate","embark",
+             "leverage","underscore","foster","bolster","garner","navigate"):
+    if verb.endswith("e"):
+        inflected = (verb + "s", verb + "d", verb[:-1] + "ing")
+    elif verb.endswith("sh"):
+        inflected = (verb + "es", verb + "ed", verb + "ing")
+    else:
+        inflected = (verb + "s", verb + "ed", verb + "ing")
+    for form in inflected:
+        FORMS[form] = verb
 low = prose.lower()
 counts = {}
-for m in re.finditer(r"[a-z][a-z'-]+", low):
+for m in re.finditer(WORD, low):
     w = m.group(0)
-    if w in allow:
+    lemma = FORMS.get(w, w)
+    if w in allow or lemma in allow:
         continue
-    if w in HARD or w in SOFT:
-        counts[w] = counts.get(w, 0) + 1
+    if lemma in HARD or lemma in SOFT:
+        counts[lemma] = counts.get(lemma, 0) + 1
 hard_terms = sorted(t for t in counts if t in HARD)
 soft_terms = sorted(t for t in counts if t in SOFT)
 for t in hard_terms:
@@ -190,7 +218,7 @@ if nwords:
 
 # --- 5. Monotonous pacing: 5+ consecutive sentences of near-equal length ---
 sents = [s for s in re.split(r"(?<=[.!?])\s+", prose) if s.strip()]
-lens = [len(re.findall(r"[A-Za-z][A-Za-z'-]+", s)) for s in sents]
+lens = [len(re.findall(WORD, s)) for s in sents]
 run_start = 0
 i = 1
 worst = 0
@@ -205,6 +233,101 @@ while i <= len(lens):
     i += 1
 if worst >= 5:
     findings.append((2, "monotonous pacing: %d consecutive sentences of near-identical length (vary the rhythm)" % worst))
+
+# --- 6. Structural patterns ---
+# Each is legitimate once, so a lone use in a long text only shows under
+# AITELL_STRICT. They weigh more when they recur (3+ per 1000 words).
+def add_structural(label, matches):
+    if not matches:
+        return
+    n = len(matches)
+    weight = min(3, n) if n * 1000.0 / nwords >= 3 else 1
+    snip = re.sub(r"\s+", " ", matches[0])[:60]
+    findings.append((weight, "%s x%d, e.g. \"%s…\"" % (label, n, snip)))
+
+NEGATIVE_PARALLELISM = (
+    r"\bnot (?:only|just|merely|simply)\b[^.!?;]{1,80}?\bbut\b"
+    # No comma in the gap: "was not large, but it held" is plain contrast.
+    r"|\b(?:is|are|was|were) not\b[^.!?;,]{1,60}?\bbut\b"
+    r"|\b(?:is|are|was|were)n['’]t\b[^.!?;,]{1,60}?\bbut\b"
+)
+add_structural("negative parallelism (state the claim directly)",
+               [m.group(0) for m in re.finditer(NEGATIVE_PARALLELISM, low)])
+TRAILING = (
+    r",\s+(?:thereby\s+)?(?:highlighting|underscoring|emphasi[sz]ing|showcasing|reflecting|"
+    r"demonstrating|illustrating|signall?ing|reinforcing|cementing|solidifying|"
+    r"paving the way|fostering|contributing to)\b[^.!?;]{0,120}[.!?]"
+)
+add_structural("trailing commentary clause (give the fact or cut it)",
+               [m.group(0) for m in re.finditer(TRAILING, low)])
+
+# --- 7. Turkish prose ---
+# Runs only when the text is at least 1% ı/ğ/ş. Those letters are absent from English
+# and frequent in Turkish, so English manuscripts with Turkish names stay out of scope.
+# Patterns adapted from turkish-anti-ai-skill (MIT), https://github.com/yucezerey/turkish-anti-ai-skill
+letters = re.findall(r"[^\W\d_]", prose)
+tr_letters = sum(1 for c in letters if c in "ıİğĞşŞ")
+if letters and tr_letters / float(len(letters)) >= 0.01:
+    tr_low = prose.replace("İ", "i").replace("I", "ı").lower()
+    TR_TELLS = [
+        (2, r"\byadsınamaz\w*|\binkar\s+edilemez\w*"),
+        (2, r"\b[aâ]deta\b"),
+        (2, r"\bderinlemesine\s+(?:in(?:mek|elim|iyor|er|di)|incele)\w*|\bmercek\s+altına\s+al\w*"),
+        (2, r"\b(?:kritik|kilit|hayati)\s+(?:bir\s+)?(?:rol\s+(?:oyna|üstlen)\w*|öneme\s+sahip\w*)"),
+        (2, r"\bgeniş\s+bir\s+yelpaze\w*|\bzengin\s+bir\s+(?:doku|mozaik)\w*"),
+        (2, r"\bgünümüzün\s+hızla\s+değişen\b|\bdijitalleşen\s+çağımızda\b"),
+        (2, r"\bçığır\s+aç\w*"),
+        (2, r"\bpotansiyelini\s+ortaya\s+çıkar\w*|\bbir\s+üst\s+seviyeye\s+taşı\w*"),
+        (2, r"\ben\s+büyük\s+(?:kanıtı|göstergesi)\w*"),
+        (2, r"\b(?:kusursuz|pürüzsüz)\s+bir\s+şekilde\b"),
+        (2, r"\bbelirtmek\s+gerekir\s+ki\b|\bunutulmamalıdır\s+ki\b|\bvurgulamak\s+(?:gerekir|önemlidir)\s+ki\b"),
+        (2, r"\b(?:göstermektedir|belirtmektedir|kanıtlamaktadır|ortaya\s+koymaktadır)\s+ki\b"),
+        # Often figurative here, but each has a literal or field-specific use.
+        (1, r"\bdönüm\s+noktası\w*|\bkilometre\s+taşı\w*"),
+        (1, r"\bbütüncül\s+(?:bir\s+)?yaklaşım\w*|\bparadigma\s+değişimi\w*|\bsinerji\s+yarat\w*"),
+        (1, r"\bgözler\s+önüne\s+ser\w*|\bönemini\s+bir\s+kez\s+daha\s+\w+"),
+        (1, r"\bbu\s+(?:bölümde|yazıda|makalede|çalışmada)\b[^.!?]{0,80}?\b(?:ele\s+alınacaktır|incelenecektir|tartışılacaktır|ele\s+alacağız|inceleyeceğiz)\b"),
+    ]
+    for weight, pat in TR_TELLS:
+        for m in re.finditer(pat, tr_low):
+            term = re.sub(r"\s+", " ", m.group(0))
+            if term not in allow:
+                findings.append((weight, "Turkish cliché/calque: \"%s\"" % term[:60]))
+    TR_PARALLELISM = (
+        r"\b(?:sadece|yalnızca)\s[^.!?]{1,80}?\bdeğil\b[^.!?]{0,40}?\baynı\s+zamanda\b"
+        r"|\b\w+m[ae]kl[ae]\s+kalma\w*"
+    )
+    add_structural("Turkish negative parallelism (hem X hem Y, or state Y)",
+                   [m.group(0) for m in re.finditer(TR_PARALLELISM, tr_low)])
+
+    # Repeated sentence endings. A run of -mIştIr is normal in Methods, so it needs a
+    # longer run and weighs less than -mAktAdIr.
+    def tr_ending(sentence):
+        s = re.sub(r"(?:\s*\([^()]*\))*[\s.!?…\"'”’)]*$", "", sentence)
+        last = s.split()[-1] if s.split() else ""
+        if re.search(r"(?:makta|mekte)d[ıi]r(?:lar|ler)?$", last):
+            return "maktadir"
+        if re.search(r"m[ıiuü]şt[ıiuü]r(?:lar|ler)?$", last):
+            return "mistir"
+        return None
+    best = {"maktadir": 0, "mistir": 0}
+    previous, run = None, 0
+    for sentence in re.split(r"(?<=[.!?])\s+", tr_low):
+        ending = tr_ending(sentence)
+        run = run + 1 if ending and ending == previous else (1 if ending else 0)
+        previous = ending
+        if ending:
+            best[ending] = max(best[ending], run)
+    if best["maktadir"] >= 3:
+        findings.append((2, "Turkish rhythm: %d consecutive sentences end in -mAktAdIr (vary with the aorist or restructure)" % best["maktadir"]))
+    if best["mistir"] >= 5:
+        findings.append((1, "Turkish rhythm: %d consecutive sentences end in -mIştIr (usual in Methods; vary only if it reads mechanical)" % best["mistir"]))
+
+    # Advisory ceiling, not a corpus-calibrated threshold.
+    n_maktadir = len(re.findall(r"\w+(?:makta|mekte)d[ıi]r(?:lar|ler)?\b", tr_low))
+    density = n_maktadir * 100.0 / nwords
+    if n_maktadir >= 3 and density > 2.5:
+        findings.append((1, "Turkish rhythm: -mAktAdIr x%d (%.1f / 100 words; above 2.5 is often heavy, advisory only)" % (n_maktadir, density)))
 
 if not findings:
     sys.exit(0)
