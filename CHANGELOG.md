@@ -5,6 +5,13 @@ All notable changes to Claude Research Kit will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4](https://github.com/tansuasici/claude-research-kit/compare/v0.1.3...v0.1.4) (2026-11-08)
+
+
+### Features
+
+* **ai-tell:** add structural patterns and Turkish support ([#10](https://github.com/tansuasici/claude-research-kit/issues/10)) ([56d564f](https://github.com/tansuasici/claude-research-kit/commit/56d564fc1bfd94b6c3253ac86f5ddcc8ae8495da))
+
 ## [0.1.3](https://github.com/tansuasici/claude-research-kit/compare/v0.1.2...v0.1.3) (2026-10-31)
 
 
