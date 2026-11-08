@@ -16,7 +16,7 @@ The kit makes deterministic-enforcement promises — *"a `\cite` with no `.bib` 
 
 Exit codes: `0` all pass, `1` one or more fail, `2` runner error. Each scenario runs in a **fresh temp directory** — no shared state.
 
-## What's covered (37 scenarios)
+## What's covered (45 scenarios)
 
 | # | Scenario | What it asserts |
 |---|---|---|
@@ -57,6 +57,14 @@ Exit codes: `0` all pass, `1` one or more fail, `2` runner error. Each scenario 
 | s35 | `ai-tell-warns-on-machine-prose` | overused lexis + throat-clearing openers + meta-commentary past the floor → `ai-tell` warning *(warn-only, never rewrites)* |
 | s36 | `ai-tell-quiet-on-clean-prose` | varied, calibrated academic prose → silent *(regression: no false positive)* |
 | s37 | `ai-tell-respects-allow-comment` | `kit-allow-ai-tell` in the first 5 lines → scan suppressed entirely |
+| s38 | `ai-tell-warns-on-structural-patterns` | recurring negative parallelism + trailing commentary clauses → warning |
+| s39 | `ai-tell-counts-inflected-forms` | `showcasing`, `delved`, `unveiled` count toward their lemma |
+| s40 | `ai-tell-quiet-on-single-structural-use` | one `not only … but also` → silent *(regression: no false positive)* |
+| s41 | `ai-tell-warns-on-turkish-cliches` | Turkish clichés and negative parallelism → warning |
+| s42 | `ai-tell-quiet-on-academic-turkish` | `söz konusu`, `bu bağlamda`, `sonuç olarak` in clean prose → silent *(regression: no false positive)* |
+| s43 | `ai-tell-warns-on-turkish-ending-run` | consecutive `-mAktAdIr` endings, across a parenthetical citation → warning |
+| s44 | `ai-tell-quiet-on-long-misti-run` | a Methods-style `-mIştIr` run alone → silent *(regression: no false positive)* |
+| s45 | `ai-tell-turkish-respects-allowlist` | multi-word Turkish allowlist entries are honoured |
 
 ## Add a scenario
 

@@ -4,6 +4,7 @@
 > Claude reads it before drafting and matches it. Delete sections that don't apply.
 
 ## Voice
+- **Language:** <English | Turkish (read `agent_docs/turkish-style.md`) | …>
 - **Person:** <first-person plural "we" | impersonal/passive | per-venue>
 - **Tense:** intro/discussion present; methods/results past (override per venue)
 - **Hedging level:** <calibrated-default | conservative | assertive-where-licensed>

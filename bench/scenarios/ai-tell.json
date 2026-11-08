@@ -28,5 +28,86 @@
     "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/intro.tex" } },
     "expect": { "exit_code": 0, "stderr_not_contains": ["ai-tell"] },
     "notes": "A 'kit-allow-ai-tell' comment in the first 5 lines suppresses the scan entirely, mirroring unicode-scan's kit-allow-unicode escape hatch."
+  },
+  {
+    "name": "s38-ai-tell-warns-on-structural-patterns",
+    "hook": ".claude/hooks/ai-tell.sh",
+    "setup_files": {
+      "intro.md": "This approach is not only faster but also more accurate on the datasets we examined in this study. The model improves recall on rare classes, highlighting the value of balanced sampling during training. It is not a replacement for expert review but a complement to it in clinical settings. Accuracy rose on the held-out set, underscoring the value of the augmentation step we described in the methods.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/intro.md" } },
+    "expect": { "exit_code": 0, "stderr_contains": ["negative parallelism", "trailing commentary"] },
+    "notes": "No overused lemma appears, so only the structural checks can fire. They recur densely here, which clears the default floor."
+  },
+  {
+    "name": "s39-ai-tell-counts-inflected-forms",
+    "hook": ".claude/hooks/ai-tell.sh",
+    "setup_files": {
+      "intro.md": "Our results showcasing the method were collected over three sites during the winter. We delved into each site and unveiled differences that earlier work had missed in its sampling. The protocol was followed by every team that took part, and the data were checked twice by two raters.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/intro.md" } },
+    "expect": { "exit_code": 0, "stderr_contains": ["\"showcase\"", "\"delve\"", "\"unveil\""] },
+    "notes": "Inflected forms count toward the lemma. Before this change only the base forms matched, so this text passed silently."
+  },
+  {
+    "name": "s40-ai-tell-quiet-on-single-structural-use",
+    "hook": ".claude/hooks/ai-tell.sh",
+    "setup_files": {
+      "intro.md": "We sampled forty clinics across two regions and followed each one for a full year. The intervention was not only cheaper but also easier to staff, which matters for rural sites with few nurses. The gain was not large, but it held at both sites. Retention fell in the second winter, and we could not rule out a seasonal effect with the data we had. Costs were recorded monthly by each clinic and audited at the end of the study by an outside firm that had no stake in the result.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/intro.md" } },
+    "expect": { "exit_code": 0, "stderr_not_contains": ["ai-tell"] },
+    "notes": "One 'not only … but also' is ordinary prose and stays under the default floor. 'was not large, but it held' is plain contrast and must not count as negative parallelism."
+  },
+  {
+    "name": "s41-ai-tell-warns-on-turkish-cliches",
+    "hook": ".claude/hooks/ai-tell.sh",
+    "setup_files": {
+      "giris.md": "Günümüzün hızla değişen dünyasında yapay zekâ sistemleri kritik bir rol oynamaktadır ve bu durumun önemi yadsınamaz. Bu çalışma sadece mevcut yöntemleri incelemekle kalmamakta, aynı zamanda alana çığır açan bir katkı sunmaktadır. Belirtmek gerekir ki veri kalitesi hayati bir öneme sahiptir. Sonuçlar modelin kusursuz bir şekilde çalıştığını göstermektedir. Konu bu bağlamda derinlemesine incelenmiştir.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/giris.md" } },
+    "expect": { "exit_code": 0, "stderr_contains": ["kritik bir rol oynamaktadır", "yadsınamaz", "çığır açan", "derinlemesine incelenmiştir", "Turkish negative parallelism"] },
+    "notes": "The hook was silent on Turkish before Unicode support: its lexis was English-only and its word regex split words at ı, ş and ğ."
+  },
+  {
+    "name": "s42-ai-tell-quiet-on-academic-turkish",
+    "hook": ".claude/hooks/ai-tell.sh",
+    "setup_files": {
+      "bulgular.md": "Bu çalışmada 2019-2023 yılları arasında toplanan 412 hastanın kayıtları incelenmiştir. Hastalar yaş ve cinsiyete göre eşleştirilmiştir. Bulgular, tedavi süresi ile iyileşme arasında orta düzeyde bir ilişki olduğunu göstermektedir (r = 0,41; p = 0,003). Söz konusu ilişki, gözlemsel desen nedeniyle nedensel olarak yorumlanamaz. Bu bağlamda ileride yapılacak randomize çalışmalar gereklidir. Öte yandan, örneklemin tek merkezden seçilmesi genellenebilirliği sınırlar. Sonuç olarak bulgular dikkatle değerlendirilmelidir.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/bulgular.md" } },
+    "expect": { "exit_code": 0, "stderr_not_contains": ["ai-tell"] },
+    "notes": "False-positive guard. 'söz konusu', 'bu bağlamda', 'öte yandan' and 'sonuç olarak' are ordinary academic Turkish and must not be flagged."
+  },
+  {
+    "name": "s43-ai-tell-warns-on-turkish-ending-run",
+    "hook": ".claude/hooks/ai-tell.sh",
+    "setup_files": {
+      "tartisma.md": "Model hastaların çoğunda doğru sonuç vermektedir (Yılmaz, 2020). Hata oranı yaşla birlikte artmaktadır. Kadın hastalarda fark azalmaktadır. Bu nedenle yeni çalışmalara ihtiyaç duyulmaktadır. Veri seti iki merkezden derlendi ve aynı protokolle işlendi, ancak örneklem küçük kaldı. Ölçümler gün içinde üç kez alındı.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/tartisma.md" } },
+    "expect": { "exit_code": 0, "stderr_contains": ["consecutive sentences end in -mAktAdIr"] },
+    "notes": "Four sentences in a row end in -mAktAdIr, including one followed by a parenthetical citation, which must not break the run."
+  },
+  {
+    "name": "s44-ai-tell-quiet-on-long-misti-run",
+    "hook": ".claude/hooks/ai-tell.sh",
+    "setup_files": {
+      "yontem.md": "Veriler iki merkezden toplanmıştır. Katılımcılar yaş ve cinsiyete göre eşleştirilmiştir. Ölçümler gün içinde üç kez alınmıştır. Eksik kayıtlar çalışma dışında bırakılmıştır. Analizler iki araştırmacı tarafından bağımsız olarak yapılmıştır. Tüm katılımcılardan yazılı onam alınmıştır. Çalışma yerel etik kurul tarafından onaylanmıştır.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/yontem.md" } },
+    "expect": { "exit_code": 0, "stderr_not_contains": ["ai-tell"] },
+    "notes": "Consecutive -mIştIr is normal in a Turkish Methods section. It alone stays under the default floor, and 'tarafından' with a real verb is not flagged."
+  },
+  {
+    "name": "s45-ai-tell-turkish-respects-allowlist",
+    "hook": ".claude/hooks/ai-tell.sh",
+    "setup_files": {
+      ".ai-tell-allow.txt": "çığır açan\nyadsınamaz\n",
+      "giris.md": "Bu tarihsel inceleme, dönemin çığır açan buluşlarını kaynaklarıyla birlikte ele alıyor ve bu buluşların etkisinin yadsınamaz olduğunu savunan yazarları karşılaştırıyor. Arşiv belgeleri üç kütüphaneden derlendi, tarihleri de ikinci bir okuyucu tarafından doğrulandı. Her belge için özgün dil ve çeviri ayrı ayrı kaydedildi.\n"
+    },
+    "payload": { "tool_name": "Edit", "tool_input": { "file_path": "{TMPROOT}/giris.md" } },
+    "expect": { "exit_code": 0, "stderr_not_contains": ["ai-tell"] },
+    "notes": "Multi-word Turkish terms in the allowlist are honoured, for fields that study or quote these phrases."
   }
 ]

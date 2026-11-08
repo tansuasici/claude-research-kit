@@ -15,3 +15,8 @@
 # paramount       # law
 # foster          # social work / education: "foster care", "foster engagement"
 # realm           # mathematics/physics when literal, not figurative
+#
+# Turkish entries may be multi-word and must match the exact form in the text,
+# including suffixes, so list each inflected form you use:
+# dönüm noktası   # medicine: "kritik dönüm noktası" as a defined clinical stage
+# çığır açan      # history of science, when quoting or discussing the phrase

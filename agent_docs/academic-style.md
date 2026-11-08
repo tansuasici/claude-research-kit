@@ -152,6 +152,28 @@ padded writing:
 | "robust", "comprehensive", "novel", "cutting-edge", "state-of-the-art" as self-praise | Unfalsifiable boosters; Reviewer 2 deletes them. | Let the result be novel; show it, don't assert it. |
 | Triplets for rhythm ("clear, concise, and compelling") | Decorative; one adjective usually suffices. | Pick the one that's true. |
 | Restating the question as the answer | Padding to hit a budget. | Cut; budgets are caps, not quotas. |
+| "not only X but also Y", "is not X but Y" as a habit | Negative parallelism: a frame that sets up a contrast nobody proposed. | State Y. Keep the frame only when someone actually holds X. |
+| ", highlighting the importance of…", ", underscoring…" at sentence end | Trailing commentary that adds no fact. | Give the fact, or cut the clause. |
+
+### Revising without changing the claim
+
+Removing a tell is an edit to the wording, not to the claim. Before accepting a rewrite,
+compare it with the original:
+
+- **Quantity, certainty, direction, negation and hedges are information.** "Some" is not
+  "many", "suggests" is not "shows", and a dropped "not" or "may" reverses or inflates the
+  claim. Keep them even when they sound weak.
+- **Add nothing.** No new number, name, date, source or causal link. Vague prose is often
+  vague because the specific fact is missing.
+- **If a cut leaves a gap, flag it.** When a cliché was standing in for a concrete fact you
+  do not have, write `[VALUE — verify]` instead of inventing one.
+- **Reported values and framing stay protected.** The approval rule in `CLAUDE.md` →
+  Protected Claims applies to style passes too.
+
+**Don't trade one tic for another.** Replacing every "crucial" with "key", or every "not
+only X but also Y" with "X, and also Y", keeps the pattern and only hides it from the
+hook. A silent hook does not mean the prose is good. Rewrite the sentence around what it
+actually says.
 
 The unicode-scan hook flags smart quotes / non-ASCII punctuation that creep into LaTeX
 source — keep source ASCII (`--`, `---`, `\%`, `\&`) unless the manuscript deliberately
