@@ -70,3 +70,5 @@ jobs:
         run: chmod +x .claude/hooks/*.sh scripts/*.sh install.sh uninstall.sh
       - name: Smoke-test install lifecycle
         run: ./scripts/test-install.sh
+      - name: Refuse a folder holding another Claude kit
+        run: bash tests/install-other-kit.test.sh

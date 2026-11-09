@@ -38,6 +38,21 @@ if [ "$SRC" = "$TARGET" ]; then
   exit 2
 fi
 
+# Another Claude kit here uses the same CLAUDE.md and hook names. The map alone
+# isn't enough to refuse: a repo can have its own DESIGN_MAP.md and no kit. So
+# each kit is two files only it ships; session-start.sh won't do, because this
+# kit installs one too. The Code Kit's minimal profile has no CODEBASE_MAP.md,
+# so that kit is two of its hooks.
+for pair in MARKETING_MAP.md:.claude/hooks/claim-scan.sh DESIGN_MAP.md:.claude/hooks/motion-gate.sh .claude/hooks/secret-scan.sh:.claude/hooks/commit-gate.sh; do
+  mark="${pair%%:*}"; hook="${pair#*:}"
+  [ -e "$TARGET/$mark" ] && [ -e "$TARGET/$hook" ] || continue
+  echo "install: this folder already has another Claude kit ($mark and $hook). Nothing was changed." >&2
+  echo "Both kits use CLAUDE.md and the same hook names, so one kit's rules and checks would replace the other's, with or without --force." >&2
+  echo "Install into a subfolder, and open Claude Code in that subfolder:" >&2
+  echo "  bash \"$SRC/install.sh\" \"$TARGET/research\"" >&2
+  exit 2
+done
+
 say() { printf '%s\n' "$1"; }
 do_cp() {  # do_cp SRC_REL  (file or dir);  honors --upgrade overlay protection + --dry-run
   local rel="$1" overlay="${2:-0}"
@@ -51,7 +66,11 @@ do_cp() {  # do_cp SRC_REL  (file or dir);  honors --upgrade overlay protection 
   fi
   if [ "$DRYRUN" = "1" ]; then say "  would copy  $rel"; return 0; fi
   mkdir -p "$(dirname "$to")"
-  cp -R "$from" "$to"
+  if [ -d "$from" ]; then  # "cp -R from to" would make to/from when to exists
+    mkdir -p "$to"; cp -R "$from/." "$to/"
+  else
+    cp "$from" "$to"
+  fi
   say "  copied  $rel"
 }
 

@@ -45,6 +45,12 @@ echo "MY PROJECT RULE" >> "$TMP/CLAUDE.project.md" 2>/dev/null || echo "MY PROJE
 bash "$KIT/install.sh" "$TMP" --upgrade >/dev/null 2>&1 || fail "upgrade failed"
 grep -q "MY PROJECT RULE" "$TMP/CLAUDE.project.md" || fail "upgrade clobbered the project overlay"
 ok "upgrade preserved the overlay"
+# Copying a folder over itself must not put a second copy inside it.
+bash "$KIT/install.sh" "$TMP" --force >/dev/null 2>&1 || fail "--force over an install failed"
+for d in .claude/hooks/hooks .claude/agents/agents .claude/skills/skills scripts/scripts bench/bench tasks/tasks vault/vault artifacts/artifacts agent_docs/field/field; do
+  [ -e "$TMP/$d" ] && fail "--upgrade or --force nested a copy at $d"
+done
+ok "upgrade and --force don't nest folders"
 
 echo "[5/5] uninstall"
 bash "$KIT/uninstall.sh" "$TMP" --force >/dev/null 2>&1 || fail "uninstall failed"

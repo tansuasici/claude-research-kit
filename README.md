@@ -68,6 +68,21 @@ Or as a Claude Code plugin, from the shared `tansuasici` marketplace:
 
 > Installed earlier as `claude-research-kit` from the kit's own marketplace? That install keeps updating; to switch, uninstall it and run `/plugin install research-kit@tansuasici`.
 
+### Next to another Claude kit
+
+The Marketing, Design and Code kits use the same `CLAUDE.md` and the same hook names, so two kits can't share a folder. `install.sh` and `uninstall.sh` stop and change nothing when they find one of those kits in the target folder.
+
+Install this kit into a subfolder instead, and open Claude Code in that subfolder:
+
+```bash
+bash ~/claude-research-kit/install.sh "$PWD/research"
+cd research && claude
+```
+
+Hooks only run from the folder the session opened in. A session opened at the repo root doesn't run the subfolder's hooks, so `citation-gate` won't check a write under `research/` from there.
+
+A copy of one of those kits from before this check doesn't stop: its `install.sh` or `uninstall.sh` still replaces or deletes this kit's files.
+
 ## What CLAUDE.md Enforces
 
 | Rule | What it does |
