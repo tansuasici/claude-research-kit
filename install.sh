@@ -66,7 +66,11 @@ do_cp() {  # do_cp SRC_REL  (file or dir);  honors --upgrade overlay protection 
   fi
   if [ "$DRYRUN" = "1" ]; then say "  would copy  $rel"; return 0; fi
   mkdir -p "$(dirname "$to")"
-  cp -R "$from" "$to"
+  if [ -d "$from" ]; then  # "cp -R from to" would make to/from when to exists
+    mkdir -p "$to"; cp -R "$from/." "$to/"
+  else
+    cp "$from" "$to"
+  fi
   say "  copied  $rel"
 }
 
