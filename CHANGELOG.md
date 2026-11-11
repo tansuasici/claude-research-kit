@@ -5,6 +5,18 @@ All notable changes to Claude Research Kit will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.5](https://github.com/tansuasici/claude-research-kit/compare/v0.1.4...v0.1.5) (2026-11-11)
+
+
+### Features
+
+* **install:** refuse another Claude kit's folder and stop nesting folders ([#12](https://github.com/tansuasici/claude-research-kit/issues/12)) ([2262d59](https://github.com/tansuasici/claude-research-kit/commit/2262d594bc8b3eb052d24945db5ded7a494051bb))
+
+
+### Bug Fixes
+
+* **hooks:** judge each git push only on its own arguments ([#14](https://github.com/tansuasici/claude-research-kit/issues/14)) ([b8bbcf9](https://github.com/tansuasici/claude-research-kit/commit/b8bbcf9d698a2a9d67fcdc20c959817f15acd47b))
+
 ## [0.1.4](https://github.com/tansuasici/claude-research-kit/compare/v0.1.3...v0.1.4) (2026-11-08)
 
 
