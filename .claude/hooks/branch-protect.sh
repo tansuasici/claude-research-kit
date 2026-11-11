@@ -37,68 +37,80 @@ COMMAND=$(parse_json_field "command")
 # Matching the prefix means `git -c color.ui=always push origin main` can't slip by.
 GIT_PUSH='git\s+(-c\s+\S+\s+)*push'
 
-# Check for force push (check first — always block regardless of branch)
-# Allow --force-with-lease (safer alternative) but block --force and -f
-if echo "$COMMAND" | grep -qE "${GIT_PUSH}\s+.*--force-with-lease"; then
-  : # Allow --force-with-lease (only overwrites if remote matches expectations)
-elif echo "$COMMAND" | grep -qE "${GIT_PUSH}\s+.*--force|${GIT_PUSH}\s+.*-f\b"; then
-  bump_branch_block
-  echo "BLOCKED: Force push detected"
-  echo ""
-  echo "Force pushing can overwrite remote history."
-  echo "Consider using --force-with-lease for a safer alternative,"
-  echo "or get explicit approval from the user before force pushing."
-  exit 2
-fi
+# Split the command into simple-command segments at `&&`, `||`, `;`, `|`, `&`
+# and newlines, and judge each `git push` only on its OWN arguments. Before
+# this, `git push -u origin feat/x && gh pr create --base main` was blocked:
+# the patterns ran from `git push` to the end of the line and took the later
+# `main` for a push target. (`2>&1` splits too; harmless, the push arguments
+# stay in the left-hand segment.)
+SEGMENTS="$COMMAND"
+SEGMENTS="${SEGMENTS//&&/$'\n'}"
+SEGMENTS="${SEGMENTS//||/$'\n'}"
+SEGMENTS="${SEGMENTS//;/$'\n'}"
+SEGMENTS="${SEGMENTS//|/$'\n'}"
+SEGMENTS="${SEGMENTS//&/$'\n'}"
 
-# Check for git push to a protected branch, named explicitly. Two shapes:
-#   1. main/master as the final positional arg, regardless of how many options
-#      precede it:  git push origin main | git push -u origin main |
-#                   git push --set-upstream origin main
-#   2. a refspec whose DESTINATION is protected:  HEAD:main | local:master |
-#      main:main   (pushing TO main). `git push origin main:feature` is allowed —
-#      that pushes local main to a feature branch, not to remote main.
-if echo "$COMMAND" | grep -qE "${GIT_PUSH}\s+(\S+\s+)*(main|master)([[:space:]]|[;&|]|$)" \
-  || echo "$COMMAND" | grep -qE "${GIT_PUSH}\s+.*:(main|master)([[:space:]]|[;&|]|$)"; then
+block_protected() {
   bump_branch_block
-  echo "BLOCKED: Direct push to main/master branch"
+  echo "BLOCKED: $1"
   echo ""
   echo "Create a feature branch and open a PR instead:"
   echo "  git checkout -b feat/your-feature"
   echo "  git push -u origin feat/your-feature"
   exit 2
-fi
+}
 
-# Check for `git push <remote> HEAD` when on main/master
-if echo "$COMMAND" | grep -qE "${GIT_PUSH}\s+\S+\s+HEAD\b"; then
-  CURRENT_BRANCH=$(git branch --show-current 2>/dev/null) || CURRENT_BRANCH=""
-  if [ "$CURRENT_BRANCH" = "main" ] || [ "$CURRENT_BRANCH" = "master" ]; then
+# $1 = one segment, cut so it starts at `git … push`.
+check_push() {
+  local PUSH="$1"
+
+  # Force push: always block, regardless of branch. Allow --force-with-lease
+  # (only overwrites if the remote matches expectations).
+  if echo "$PUSH" | grep -qE -- "--force-with-lease"; then
+    :
+  elif echo "$PUSH" | grep -qE -- "\s--force\b|\s-f\b"; then
     bump_branch_block
-    echo "BLOCKED: 'git push <remote> HEAD' resolves to protected branch '$CURRENT_BRANCH'"
+    echo "BLOCKED: Force push detected"
     echo ""
-    echo "Create a feature branch and open a PR instead:"
-    echo "  git checkout -b feat/your-feature"
-    echo "  git push -u origin feat/your-feature"
+    echo "Force pushing can overwrite remote history."
+    echo "Consider using --force-with-lease for a safer alternative,"
+    echo "or get explicit approval from the user before force pushing."
     exit 2
   fi
-fi
 
-# Check for bare `git push` (no branch given) while on main/master. Tolerates
-# `-u`/`--set-upstream` and an explicit remote: `git push`, `git push -u origin`.
-if echo "$COMMAND" | grep -qE "(^|[;&|]\s*)${GIT_PUSH}(\s+(-u|--set-upstream))?(\s+origin)?\s*($|[;&|])"; then
+  # A protected branch named explicitly. Two shapes:
+  #   1. main/master as a positional arg after any options:
+  #      git push origin main | git push -u origin main |
+  #      git push --set-upstream origin main
+  #   2. a refspec whose DESTINATION is protected: HEAD:main | local:master |
+  #      main:main. `git push origin main:feature` is allowed — that pushes
+  #      local main to a feature branch, not to remote main.
+  if echo "$PUSH" | grep -qE "^${GIT_PUSH}\s+(\S+\s+)*(main|master)(\s|$)" \
+    || echo "$PUSH" | grep -qE ":(main|master)(\s|$)"; then
+    block_protected "Direct push to main/master branch"
+  fi
+
+  # `git push <remote> HEAD`, or a bare `git push [-u] [origin]`, while on
+  # main/master resolves to the protected branch.
+  local ON_HEAD="" BARE="" CURRENT_BRANCH=""
+  if echo "$PUSH" | grep -qE "^${GIT_PUSH}\s+\S+\s+HEAD\b"; then ON_HEAD=1; fi
+  if echo "$PUSH" | grep -qE "^${GIT_PUSH}(\s+(-u|--set-upstream))?(\s+origin)?\s*$"; then BARE=1; fi
+  [ -z "$ON_HEAD" ] && [ -z "$BARE" ] && return 0
+
   CURRENT_BRANCH=$(git branch --show-current 2>/dev/null) || CURRENT_BRANCH=""
-  if [ -z "$CURRENT_BRANCH" ]; then
-    exit 0  # Cannot determine branch, allow the push
-  fi
   if [ "$CURRENT_BRANCH" = "main" ] || [ "$CURRENT_BRANCH" = "master" ]; then
-    bump_branch_block
-    echo "BLOCKED: You are on '$CURRENT_BRANCH' — bare 'git push' would push to protected branch"
-    echo ""
-    echo "Create a feature branch and open a PR instead:"
-    echo "  git checkout -b feat/your-feature"
-    echo "  git push -u origin feat/your-feature"
-    exit 2
+    if [ -n "$ON_HEAD" ]; then
+      block_protected "'git push <remote> HEAD' resolves to protected branch '$CURRENT_BRANCH'"
+    fi
+    block_protected "You are on '$CURRENT_BRANCH' — bare 'git push' would push to protected branch"
   fi
-fi
+  return 0
+}
+
+while IFS= read -r SEGMENT; do
+  PUSH_PART=$(echo "$SEGMENT" | grep -oE "${GIT_PUSH}(\s.*)?$" | head -n 1) || PUSH_PART=""
+  [ -z "$PUSH_PART" ] && continue
+  check_push "$PUSH_PART"
+done <<< "$SEGMENTS"
 
 exit 0

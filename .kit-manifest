@@ -77,6 +77,7 @@ assets/logo.png
 bench/README.md
 bench/scenarios/ai-tell.json
 bench/scenarios/block-fabrication.json
+bench/scenarios/branch-protect.json
 bench/scenarios/citation-gate.json
 bench/scenarios/e3-hooks.json
 bench/scenarios/e8-memory.json

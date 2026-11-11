@@ -1,0 +1,38 @@
+[
+  {
+    "name": "s46-branch-protect-allows-feature-push-then-pr-to-main",
+    "hook": ".claude/hooks/branch-protect.sh",
+    "payload": { "tool_name": "Bash", "tool_input": { "command": "git push -u origin feat/x && gh pr create --base main --title x" } },
+    "expect": { "exit_code": 0 }
+  },
+  {
+    "name": "s47-branch-protect-blocks-push-main-after-cd",
+    "hook": ".claude/hooks/branch-protect.sh",
+    "payload": { "tool_name": "Bash", "tool_input": { "command": "cd x && git push origin main" } },
+    "expect": { "exit_code": 2, "stdout_contains": ["BLOCKED"] }
+  },
+  {
+    "name": "s48-branch-protect-blocks-head-refspec-to-main",
+    "hook": ".claude/hooks/branch-protect.sh",
+    "payload": { "tool_name": "Bash", "tool_input": { "command": "git push origin HEAD:main" } },
+    "expect": { "exit_code": 2, "stdout_contains": ["BLOCKED"] }
+  },
+  {
+    "name": "s49-branch-protect-blocks-force-push",
+    "hook": ".claude/hooks/branch-protect.sh",
+    "payload": { "tool_name": "Bash", "tool_input": { "command": "git push --force origin feat/x" } },
+    "expect": { "exit_code": 2, "stdout_contains": ["BLOCKED: Force push"] }
+  },
+  {
+    "name": "s50-branch-protect-ignores-later-rm-f",
+    "hook": ".claude/hooks/branch-protect.sh",
+    "payload": { "tool_name": "Bash", "tool_input": { "command": "git push origin feat/x && rm -f build.log" } },
+    "expect": { "exit_code": 0 }
+  },
+  {
+    "name": "s51-branch-protect-blocks-git-c-push-main",
+    "hook": ".claude/hooks/branch-protect.sh",
+    "payload": { "tool_name": "Bash", "tool_input": { "command": "git -c color.ui=always push -u origin main 2>&1 | tail -3" } },
+    "expect": { "exit_code": 2, "stdout_contains": ["BLOCKED"] }
+  }
+]
