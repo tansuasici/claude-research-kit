@@ -16,7 +16,7 @@ The kit makes deterministic-enforcement promises — *"a `\cite` with no `.bib` 
 
 Exit codes: `0` all pass, `1` one or more fail, `2` runner error. Each scenario runs in a **fresh temp directory** — no shared state.
 
-## What's covered (45 scenarios)
+## What's covered (51 scenarios)
 
 | # | Scenario | What it asserts |
 |---|---|---|
@@ -65,6 +65,12 @@ Exit codes: `0` all pass, `1` one or more fail, `2` runner error. Each scenario 
 | s43 | `ai-tell-warns-on-turkish-ending-run` | consecutive `-mAktAdIr` endings, across a parenthetical citation → warning |
 | s44 | `ai-tell-quiet-on-long-misti-run` | a Methods-style `-mIştIr` run alone → silent *(regression: no false positive)* |
 | s45 | `ai-tell-turkish-respects-allowlist` | multi-word Turkish allowlist entries are honoured |
+| s46 | `branch-protect-allows-feature-push-then-pr-to-main` | a feature-branch push followed by `gh pr create --base main` → exit 0 *(regression: only the push's own arguments count)* |
+| s47 | `branch-protect-blocks-push-main-after-cd` | a push to main after `cd x &&` → exit 2 |
+| s48 | `branch-protect-blocks-head-refspec-to-main` | `HEAD:main` refspec → exit 2 |
+| s49 | `branch-protect-blocks-force-push` | `--force` to a feature branch → exit 2 |
+| s50 | `branch-protect-ignores-later-rm-f` | a feature push followed by `rm -f` → exit 0 *(regression: a later command's `-f` is not a force push)* |
+| s51 | `branch-protect-blocks-git-c-push-main` | `git -c … push -u origin main`, piped → exit 2 |
 
 ## Add a scenario
 

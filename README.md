@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://github.com/tansuasici/claude-research-kit/actions"><img src="https://github.com/tansuasici/claude-research-kit/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <img src="https://img.shields.io/badge/ResearchKitBench-45%2F45-1a7f4b" alt="bench 45/45">
+  <img src="https://img.shields.io/badge/ResearchKitBench-51%2F51-1a7f4b" alt="bench 51/51">
   <a href="https://www.npmjs.com/package/@tansuasici/claude-research-kit"><img src="https://img.shields.io/npm/v/@tansuasici/claude-research-kit?color=4f2fd7" alt="npm version"></a>
   <img src="https://img.shields.io/badge/license-MIT-4f2fd7" alt="MIT">
 </p>
@@ -127,7 +127,7 @@ Hooks are shell scripts that run automatically — unlike CLAUDE.md rules (advis
 
 ### ResearchKitBench — the hooks are tested
 
-The hooks aren't documentation, they're a contract. The kit ships [`bench/`](bench/README.md): a reproducible eval harness with **45 deterministic scenarios** (no LLM, no network) covering every blocking hook, plus regressions (a `\cite` inside a TeX comment must not count; honest `[CITE]` prose placeholders must not be blocked). Run it with `./scripts/run-bench.sh`; CI runs it on every PR (ubuntu + macOS).
+The hooks aren't documentation, they're a contract. The kit ships [`bench/`](bench/README.md): a reproducible eval harness with **51 deterministic scenarios** (no LLM, no network) covering every blocking hook, plus regressions (a `\cite` inside a TeX comment must not count; honest `[CITE]` prose placeholders must not be blocked). Run it with `./scripts/run-bench.sh`; CI runs it on every PR (ubuntu + macOS).
 
 ```text
 ResearchKitBench
@@ -137,7 +137,7 @@ ResearchKitBench
   s14-protect-sources-blocks-sources-dir           PASS
   ...                                              PASS
 ========================================
-  45/45 PASS  0 FAIL
+  51/51 PASS  0 FAIL
 ```
 
 ## Agents
@@ -223,7 +223,7 @@ claude-research-kit/
     agents/                     # peer-reviewer, integrity-reviewer, fact-checker, outline-planner
     hooks/                      # 10 deterministic hooks (+ lib/ shared helpers)
     skills/                     # claim-check, citation-audit, peer-review, outline, journal-fit, response-to-reviewers
-  bench/                        # ResearchKitBench — 45 scenarios
+  bench/                        # ResearchKitBench — 51 scenarios
   scripts/                      # run-bench.sh, doctor.sh
 ```
 
@@ -236,7 +236,7 @@ claude-research-kit/
 
 ## Status & Roadmap
 
-**Current.** The deterministic spine — **15 hooks**, verified by **45 CI scenarios** ([ResearchKitBench](bench/README.md)) — plus the CLAUDE.md ruleset, **5 agents**, **23 skills** (incl. 2 orchestrators), 8 agent_docs, **4 field overlays** (ai-ml, life/social sciences, medicine), and the **Literature Vault** module.
+**Current.** The deterministic spine — **15 hooks**, verified by **51 CI scenarios** ([ResearchKitBench](bench/README.md)) — plus the CLAUDE.md ruleset, **5 agents**, **23 skills** (incl. 2 orchestrators), 8 agent_docs, **4 field overlays** (ai-ml, life/social sciences, medicine), and the **Literature Vault** module.
 
 **AGENTS.md export** — `scripts/convert.sh` derives a cross-tool [AGENTS.md](AGENTS.md) (and Cursor / Windsurf / Aider configs) from `CLAUDE.md`, the single source of truth. **Install lifecycle** (`install` → `doctor` → `upgrade` → `uninstall`) and `.kit-manifest` freshness are smoke-tested in CI on ubuntu + macOS.
 
