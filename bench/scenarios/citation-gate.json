@@ -67,5 +67,180 @@
       "state": [ { "file": ".hook-state/last_quality_gate.json", "field": "status", "equals": "failed" } ]
     },
     "notes": "Multi-key \\citep{a,b} where one key is undefined must fail."
+  },
+  {
+    "name": "s52-citation-gate-lstlisting-option-label",
+    "hook": ".claude/hooks/citation-gate.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[language=Python,label=lst:a]\nx = 1\n\\end{lstlisting}\nSee Listing~\\ref{lst:a}.\n\\end{document}\n",
+      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+    },
+    "payload": {
+      "tool_name": "Edit",
+      "tool_input": {
+        "file_path": "{TMPROOT}/main.tex"
+      }
+    },
+    "expect": {
+      "exit_code": 0,
+      "state": [
+        {
+          "file": ".hook-state/last_quality_gate.json",
+          "field": "status",
+          "equals": "passed"
+        }
+      ]
+    },
+    "notes": "A listings `label=` option defines a label; \\ref to it must resolve."
+  },
+  {
+    "name": "s53-citation-gate-lstlisting-multiline-options",
+    "hook": ".claude/hooks/citation-gate.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[\n  language=Python,\n  caption={Setup},\n  label={lst:multi}\n]\nx = 1\n\\end{lstlisting}\nSee \\ref{lst:multi}.\n\\end{document}\n",
+      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+    },
+    "payload": {
+      "tool_name": "Edit",
+      "tool_input": {
+        "file_path": "{TMPROOT}/main.tex"
+      }
+    },
+    "expect": {
+      "exit_code": 0,
+      "state": [
+        {
+          "file": ".hook-state/last_quality_gate.json",
+          "field": "status",
+          "equals": "passed"
+        }
+      ]
+    },
+    "notes": "Options spread across lines, braced label value."
+  },
+  {
+    "name": "s54-citation-gate-lstinputlisting-label",
+    "hook": ".claude/hooks/citation-gate.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\lstinputlisting[caption=Foo, label=lst:file]{code.py}\nSee \\ref{lst:file}.\n\\end{document}\n",
+      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+    },
+    "payload": {
+      "tool_name": "Edit",
+      "tool_input": {
+        "file_path": "{TMPROOT}/main.tex"
+      }
+    },
+    "expect": {
+      "exit_code": 0,
+      "state": [
+        {
+          "file": ".hook-state/last_quality_gate.json",
+          "field": "status",
+          "equals": "passed"
+        }
+      ]
+    },
+    "notes": "\\lstinputlisting takes the same label option."
+  },
+  {
+    "name": "s55-citation-gate-lstlisting-citep-in-caption",
+    "hook": ".claude/hooks/citation-gate.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[caption={Müşteri etmeninin kurulumu \\citep{Asici2026hybrid}},label=lst:scop-adopt]\nx = 1\n\\end{lstlisting}\nBkz. \\ref{lst:scop-adopt}.\n\\end{document}\n",
+      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+    },
+    "payload": {
+      "tool_name": "Edit",
+      "tool_input": {
+        "file_path": "{TMPROOT}/main.tex"
+      }
+    },
+    "expect": {
+      "exit_code": 0,
+      "state": [
+        {
+          "file": ".hook-state/last_quality_gate.json",
+          "field": "status",
+          "equals": "passed"
+        }
+      ]
+    },
+    "notes": "Regression: a \\citep{} nested in the caption braces must not hide the label (reported in review)."
+  },
+  {
+    "name": "s56-citation-gate-lstlisting-deeply-nested-caption",
+    "hook": ".claude/hooks/citation-gate.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[caption={a \\emph{\\textbf{\\cite{Asici2026hybrid}}} b},label=lst:deep]\nx = 1\n\\end{lstlisting}\nSee \\ref{lst:deep}.\n\\end{document}\n",
+      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+    },
+    "payload": {
+      "tool_name": "Edit",
+      "tool_input": {
+        "file_path": "{TMPROOT}/main.tex"
+      }
+    },
+    "expect": {
+      "exit_code": 0,
+      "state": [
+        {
+          "file": ".hook-state/last_quality_gate.json",
+          "field": "status",
+          "equals": "passed"
+        }
+      ]
+    },
+    "notes": "Brace nesting of any depth in the caption is handled."
+  },
+  {
+    "name": "s57-citation-gate-lstlisting-fake-label-in-caption",
+    "hook": ".claude/hooks/citation-gate.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[caption={x, label=lst:fake}]\nx = 1\n\\end{lstlisting}\nSee \\ref{lst:fake}.\n\\end{document}\n",
+      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+    },
+    "payload": {
+      "tool_name": "Edit",
+      "tool_input": {
+        "file_path": "{TMPROOT}/main.tex"
+      }
+    },
+    "expect": {
+      "exit_code": 0,
+      "state": [
+        {
+          "file": ".hook-state/last_quality_gate.json",
+          "field": "status",
+          "equals": "failed"
+        }
+      ]
+    },
+    "notes": "A `label=` inside the caption's braces is caption text, not an option — the \\ref stays dangling."
+  },
+  {
+    "name": "s58-citation-gate-lstlisting-other-ref-still-dangles",
+    "hook": ".claude/hooks/citation-gate.sh",
+    "setup_files": {
+      "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[label=lst:real]\nx = 1\n\\end{lstlisting}\nSee \\ref{lst:real} and \\ref{lst:missing}.\n\\end{document}\n",
+      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+    },
+    "payload": {
+      "tool_name": "Edit",
+      "tool_input": {
+        "file_path": "{TMPROOT}/main.tex"
+      }
+    },
+    "expect": {
+      "exit_code": 0,
+      "state": [
+        {
+          "file": ".hook-state/last_quality_gate.json",
+          "field": "status",
+          "equals": "failed"
+        }
+      ]
+    },
+    "notes": "Listing labels count, but a \\ref with no label anywhere still fails the gate."
   }
 ]
