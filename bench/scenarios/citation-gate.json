@@ -73,7 +73,7 @@
     "hook": ".claude/hooks/citation-gate.sh",
     "setup_files": {
       "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[language=Python,label=lst:a]\nx = 1\n\\end{lstlisting}\nSee Listing~\\ref{lst:a}.\n\\end{document}\n",
-      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+      "references.bib": "@article{smith2024,\n  author = {Smith, Jane},\n  title = {A Real Paper},\n  year = {2024}\n}\n"
     },
     "payload": {
       "tool_name": "Edit",
@@ -98,7 +98,7 @@
     "hook": ".claude/hooks/citation-gate.sh",
     "setup_files": {
       "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[\n  language=Python,\n  caption={Setup},\n  label={lst:multi}\n]\nx = 1\n\\end{lstlisting}\nSee \\ref{lst:multi}.\n\\end{document}\n",
-      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+      "references.bib": "@article{smith2024,\n  author = {Smith, Jane},\n  title = {A Real Paper},\n  year = {2024}\n}\n"
     },
     "payload": {
       "tool_name": "Edit",
@@ -123,7 +123,7 @@
     "hook": ".claude/hooks/citation-gate.sh",
     "setup_files": {
       "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\lstinputlisting[caption=Foo, label=lst:file]{code.py}\nSee \\ref{lst:file}.\n\\end{document}\n",
-      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+      "references.bib": "@article{smith2024,\n  author = {Smith, Jane},\n  title = {A Real Paper},\n  year = {2024}\n}\n"
     },
     "payload": {
       "tool_name": "Edit",
@@ -147,8 +147,8 @@
     "name": "s55-citation-gate-lstlisting-citep-in-caption",
     "hook": ".claude/hooks/citation-gate.sh",
     "setup_files": {
-      "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[caption={Müşteri etmeninin kurulumu \\citep{Asici2026hybrid}},label=lst:scop-adopt]\nx = 1\n\\end{lstlisting}\nBkz. \\ref{lst:scop-adopt}.\n\\end{document}\n",
-      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+      "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[caption={Agent setup, adapted from \\citep{smith2024}},label=lst:setup]\nx = 1\n\\end{lstlisting}\nSee \\ref{lst:setup}.\n\\end{document}\n",
+      "references.bib": "@article{smith2024,\n  author = {Smith, Jane},\n  title = {A Real Paper},\n  year = {2024}\n}\n"
     },
     "payload": {
       "tool_name": "Edit",
@@ -166,14 +166,14 @@
         }
       ]
     },
-    "notes": "Regression: a \\citep{} nested in the caption braces must not hide the label (reported in review)."
+    "notes": "Regression: a \\citep{} nested in the caption braces must not hide the label."
   },
   {
     "name": "s56-citation-gate-lstlisting-deeply-nested-caption",
     "hook": ".claude/hooks/citation-gate.sh",
     "setup_files": {
-      "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[caption={a \\emph{\\textbf{\\cite{Asici2026hybrid}}} b},label=lst:deep]\nx = 1\n\\end{lstlisting}\nSee \\ref{lst:deep}.\n\\end{document}\n",
-      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+      "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[caption={a \\emph{\\textbf{\\cite{smith2024}}} b},label=lst:deep]\nx = 1\n\\end{lstlisting}\nSee \\ref{lst:deep}.\n\\end{document}\n",
+      "references.bib": "@article{smith2024,\n  author = {Smith, Jane},\n  title = {A Real Paper},\n  year = {2024}\n}\n"
     },
     "payload": {
       "tool_name": "Edit",
@@ -198,7 +198,7 @@
     "hook": ".claude/hooks/citation-gate.sh",
     "setup_files": {
       "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[caption={x, label=lst:fake}]\nx = 1\n\\end{lstlisting}\nSee \\ref{lst:fake}.\n\\end{document}\n",
-      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+      "references.bib": "@article{smith2024,\n  author = {Smith, Jane},\n  title = {A Real Paper},\n  year = {2024}\n}\n"
     },
     "payload": {
       "tool_name": "Edit",
@@ -223,7 +223,7 @@
     "hook": ".claude/hooks/citation-gate.sh",
     "setup_files": {
       "main.tex": "\\documentclass{article}\\usepackage{listings}\\begin{document}\n\\begin{lstlisting}[label=lst:real]\nx = 1\n\\end{lstlisting}\nSee \\ref{lst:real} and \\ref{lst:missing}.\n\\end{document}\n",
-      "references.bib": "@article{Asici2026hybrid,\n  author = {Asici, T.},\n  title = {Hybrid},\n  year = {2026}\n}\n"
+      "references.bib": "@article{smith2024,\n  author = {Smith, Jane},\n  title = {A Real Paper},\n  year = {2024}\n}\n"
     },
     "payload": {
       "tool_name": "Edit",
