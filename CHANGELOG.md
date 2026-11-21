@@ -5,6 +5,13 @@ All notable changes to Claude Research Kit will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.6](https://github.com/tansuasici/claude-research-kit/compare/v0.1.5...v0.1.6) (2026-11-21)
+
+
+### Bug Fixes
+
+* **citation-gate:** recognise listings label= options ([#15](https://github.com/tansuasici/claude-research-kit/issues/15)) ([8bf471c](https://github.com/tansuasici/claude-research-kit/commit/8bf471cff359b17421270d56266f2165f5b08348))
+
 ## [0.1.5](https://github.com/tansuasici/claude-research-kit/compare/v0.1.4...v0.1.5) (2026-11-11)
 
 
