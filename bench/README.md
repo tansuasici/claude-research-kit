@@ -16,7 +16,7 @@ The kit makes deterministic-enforcement promises — *"a `\cite` with no `.bib` 
 
 Exit codes: `0` all pass, `1` one or more fail, `2` runner error. Each scenario runs in a **fresh temp directory** — no shared state.
 
-## What's covered (51 scenarios)
+## What's covered (58 scenarios)
 
 | # | Scenario | What it asserts |
 |---|---|---|
@@ -71,6 +71,13 @@ Exit codes: `0` all pass, `1` one or more fail, `2` runner error. Each scenario 
 | s49 | `branch-protect-blocks-force-push` | `--force` to a feature branch → exit 2 |
 | s50 | `branch-protect-ignores-later-rm-f` | a feature push followed by `rm -f` → exit 0 *(regression: a later command's `-f` is not a force push)* |
 | s51 | `branch-protect-blocks-git-c-push-main` | `git -c … push -u origin main`, piped → exit 2 |
+| s52 | `citation-gate-lstlisting-option-label` | `\ref` to a listings `label=` option → passed |
+| s53 | `citation-gate-lstlisting-multiline-options` | listing options across lines, braced label → passed |
+| s54 | `citation-gate-lstinputlisting-label` | `\lstinputlisting[label=…]` → passed |
+| s55 | `citation-gate-lstlisting-citep-in-caption` | `\citep{…}` inside the caption braces → label still found *(regression)* |
+| s56 | `citation-gate-lstlisting-deeply-nested-caption` | 3-level brace nesting in the caption → passed |
+| s57 | `citation-gate-lstlisting-fake-label-in-caption` | `label=` inside the caption text is not an option → failed |
+| s58 | `citation-gate-lstlisting-other-ref-still-dangles` | listing label resolves, an unrelated missing `\ref` still fails |
 
 ## Add a scenario
 

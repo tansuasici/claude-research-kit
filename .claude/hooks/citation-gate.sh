@@ -4,7 +4,8 @@
 #
 # After a .tex/.bib edit, runs deterministic manuscript verification:
 #   1. Every \cite-family key resolves to an entry in a .bib file.
-#   2. Every \ref-family key has a matching \label.
+#   2. Every \ref-family key has a matching \label (or a listings
+#      `label=` option on \begin{lstlisting} / \lstinputlisting).
 # Writes the verdict to `.hook-state/last_quality_gate.json` so stop-gate.sh
 # can decide whether the agent may finish the turn.
 #
@@ -125,6 +126,60 @@ ref_re = re.compile(
     r'\\(?:ref|eqref|autoref|pageref|vref|cref|Cref|crefrange|Crefrange|'
     r'nameref|labelcref)\*?\s*\{([^}]*)\}')
 
+# listings sets labels through its option list rather than \label{}:
+#   \begin{lstlisting}[caption={... \citep{x}}, label=lst:foo]
+#   \lstinputlisting[label={lst:bar}]{code.py}
+# Options may span lines and captions may nest braces to any depth, so the
+# [...] block is scanned by brace depth instead of a regex.
+lstopt_re = re.compile(r'\\(?:begin\s*\{lstlisting\}|lstinputlisting)\s*\[')
+
+def lst_option_labels(body):
+    found = []
+    for m in lstopt_re.finditer(body):
+        i, depth, n = m.end(), 0, len(body)
+        start, opts = i, None
+        while i < n:
+            c = body[i]
+            if c == '\\':
+                i += 2
+                continue
+            if c == '{':
+                depth += 1
+            elif c == '}':
+                depth = max(depth - 1, 0)
+            elif c == ']' and depth == 0:
+                opts = body[start:i]
+                break
+            i += 1
+        if opts is None:
+            continue
+        # split on top-level commas only
+        parts, buf, d, j = [], [], 0, 0
+        while j < len(opts):
+            c = opts[j]
+            if c == '\\' and j + 1 < len(opts):
+                buf.append(opts[j:j + 2]); j += 2
+                continue
+            if c == '{':
+                d += 1
+            elif c == '}':
+                d = max(d - 1, 0)
+            if c == ',' and d == 0:
+                parts.append(''.join(buf)); buf = []
+            else:
+                buf.append(c)
+            j += 1
+        parts.append(''.join(buf))
+        for part in parts:
+            key, sep, val = part.partition('=')
+            if sep and key.strip() == 'label':
+                val = val.strip()
+                if val.startswith('{') and val.endswith('}'):
+                    val = val[1:-1].strip()
+                if val:
+                    found.append(val)
+    return found
+
 cited, labels, refs = set(), set(), set()
 for tf in tex_files:
     body = strip_comments(read(tf))
@@ -135,6 +190,7 @@ for tf in tex_files:
                 cited.add(k)
     for m in label_re.finditer(body):
         labels.add(m.group(1).strip())
+    labels.update(lst_option_labels(body))
     for m in ref_re.finditer(body):
         for k in m.group(1).split(','):
             k = k.strip()
