@@ -43,7 +43,7 @@ KIT_MANAGED=(
   ".claude/agents" ".claude/hooks" ".claude/skills" ".claude/settings.json"
   "agent_docs/writing-workflow.md" "agent_docs/citation-discipline.md"
   "agent_docs/finding-sources.md"
-  "agent_docs/academic-style.md" "agent_docs/statistics.md"
+  "agent_docs/academic-style.md" "agent_docs/turkish-style.md" "agent_docs/statistics.md"
   "agent_docs/reproducibility.md" "agent_docs/peer-review.md"
   "scripts" "bench" ".hook-state" "reports"
 )
