@@ -213,7 +213,7 @@ claude-research-kit/
   CLAUDE.md                     # Core agent ruleset (kit-managed)
   CLAUDE.project.md             # Project overlay (yours, never overwritten)
   MANUSCRIPT_MAP.md             # The map — thesis, contribution, venue, sections
-  agent_docs/                   # writing-workflow, citation-discipline, academic-style, turkish-style,
+  agent_docs/                   # writing-workflow, citation-discipline, finding-sources, academic-style, turkish-style,
     field/                      #   statistics, reproducibility, peer-review + field overlays
   tasks/
     todo.md, decisions.md

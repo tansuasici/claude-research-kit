@@ -80,7 +80,8 @@ Do **not** do this:
 ```
 
 The agent's recalled bibliographic metadata is precisely what must never reach the
-manuscript. Surface the lead; let a real lookup confirm it.
+manuscript. Surface the lead; let a real lookup confirm it. Where to look, and how to
+match a lookup against an entry → `agent_docs/finding-sources.md`.
 
 ---
 

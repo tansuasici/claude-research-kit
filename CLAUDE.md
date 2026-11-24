@@ -166,6 +166,7 @@ If `ARTIFACTS.md` exists, read it before producing a response-to-reviewers lette
 Read only what's relevant to the current task:
 - Full writing workflow & outline template → `agent_docs/writing-workflow.md`
 - Citation & sourcing discipline → `agent_docs/citation-discipline.md`
+- Finding & verifying sources (indexes, legal open-access copies) → `agent_docs/finding-sources.md`
 - Academic style & calibrated language → `agent_docs/academic-style.md`
 - Turkish-language manuscripts → `agent_docs/turkish-style.md`
 - Statistics & numerical reporting → `agent_docs/statistics.md`

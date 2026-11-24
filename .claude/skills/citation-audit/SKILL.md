@@ -56,7 +56,7 @@ Duplicates produce double-counted references and inconsistent keys:
 
 1. **Placeholder / fake-shaped DOIs** — `10.xxxx`, `10.0000`, `10.nnnn`, `example.com`, `your-doi`, `TODO` → **ERROR**. (`block-fabrication.sh` blocks these on write; catch any that predate the hook.) Flag, never "complete" them.
 2. **Malformed DOIs** — must match `10.<registrant>/<suffix>`. A DOI that is not shaped like one is suspect.
-3. **arXiv / ISSN shape** — sanity-check format. Do not assert a DOI "resolves" unless you verified it against a real source — shape validity is not existence.
+3. **arXiv / ISSN shape** — sanity-check format. Do not assert a DOI "resolves" unless you verified it against a real source — shape validity is not existence. Where and how to verify → `agent_docs/finding-sources.md`.
 
 ### Phase 5: Required-Field Completeness (per entry type)
 
