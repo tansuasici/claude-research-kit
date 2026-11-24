@@ -5,6 +5,13 @@ All notable changes to Claude Research Kit will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.7](https://github.com/tansuasici/claude-research-kit/compare/v0.1.6...v0.1.7) (2026-11-24)
+
+
+### Bug Fixes
+
+* **install:** install agent_docs/turkish-style.md ([#19](https://github.com/tansuasici/claude-research-kit/issues/19)) ([c3c3321](https://github.com/tansuasici/claude-research-kit/commit/c3c3321d5a041d1261db26702b4f5537c5f13345))
+
 ## [0.1.6](https://github.com/tansuasici/claude-research-kit/compare/v0.1.5...v0.1.6) (2026-11-21)
 
 
