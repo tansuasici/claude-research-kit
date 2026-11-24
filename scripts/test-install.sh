@@ -21,7 +21,7 @@ echo "test-install: target $TMP"
 
 echo "[1/5] install"
 bash "$KIT/install.sh" "$TMP" --force >/dev/null 2>&1 || fail "install.sh failed"
-for f in CLAUDE.md MANUSCRIPT_MAP.md .claude/settings.json .claude/hooks/citation-gate.sh agent_docs/writing-workflow.md scripts/doctor.sh bench/scenarios; do
+for f in CLAUDE.md MANUSCRIPT_MAP.md .claude/settings.json .claude/hooks/citation-gate.sh agent_docs/writing-workflow.md agent_docs/turkish-style.md scripts/doctor.sh bench/scenarios; do
   [ -e "$TMP/$f" ] || fail "missing after install: $f"
 done
 [ -x "$TMP/.claude/hooks/citation-gate.sh" ] || fail "hook not executable after install"
