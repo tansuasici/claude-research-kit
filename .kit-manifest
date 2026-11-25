@@ -98,6 +98,7 @@ scripts/review-resurface.sh
 scripts/run-bench.sh
 scripts/sync-manifest.sh
 scripts/test-install.sh
+scripts/validate.sh
 tasks/decisions.md
 tasks/reviews/_TEMPLATE.md
 tasks/reviews/_index.md
