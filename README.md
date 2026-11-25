@@ -244,7 +244,7 @@ Docs site is live at **[clauderesearchkit.tansuasici.com](https://clauderesearch
 
 ## Contributing
 
-PRs welcome. If you've built a field overlay for a discipline we don't cover yet, or a skill that fits the Source-Grounded discipline, open a PR. Every hook change must keep [ResearchKitBench](bench/README.md) green (`./scripts/run-bench.sh`), and `.kit-manifest` must stay fresh (`./scripts/sync-manifest.sh`). CI enforces both on ubuntu + macOS.
+PRs welcome. If you've built a field overlay for a discipline we don't cover yet, or a skill that fits the Source-Grounded discipline, open a PR. Every hook change must keep [ResearchKitBench](bench/README.md) green (`./scripts/run-bench.sh`), and `.kit-manifest` must stay fresh (`./scripts/sync-manifest.sh`). Run `./scripts/validate.sh` before pushing; it runs every CI check locally. Maintainers: see [RELEASING.md](RELEASING.md).
 
 ## License
 
